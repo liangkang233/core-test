@@ -199,52 +199,59 @@ catch {
 
 menu .menubar
 . config -menu .menubar -bg white
-
-.menubar add cascade -label File -underline 0 -menu .menubar.file
-.menubar add cascade -label Edit -underline 0 -menu .menubar.edit
-.menubar add cascade -label Canvas -underline 0 -menu .menubar.canvas
-.menubar add cascade -label View -underline 0 -menu .menubar.view
-.menubar add cascade -label Tools -underline 0 -menu .menubar.tools
-.menubar add cascade -label Widgets -underline 0 -menu .menubar.widgets
-.menubar add cascade -label Session -underline 0 -menu .menubar.session
-.menubar add cascade -label Help -underline 0 -menu .menubar.help
-
+# hyh
+# .menubar add cascade -label File -underline 0 -menu .menubar.file
+# .menubar add cascade -label Edit -underline 0 -menu .menubar.edit
+# .menubar add cascade -label Canvas -underline 0 -menu .menubar.canvas
+# .menubar add cascade -label View -underline 0 -menu .menubar.view
+# .menubar add cascade -label Tools -underline 0 -menu .menubar.tools
+# .menubar add cascade -label Widgets -underline 0 -menu .menubar.widgets
+# .menubar add cascade -label Session -underline 0 -menu .menubar.session
+# .menubar add cascade -label Help -underline 0 -menu .menubar.help
+.menubar add cascade -label 文件 -underline 0 -menu .menubar.file
+.menubar add cascade -label 编辑 -underline 0 -menu .menubar.edit
+.menubar add cascade -label 画布 -underline 0 -menu .menubar.canvas
+.menubar add cascade -label 视图 -underline 0 -menu .menubar.view
+.menubar add cascade -label 工具 -underline 0 -menu .menubar.tools
+.menubar add cascade -label 权重 -underline 0 -menu .menubar.widgets
+.menubar add cascade -label 会话 -underline 0 -menu .menubar.session
+.menubar add cascade -label 帮助 -underline 0 -menu .menubar.help
 
 #
 # File
 #
 menu .menubar.file -tearoff 0
-
-.menubar.file add command -label New -underline 0 \
+#hyh
+.menubar.file add command -label 新文件 -underline 0 \
   -accelerator "Ctrl+N" -command { fileNewDialogBox }
 bind . <Control-n> "fileNewDialogBox"
 
-.menubar.file add command -label "Open..." -underline 0 \
+.menubar.file add command -label "打开..." -underline 0 \
   -accelerator "Ctrl+O" -command { fileOpenDialogBox }
 bind . <Control-o> "fileOpenDialogBox"
 
-.menubar.file add command -label "Reload" -underline 0 \
+.menubar.file add command -label "重载" -underline 0 \
   -command { openFile $currentFile }
 
-.menubar.file add command -label Save -underline 0 \
+.menubar.file add command -label 保存 -underline 0 \
   -accelerator "Ctrl+S" -command { fileSaveDialogBox "" }
 bind . <Control-s> "fileSaveDialogBox {}"
 
-.menubar.file add command -label "Save As XML..." -underline 8 \
+.menubar.file add command -label "以XML格式保存..." -underline 8 \
   -command { fileSaveDialogBox xml }
 
-.menubar.file add command -label "Save As imn..." -underline 8 \
+.menubar.file add command -label "以imn格式保存..." -underline 8 \
   -command { fileSaveDialogBox imn }
 
 .menubar.file add separator
-.menubar.file add command -label "Export Python script..." -command exportPython
-.menubar.file add command -label "Execute XML or Python script..." \
+.menubar.file add command -label "输出 Python 脚本..." -command exportPython
+.menubar.file add command -label "执行 XML 或者 Python 脚本..." \
 	-command { execPython false }
-.menubar.file add command -label "Execute Python script with options..." \
+.menubar.file add command -label "使用选项执行Python脚本..." \
 	-command { execPython true }
 
 .menubar.file add separator
-.menubar.file add command -label "Open current file in editor..." \
+.menubar.file add command -label "在编辑器中打开当前文件..." \
 	-underline 21 -command {
 	global currentFile
 	set ed [get_text_editor false]
@@ -254,7 +261,7 @@ bind . <Control-s> "fileSaveDialogBox {}"
 	     puts "Check the text editor setting under preferences."
 	}
   }
-.menubar.file add command -label "Print..." -underline 0 \
+.menubar.file add command -label "打印..." -underline 0 \
   -command {
     set w .entry1
     catch {destroy $w}
@@ -275,7 +282,7 @@ bind . <Control-s> "fileSaveDialogBox {}"
     $w.e1 insert 0 "lpr"
     pack $w.e1 -side top -pady 5 -padx 10 -fill x
 }
-.menubar.file add command -label "Save screenshot..." -command {
+.menubar.file add command -label "保存截图..." -command {
         global currentFile
 	set initialfile [file tail $currentFile]
 	# this chops off the .imn file extension
@@ -297,34 +304,41 @@ foreach f $g_mrulist {
     .menubar.file add command -label "$f" -command "mrufile {$f}"
 }
 .menubar.file add separator
-.menubar.file add command -label Quit -underline 0 -command { exit }
+.menubar.file add command -label 退出 -underline 0 -command { exit }
 
 wm protocol . WM_DELETE_WINDOW exit
 
 #
 # Edit
 #
+# menu .menubar.edit -tearoff 0
+# .menubar.edit add command -label "Undo" -underline 0 \
+#     -accelerator "Ctrl+Z" -command undo -state disabled
+# bind . <Control-z> undo                swy
 menu .menubar.edit -tearoff 0
-.menubar.edit add command -label "Undo" -underline 0 \
+.menubar.edit add command -label "撤销" -underline 0 \
     -accelerator "Ctrl+Z" -command undo -state disabled
 bind . <Control-z> undo
-.menubar.edit add command -label "Redo" -underline 0 \
+.menubar.edit add command -label "恢复" -underline 0 \
     -accelerator "Ctrl+Y" -command redo -state disabled
 bind . <Control-y> redo
+# .menubar.edit add command -label "Redo" -underline 0 \
+#     -accelerator "Ctrl+Y" -command redo -state disabled
+# bind . <Control-y> redo
 .menubar.edit add separator
-.menubar.edit add command -label "Cut" -underline 2 \
+.menubar.edit add command -label "剪切" -underline 2 \
     -accelerator "Ctrl+X" -command cutSelection
 bind . <Control-x> cutSelection
-.menubar.edit add command -label "Copy" -underline 0 \
+.menubar.edit add command -label "复制" -underline 0 \
     -accelerator "Ctrl+C" -command copySelection
 bind . <Control-c> copySelection
 bind . <Control-Insert> copySelection
-.menubar.edit add command -label "Paste" -underline 0 \
+.menubar.edit add command -label "粘贴" -underline 0 \
     -accelerator "Ctrl+V" -command pasteSelection
 bind . <Control-v> pasteSelection
 bind . <Shift-Insert> copySelection
 .menubar.edit add separator
-.menubar.edit add command -label "Select all" \
+.menubar.edit add command -label "选择所有" \
     -accelerator "Ctrl+A" -command {
 	foreach obj [.c find withtag node] {
 	    selectNode .c $obj
@@ -335,29 +349,29 @@ bind . <Control-a> {
 	    selectNode .c $obj
 	}
     }
-.menubar.edit add command -label "Select adjacent" \
+.menubar.edit add command -label "选择邻接点" \
     -accelerator "Ctrl+J" -command selectAdjacent
 bind . <Control-j> selectAdjacent
 
 .menubar.edit add separator
-.menubar.edit add command -label "Find..." -underline 0 -accelerator "Ctrl+F" \
+.menubar.edit add command -label "查询..." -underline 0 -accelerator "Ctrl+F" \
     -command popupFind
 bind . <Control-f> popupFind
-.menubar.edit add command -label "Clear marker" -command clearMarker
-.menubar.edit add command -label "Preferences..." -command popupPrefs
+.menubar.edit add command -label " 清除标记" -command clearMarker
+.menubar.edit add command -label "参考..." -command popupPrefs
 
 #
 # Canvas
 #
 menu .menubar.canvas -tearoff 0
-.menubar.canvas add command -label "New" -command {
+.menubar.canvas add command -label "新建" -command {
     newCanvas ""
     switchCanvas last
     set changed 1
     updateUndoLog
 }
-.menubar.canvas add command -label "Manage..." -command {manageCanvasPopup 0 0}
-.menubar.canvas add command -label "Delete" -command {
+.menubar.canvas add command -label "管理..." -command {manageCanvasPopup 0 0}
+.menubar.canvas add command -label "删除" -command {
     if { [llength $canvas_list] == 1 } {
 	 return
     }
@@ -376,21 +390,21 @@ menu .menubar.canvas -tearoff 0
     updateUndoLog
 }
 .menubar.canvas add separator
-.menubar.canvas add command -label "Size/scale..." -command resizeCanvasPopup
+.menubar.canvas add command -label "覆盖规模/大小..." -command resizeCanvasPopup
 # Boeing
-.menubar.canvas add command -label "Wallpaper..." -command wallpaperPopup
+.menubar.canvas add command -label "壁纸..." -command wallpaperPopup
 # end Boeing
 .menubar.canvas add separator
-.menubar.canvas add command -label "Previous" -accelerator "PgUp" \
+.menubar.canvas add command -label "以前的" -accelerator "上一页" \
     -command { switchCanvas prev }
 bind . <Prior> { switchCanvas prev }
-.menubar.canvas add command -label "Next" -accelerator "PgDown" \
+.menubar.canvas add command -label "继续" -accelerator "下一页" \
     -command { switchCanvas next }
 bind . <Next> { switchCanvas next }
-.menubar.canvas add command -label "First" -accelerator "Home" \
+.menubar.canvas add command -label "第一个画布" -accelerator "原始画布" \
     -command { switchCanvas first }
 bind . <Home> { switchCanvas first }
-.menubar.canvas add command -label "Last" -accelerator "End" \
+.menubar.canvas add command -label "最后一个" -accelerator "结束" \
     -command { switchCanvas last }
 bind . <End> { switchCanvas last }
 
@@ -398,32 +412,40 @@ bind . <End> { switchCanvas last }
 #
 # Tools
 #
+# menu .menubar.tools -tearoff 0
+# .menubar.tools add checkbutton -label "Auto rearrange all" -underline 0 \
+#     -command { rearrange all }
+# .menubar.tools add checkbutton -label "Auto rearrange selected" -underline 0 \
+#     -command { rearrange selected }			swy
 menu .menubar.tools -tearoff 0
-.menubar.tools add checkbutton -label "Auto rearrange all" -underline 0 \
+.menubar.tools add checkbutton -label "自动重新安排所有节点" -underline 0 \
     -command { rearrange all }
-.menubar.tools add checkbutton -label "Auto rearrange selected" -underline 0 \
-    -command { rearrange selected }
+.menubar.tools add checkbutton -label "对选择的节点进行排列" -underline 0 \
+ -command { rearrange selected }
 .menubar.tools add separator
-.menubar.tools add command -label "Align to grid" -underline 0 \
+.menubar.tools add command -label "对齐到网格" -underline 0 \
     -command { align2grid }
 .menubar.tools add separator
-.menubar.tools add command -label "Traffic..." -command popupTrafficDialog
+.menubar.tools add command -label "流量..." -command popupTrafficDialog
 # Boeing
 #
-.menubar.tools add command -label "IP addresses..." -underline 0 \
+.menubar.tools add command -label "IP 地址..." -underline 0 \
 	-command { popupAddressConfig }
-.menubar.tools add command -label "MAC addresses..." -underline 0 \
+.menubar.tools add command -label "MAC 地址..." -underline 0 \
 	-command { popupMacAddressConfig }
-.menubar.tools add command -label "Build hosts file..." -underline 0 \
+.menubar.tools add command -label "建立主机文件..." -underline 0 \
 	-command { popupBuildHostsFile }
-.menubar.tools add command -label "Renumber nodes..." -underline 0 \
+.menubar.tools add command -label "重新对节点编号..." -underline 0 \
 	-command { popupRenumberNodes }
 menu .menubar.tools.experimental
-.menubar.tools add cascade -label "Experimental" \
+.menubar.tools add cascade -label "实验" \
 	-menu .menubar.tools.experimental
-.menubar.tools.experimental add command -label "Plugins..." \
+# .menubar.tools.experimental add command -label "Plugins..." \
+# 	-underline 0 -command "popupPluginsConfig"
+# .menubar.tools.experimental add command -label "ns2imunes converter..." \ swy
+.menubar.tools.experimental add command -label "插件..." \
 	-underline 0 -command "popupPluginsConfig"
-.menubar.tools.experimental add command -label "ns2imunes converter..." \
+.menubar.tools.experimental add command -label "ns2imunes 转换器..." \
     -underline 0 -command {
     	toplevel .ns2im-dialog
     	wm transient .ns2im-dialog .
@@ -465,9 +487,9 @@ init_widget_menu
 #
 menu .menubar.view -tearoff 1
 menu .menubar.view.show -tearoff 1
-.menubar.view add cascade -label "Show" -menu .menubar.view.show
+.menubar.view add cascade -label "展示" -menu .menubar.view.show
 
-.menubar.view.show add command -label "All" -underline 5 -command {
+.menubar.view.show add command -label "所有" -underline 5 -command {
 	set showIfNames 1
 	set showIfIPaddrs 1
 	set showIfIPv6addrs 1
@@ -478,7 +500,7 @@ menu .menubar.view.show -tearoff 1
 	    .c itemconfigure $object -state normal
 	}
     }
-.menubar.view.show add command -label "None" -underline 6 -command {
+.menubar.view.show add command -label "无" -underline 6 -command {
 	set showIfNames 0
 	set showIfIPaddrs 0
 	set showIfIPv6addrs 0
@@ -491,16 +513,16 @@ menu .menubar.view.show -tearoff 1
     }
 .menubar.view.show add separator
 
-.menubar.view.show add checkbutton -label "Interface Names" \
+.menubar.view.show add checkbutton -label "接口名称" \
     -underline 5 -variable showIfNames \
     -command { redrawAllLinks }
-.menubar.view.show add checkbutton -label "IPv4 Addresses " \
+.menubar.view.show add checkbutton -label "IPv4 地址 " \
     -underline 8 -variable showIfIPaddrs \
     -command { redrawAllLinks }
-.menubar.view.show add checkbutton -label "IPv6 Addresses " \
+.menubar.view.show add checkbutton -label "IPv6 地址 " \
     -underline 8 -variable showIfIPv6addrs \
     -command { redrawAllLinks }
-.menubar.view.show add checkbutton -label "Node Labels" \
+.menubar.view.show add checkbutton -label "节点标签" \
     -underline 5 -variable showNodeLabels -command {
     foreach object [.c find withtag nodelabel] {
 	if { $showNodeLabels } {
@@ -510,7 +532,7 @@ menu .menubar.view.show -tearoff 1
 	}
     }
 }
-.menubar.view.show add checkbutton -label "Link Labels" \
+.menubar.view.show add checkbutton -label "链接标签" \
     -underline 5 -variable showLinkLabels -command {
     foreach object [.c find withtag linklabel] {
 	if { $showLinkLabels } {
@@ -523,21 +545,22 @@ menu .menubar.view.show -tearoff 1
 # .menubar.view.show add checkbutton -label "Background Image" \
 #     -underline 5 -variable showBkgImage \
 #     -command { redrawAll }
-.menubar.view.show add checkbutton -label "Annotations" \
+.menubar.view.show add checkbutton -label "注释" \
     -underline 5 -variable showAnnotations -command redrawAll
-.menubar.view.show add checkbutton -label "Grid" \
+.menubar.view.show add checkbutton -label "网格" \
     -underline 5 -variable showGrid -command redrawAll
-.menubar.view.show add checkbutton -label "API Messages" \
+.menubar.view.show add checkbutton -label "API 消息" \
     -underline 5 -variable showAPI
 
-.menubar.view add command -label "Show hidden nodes" \
+.menubar.view add command -label "显示隐藏节点" \
     -command {
 	global node_list
 	foreach node $node_list { setNodeHidden $node 0 }
 	redrawAll
     }
-.menubar.view add checkbutton -label "Locked" -variable g_view_locked
-.menubar.view add command -label "3D GUI..." -command {
+# .menubar.view add checkbutton -label "Locked" -variable g_view_locked  swy
+.menubar.view add checkbutton -label "锁定场景" -variable g_view_locked
+.menubar.view add command -label "3D 界面..." -command {
     global g_prefs
     set gui ""
     set guipref ""
@@ -559,10 +582,10 @@ menu .menubar.view.show -tearoff 1
     setSessionOption "enablesdt" 1 1
 }
 .menubar.view add separator
-.menubar.view add command -label "Zoom In" -accelerator "+" \
+.menubar.view add command -label "放大" -accelerator "+" \
     -command "zoom up"
 bind . "+" "zoom up"
-.menubar.view add command -label "Zoom Out" -accelerator "-" \
+.menubar.view add command -label "缩小" -accelerator "-" \
      -command "zoom down"
 bind . "-" "zoom down"
 
@@ -570,23 +593,30 @@ bind . "-" "zoom down"
 #
 # Session
 #
+# menu .menubar.session -tearoff 1
+# .menubar.session add command -label "Stop" -underline 1 \
+# 	-command "setOperMode edit" swy
 menu .menubar.session -tearoff 1
-.menubar.session add command -label "Stop" -underline 1 \
+.menubar.session add command -label "停止" -underline 1 \
 	-command "setOperMode edit"
-.menubar.session add command -label "Change sessions..." \
+.menubar.session add command -label "改变场景..." \
 	-underline 0 -command "requestSessions"
 .menubar.session add separator
-.menubar.session add command -label "Node types..." -underline 0 \
+# .menubar.session add command -label "Node types..." -underline 0 \
+# 	-command "popupNodesConfig" swy
+.menubar.session add command -label "节点类型..." -underline 0 \
 	-command "popupNodesConfig"
-.menubar.session add command -label "Comments..." -underline 0 \
+.menubar.session add command -label "调用评论窗口..." -underline 0 \
 	-command "popupCommentsConfig"
-.menubar.session add command -label "Hooks..." -underline 0 \
+.menubar.session add command -label "调用回话挂钩窗口..." -underline 0 \
 	-command "popupHooksConfig"
-.menubar.session add command -label "Reset node positions" -underline 0 \
+.menubar.session add command -label "复位节点位置" -underline 0 \
 	-command "resetAllNodeCoords reset"
-.menubar.session add command -label "Emulation servers..." \
+# .menubar.session add command -label "Emulation servers..." \
+# 	-underline 0 -command "configRemoteServers" swy
+.menubar.session add command -label "仿真模拟..." \
 	-underline 0 -command "configRemoteServers"
-.menubar.session add command -label "Options..." \
+.menubar.session add command -label "选项..." \
 	-underline 0 -command "sendConfRequestMessage -1 0 session 0x1 -1 \"\""
 
 
@@ -594,11 +624,21 @@ menu .menubar.session -tearoff 1
 # Help
 #
 menu .menubar.help -tearoff 0
-.menubar.help add command -label "CORE GitHub (www)" -command \
-  "_launchBrowser https://github.com/coreemu/core"
-.menubar.help add command -label "CORE Documentation (www)" -command \
-  "_launchBrowser https://coreemu.github.io/core/"
-.menubar.help add command -label "About" -command popupAbout
+# hyh
+# .menubar.help add command -label "CORE GitHub (www)" -command \
+#   "_launchBrowser https://github.com/coreemu/core"
+
+.menubar.help add command -label "开放仿真模型 GitHub (www)" -command \
+"_launchBrowser https://github.com/coreemu/core"
+
+# .menubar.help add command -label "CORE Documentation (www)" -command \
+#   "_launchBrowser https://coreemu.github.io/core/"
+.menubar.help add command -label "开放仿真模型 文档 (www)" -command \
+"_launchBrowser https://coreemu.github.io/core/"
+
+# .menubar.help add command -label "About" -command popupAbout
+
+.menubar.help add command -label "关于" -command popupAbout
 
 #
 # Left-side toolbar

@@ -24,7 +24,8 @@
 #
 
 
-.menubar.tools.experimental add command -label "Topology partitioning..." -underline 9 -command "dialog";
+# .menubar.tools.experimental add command -label "Topology partitioning..." -underline 9 -command "dialog"; swy
+.menubar.tools.experimental add command -label "拓扑分区..." -underline 9 -command "dialog";
 
 #****h* gpgui/weight_file
 # NAME & FUNCTION

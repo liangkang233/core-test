@@ -271,13 +271,25 @@ proc drawToolbarSubmenu { b menubuttons } {
     }
 }
 
+# proc setSessionStartStopMenu { mode } {
+
+# 	if { $mode == "exec" } {
+# 	catch   {.menubar.session entryconfigure "Start" \
+# 		-label "Stop" -command "startStopButton edit"}
+#     } else {
+# 	catch  {.menubar.session entryconfigure "Stop" \
+# 	   	-label "Start" -command "startStopButton exec"}
+#     }
+# } swy
+
 proc setSessionStartStopMenu { mode } {
-    if { $mode == "exec" } {
-	catch   {.menubar.session entryconfigure "Start" \
-		-label "Stop" -command "startStopButton edit"}
+
+	if { $mode == "exec" } {
+	catch   {.menubar.session entryconfigure "开始" \
+		-label "停止" -command "startStopButton edit"}
     } else {
-	catch  {.menubar.session entryconfigure "Stop" \
-	   	-label "Start" -command "startStopButton exec"}
+	catch  {.menubar.session entryconfigure "停止" \
+	   	-label "开始" -command "startStopButton exec"}
     }
 }
 
@@ -286,10 +298,15 @@ proc updateMenus { mode } {
     if { $mode == "exec" } {
 	set s "disabled"
     }
-    .menubar.tools entryconfigure "Auto rearrange all" -state $s
-    .menubar.tools entryconfigure "Auto rearrange selected" -state $s
-    .menubar.session entryconfigure "Node types..." -state $s
-    .menubar.session entryconfigure "Emulation servers..." -state $s
+    # .menubar.tools entryconfigure "Auto rearrange all" -state $s
+    # .menubar.tools entryconfigure "Auto rearrange selected" -state $s
+    # .menubar.session entryconfigure "Node types..." -state $s
+    # .menubar.session entryconfigure "Emulation servers..." -state $s swy
+	
+	.menubar.tools entryconfigure "自动重新安排所有节点" -state $s
+    .menubar.tools entryconfigure "对选择的节点进行排列" -state $s
+    .menubar.session entryconfigure "节点类型..." -state $s
+    .menubar.session entryconfigure "仿真模拟..." -state $s
 
     if { $s == "normal" } { set s "" }
     updateUndoRedoMenu $s
