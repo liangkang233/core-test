@@ -1,4 +1,5 @@
-.menubar.tools add command -label "Debugger..." -command popupDebugger
+# .menubar.tools add command -label "Debugger..." -command popupDebugger swy
+.menubar.tools add command -label "调试器..." -command popupDebugger
 
 set g_last_debug_cmd "puts \"Hello world\""
 

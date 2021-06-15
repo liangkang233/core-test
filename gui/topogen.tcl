@@ -27,7 +27,8 @@
 set TOOLSMENUPATH .menubar.tools
 set TOPOMENUPATH ${TOOLSMENUPATH}.t_g
 menu $TOPOMENUPATH -tearoff 1
-${TOOLSMENUPATH} add cascade -label "Topology generator" -underline 0 -menu ${TOPOMENUPATH}
+# ${TOOLSMENUPATH} add cascade -label "Topology generator" -underline 0 -menu ${TOPOMENUPATH} swy
+${TOOLSMENUPATH} add cascade -label "拓扑生成器" -underline 0 -menu ${TOPOMENUPATH} 
 # also throughout:
 # s/.menubar.t_g/${TOPOMENUPATH}/g
 # s///g
@@ -35,7 +36,8 @@ ${TOOLSMENUPATH} add cascade -label "Topology generator" -underline 0 -menu ${TO
 
 set m ${TOPOMENUPATH}.random
 menu $m -tearoff 0
-${TOPOMENUPATH} add cascade -label "Random" -menu $m -underline 0 
+# ${TOPOMENUPATH} add cascade -label "Random" -menu $m -underline 0  swy
+${TOPOMENUPATH} add cascade -label "随机生成无连接的节点" -menu $m -underline 0 
 foreach i [list 1 5 10 15 20 30 40 50 75 100] {
     set n $m.$i
     menu $n -tearoff 0
@@ -44,7 +46,8 @@ foreach i [list 1 5 10 15 20 30 40 50 75 100] {
 
 set m ${TOPOMENUPATH}.grid
 menu $m -tearoff 0
-${TOPOMENUPATH} add cascade -label "Grid" -menu $m -underline 0 
+# ${TOPOMENUPATH} add cascade -label "Grid" -menu $m -underline 0     swy
+${TOPOMENUPATH} add cascade -label "按固定位置生成无连接的节点" -menu $m -underline 0 
 foreach i [list 1 5 10 15 20 25 30 35 40 50 60 70 80 90 100] {
     set n $m.$i
     menu $n -tearoff 0
@@ -53,8 +56,8 @@ foreach i [list 1 5 10 15 20 25 30 35 40 50 60 70 80 90 100] {
 
 set m ${TOPOMENUPATH}.gridc
 menu $m -tearoff 0
-${TOPOMENUPATH} add cascade -label "Connected Grid" -menu $m -underline 0 
-    
+# ${TOPOMENUPATH} add cascade -label "Connected Grid" -menu $m -underline 0  swy
+${TOPOMENUPATH} add cascade -label "按固定位置生成前后相互连接的节点" -menu $m -underline 0   
 for { set i 1 } { $i <= 10 } { incr i } {
     set n $m.$i
     menu $n -tearoff 0
@@ -66,7 +69,8 @@ for { set i 1 } { $i <= 10 } { incr i } {
 
 set m ${TOPOMENUPATH}.chain
 menu $m -tearoff 0
-${TOPOMENUPATH} add cascade -label "Chain" -menu $m -underline 0 
+# ${TOPOMENUPATH} add cascade -label "Chain" -menu $m -underline 0  swy
+${TOPOMENUPATH} add cascade -label "节点以链的形式两两链接" -menu $m -underline 0 
 for { set i 2 } { $i <= 24 } { incr i } {
     $m add command -label "P($i)" -command "P \[newNodes $i\]"
 }
@@ -78,7 +82,8 @@ foreach i [list 32 64 128] {
 
 set m ${TOPOMENUPATH}.star
 menu $m -tearoff 0
-${TOPOMENUPATH} add cascade -label "Star" -menu $m -underline 0 
+# ${TOPOMENUPATH} add cascade -label "Star" -menu $m -underline 0 swy
+${TOPOMENUPATH} add cascade -label "N个节点以圆形形状与中心节点链接 " -menu $m -underline 0 
 for { set i 3 } { $i <= 25 } { incr i } {
     $m add command -label "S($i)" \
 	-command "Kb \[newNodes 1\] \[newNodes [expr {$i - 1}]\]"
@@ -86,14 +91,16 @@ for { set i 3 } { $i <= 25 } { incr i } {
 
 set m ${TOPOMENUPATH}.cycle
 menu $m -tearoff 0
-${TOPOMENUPATH} add cascade -label "Cycle" -menu $m -underline 0 
+# ${TOPOMENUPATH} add cascade -label "Cycle" -menu $m -underline 0 swy
+${TOPOMENUPATH} add cascade -label "环形拓扑 " -menu $m -underline 0 
 for { set i 3 } { $i <= 24 } { incr i } {
     $m add command -label "C($i)" -command "C \[newNodes $i\]"
 }
 
 set m ${TOPOMENUPATH}.wheel
 menu $m -tearoff 0
-${TOPOMENUPATH} add cascade -label "Wheel" -menu $m -underline 0 
+# ${TOPOMENUPATH} add cascade -label "Wheel" -menu $m -underline 0 swy 
+${TOPOMENUPATH} add cascade -label "车轮式拓扑" -menu $m -underline 0 
 for { set i 4 } { $i <= 25 } { incr i } {
     $m add command -label "W($i)" \
 	-command "W \"\[newNodes 1\] \[newNodes [expr {$i - 1}]\]\""
@@ -101,7 +108,8 @@ for { set i 4 } { $i <= 25 } { incr i } {
 
 set m ${TOPOMENUPATH}.cube
 menu $m -tearoff 0
-${TOPOMENUPATH} add cascade -label "Cube" -menu $m -underline 0 
+# ${TOPOMENUPATH} add cascade -label "Cube" -menu $m -underline 0  swy
+${TOPOMENUPATH} add cascade -label "立方体拓扑" -menu $m -underline 0 
 for { set i 2 } { $i <= 6 } { incr i } {
     $m add command -label "Q($i)" \
 	-command "Q \[newNodes [expr {int(pow(2,$i))}]\]"
@@ -109,15 +117,17 @@ for { set i 2 } { $i <= 6 } { incr i } {
 
 set m ${TOPOMENUPATH}.clique
 menu $m -tearoff 0
-${TOPOMENUPATH} add cascade -label "Clique" -menu $m -underline 0 
+# ${TOPOMENUPATH} add cascade -label "Clique" -menu $m -underline 0  swy
+${TOPOMENUPATH} add cascade -label "全连接拓扑" -menu $m -underline 0 
 for { set i 3 } { $i <= 24 } { incr i } {
     $m add command -label "K($i)" -command "K \[newNodes $i\]"
 }
 
 set m ${TOPOMENUPATH}.bipartite
 menu $m -tearoff 0
-${TOPOMENUPATH} add cascade -label "Bipartite" -menu $m -underline 0 
-    
+# ${TOPOMENUPATH} add cascade -label "Bipartite" -menu $m -underline 0  swy
+${TOPOMENUPATH} add cascade -label "Bipartite" -menu $m -underline 0   
+
 for { set i 1 } { $i <= 12 } { incr i } {
     set n $m.$i
     menu $n -tearoff 0

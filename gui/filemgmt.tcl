@@ -615,9 +615,14 @@ proc setGuiTitle { txt } {
 
     if {$sid == 0} { set sid "" } else { set sid "${sid} " }
 
+    # if { $txt == "" } {
+	# wm title . "CORE (${sid}on $hn) $fn"
+    # } else {
+	# wm title . "CORE $txt"
+    # }
     if { $txt == "" } {
-	wm title . "CORE (${sid}on $hn) $fn"
+	wm title . "开放网络仿真推演平台 (${sid}on $hn) $fn"
     } else {
-	wm title . "CORE $txt"
+	wm title . "开放网络仿真推演平台 $txt"
     }
 }

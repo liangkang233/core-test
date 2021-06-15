@@ -16,10 +16,17 @@ if {$vtysh == ""} {
 # Widgets are defined in this array.
 # widget array: name, {config, init, periodic, move}
 #
+# array set widgets {
+# 	"Throughput"
+# 	{ widget_thru_config widget_thru_init widget_thru_periodic widget_thru_move }
+# 	"Adjacency"
+# 	{ widget_adjacency_config widget_adjacency_init widget_adjacency_periodic widget_adjacency_move }
+# }
+# swy
 array set widgets {
-	"Throughput"
+	"网络吞吐量"
 	{ widget_thru_config widget_thru_init widget_thru_periodic widget_thru_move }
-	"Adjacency"
+	"邻接"
 	{ widget_adjacency_config widget_adjacency_init widget_adjacency_periodic widget_adjacency_move }
 }
 # TODO:   fix CPU Widget; it is disabled because Linux network namespaces
@@ -43,6 +50,29 @@ set widgets_obs_quagga [subst {
 }]
 
 # Observer Widget definitions for Linux
+# array set widgets_obs_linux $widgets_obs_quagga
+# array set widgets_obs_linux {
+# 	1
+# 	{ "processes" "ps -e" }
+# 	2
+# 	{ "ifconfig" "/sbin/ifconfig" }
+# 	3
+# 	{ "IPv4 routes" "/sbin/ip -4 ro" }
+# 	4
+# 	{ "IPv6 routes" "/sbin/ip -6 ro" }
+# 	7
+# 	{ "Listening sockets" "netstat -tuwnl" }
+# 	8
+# 	{ "IPv4 MFC entries" "/sbin/ip -4 mroute show" }
+# 	9
+# 	{ "IPv6 MFC entries" "/sbin/ip -6 mroute show" }
+# 	10
+# 	{ "firewall rules" "/sbin/iptables -L" }
+# 	11
+# 	{ "IPSec policies" "setkey -DP" }
+# 	12
+#         { "docker logs" "bash -c 'docker logs $(docker ps -q) | tail -20'"}
+# }
 array set widgets_obs_linux $widgets_obs_quagga
 array set widgets_obs_linux {
 	1
@@ -66,7 +96,6 @@ array set widgets_obs_linux {
 	12
         { "docker logs" "bash -c 'docker logs $(docker ps -q) | tail -20'"}
 }
-
 set widget_loop_ID -1
 
 #
@@ -101,8 +130,12 @@ proc init_widget_menu {} {
     menu .menubar.widgets -tearoff 1
     menu .menubar.widgets.obs -tearoff 1
 
-    .menubar.widgets add cascade -label "Observer Widgets" \
+    # .menubar.widgets add cascade -label "Observer Widgets" \
+	# -menu .menubar.widgets.obs
+    # swy
+    .menubar.widgets add cascade -label "观察工具" \
 	-menu .menubar.widgets.obs
+# swy
 
     # standard widgets
     foreach w [array names widgets] {
@@ -113,6 +146,11 @@ proc init_widget_menu {} {
 	    widget_adjacency_init_submenu .menubar.widgets
 	    continue
 	}
+    # swy
+    # if { $w == "邻接" } {
+	#     widget_adjacency_init_submenu .menubar.widgets
+	#     continue
+	# }
 	#
 	.menubar.widgets add checkbutton -label "$w" -variable enable_$w \
 		-command "[lindex $widgets($w) 1] menu"
@@ -122,9 +160,15 @@ proc init_widget_menu {} {
     init_widget_obs_menu
 
     # configure each widget
+    # .menubar.widgets add separator
+    # foreach w [array names widgets] {
+	# .menubar.widgets add command -label "Configure $w..." \
+	# 	-command [lindex $widgets($w) 0]
+    # }
+    # swy
     .menubar.widgets add separator
     foreach w [array names widgets] {
-	.menubar.widgets add command -label "Configure $w..." \
+	.menubar.widgets add command -label "配置 $w..." \
 		-command [lindex $widgets($w) 0]
     }
 
@@ -138,8 +182,15 @@ proc init_widget_obs_menu {} {
 
     # observer widgets
     set widget_obs 0
+    # set last_widgetObserveNode [clock clicks -milliseconds]
+    # .menubar.widgets.obs add radiobutton -label "" -variable widget_obs \
+	# -value 0 -command "obsBtn default"
+    # set last_widgetObserveNode [clock clicks -milliseconds]
+    # .menubar.widgets.obs add radiobutton -label "None" -variable widget_obs \
+	# -value 0 -command "obsBtn default"
+    # swy
     set last_widgetObserveNode [clock clicks -milliseconds]
-    .menubar.widgets.obs add radiobutton -label "None" -variable widget_obs \
+    .menubar.widgets.obs add radiobutton -label "无" -variable widget_obs \
 	-value 0 -command "obsBtn default"
     set obs [array names widgets_obs]
     foreach w [lsort -integer  $obs] {
@@ -147,10 +198,13 @@ proc init_widget_obs_menu {} {
 	.menubar.widgets.obs add radiobutton -label "$capt" \
 		 -variable widget_obs -value $w -command "obsBtn gray"
     }
-    .menubar.widgets.obs add command -label "Edit..." \
+    .menubar.widgets.obs add command -label "编辑..." \
 		-command configObsWidgets
+    # .menubar.widgets.obs add command -label "Edit..." \
+	# 	-command configObsWidgets
 
 }
+# swy
 
 #
 # Calls the periodic proc for each enabled widget
@@ -1031,7 +1085,13 @@ proc thruPlot { c link x y height width isresize} {
 
     thruPlotDrawScale $g 10.0
 
-    set w "Throughput"
+    # set w "Throughput"
+    # if { ![set enable_$w] } {
+	# set enable_$w 1 ;# turn on the Throughput Widget
+	# [lindex $widgets($w) 1] menu
+    # }
+    # swy
+    set w "网络吞吐量"
     if { ![set enable_$w] } {
 	set enable_$w 1 ;# turn on the Throughput Widget
 	[lindex $widgets($w) 1] menu
@@ -2228,7 +2288,10 @@ proc widget_adjacency_init_submenu { m } {
     global widgets
     menu $m.adj -tearoff 1
     $m add cascade -label "Adjacency" -menu $m.adj
-    set w "Adjacency"
+    # $m add cascade -label "邻接" -menu $m.adj
+    # set w "Adjacency"
+    # swy
+    set w "邻接"
 
 #    foreach v [list 2 3] {
 #	global enable_${w}_v${v}

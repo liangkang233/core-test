@@ -162,6 +162,17 @@ proc updateUndoLog {} {
 #   configuration. Reduces the value of undolevel.
 #****
 
+# proc undo {} {
+#     global undolevel undolog oper_mode
+
+#     if {$oper_mode == "edit" && $undolevel > 0} {
+# 	incr undolevel -1
+# 	updateUndoRedoMenu ""
+# 	.c config -cursor watch
+# 	loadCfg $undolog($undolevel)
+# 	switchCanvas none
+#     }
+# } swy
 proc undo {} {
     global undolevel undolog oper_mode
 
@@ -198,11 +209,22 @@ proc redo {} {
     }
 }
 
-proc updateUndoRedoMenu { forced } {
+# proc updateUndoRedoMenu { forced } {
+#     global undolevel redolevel
+
+#     if { $forced == "" } {
+# 	if { $undolevel > 0 } { set undo "normal" } else { set undo "disabled" }
+# 	if { $redolevel > $undolevel } { set redo "normal"
+# 	} else { set redo "disabled" }
+#     } else {
+# 	set undo $forced
+# 	set redo $forced
+#     }swy
+	proc updateUndoRedoMenu { forced } {
     global undolevel redolevel
 
     if { $forced == "" } {
-	if { $undolevel > 0 } { set undo "normal" } else { set undo "disabled" }
+	if { $undolevel > 0 } { set  undo "normal" } else { set undo "disabled" }
 	if { $redolevel > $undolevel } { set redo "normal"
 	} else { set redo "disabled" }
     } else {
@@ -210,8 +232,10 @@ proc updateUndoRedoMenu { forced } {
 	set redo $forced
     }
 
-    .menubar.edit entryconfigure "Undo" -state $undo
-    .menubar.edit entryconfigure "Redo" -state $redo
+    # .menubar.edit entryconfigure "Undo" -state $undo
+    # .menubar.edit entryconfigure "Redo" -state $redo          swy
+    .menubar.edit entryconfigure "撤销" -state $undo
+    .menubar.edit entryconfigure "恢复" -state $redo
 }
 
 #****f* editor.tcl/redrawAll
@@ -3420,15 +3444,26 @@ proc rearrange { mode } {
     }
     set autorearrange_enabled 1
     .bottom.mbuf config -text "autorearrange"
-    if { $mode == "selected" } {
-	.menubar.tools entryconfigure "Auto rearrange all" -state disabled
-	.menubar.tools entryconfigure "Auto rearrange all" -indicatoron off
-	.menubar.tools entryconfigure "Auto rearrange selected" -indicatoron on
+    # if { $mode == "selected" } {
+	# .menubar.tools entryconfigure "Auto rearrange all" -state disabled
+	# .menubar.tools entryconfigure "Auto rearrange all" -indicatoron off
+	# .menubar.tools entryconfigure "Auto rearrange selected" -indicatoron on
+	# set tagmatch "node && selected"
+    # } else {
+	# .menubar.tools entryconfigure "Auto rearrange all" -indicatoron on
+	# .menubar.tools entryconfigure "Auto rearrange selected" -state disabled
+	# .menubar.tools entryconfigure "Auto rearrange selected" -indicatoron off
+	# set tagmatch "node"
+    # } swy
+	if { $mode == "selected" } {
+	.menubar.tools entryconfigure "自动重新安排所有节点" -state disabled
+	.menubar.tools entryconfigure "自动重新安排所有节点" -indicatoron off
+	.menubar.tools entryconfigure "对选择的节点进行排列" -indicatoron on
 	set tagmatch "node && selected"
     } else {
-	.menubar.tools entryconfigure "Auto rearrange all" -indicatoron on
-	.menubar.tools entryconfigure "Auto rearrange selected" -state disabled
-	.menubar.tools entryconfigure "Auto rearrange selected" -indicatoron off
+	.menubar.tools entryconfigure "自动重新安排所有节点" -indicatoron on
+	.menubar.tools entryconfigure "对选择的节点进行排列" -state disabled
+	.menubar.tools entryconfigure "对选择的节点进行排列" -indicatoron off
 	set tagmatch "node"
     }
     set otime [clock clicks -milliseconds]
@@ -3579,10 +3614,14 @@ proc rearrange { mode } {
 proc rearrange_off { } {
     global autorearrange_enabled
     set autorearrange_enabled 0
-    .menubar.tools entryconfigure "Auto rearrange all" -state normal
-    .menubar.tools entryconfigure "Auto rearrange all" -indicatoron off
-    .menubar.tools entryconfigure "Auto rearrange selected" -state normal
-    .menubar.tools entryconfigure "Auto rearrange selected" -indicatoron off
+    # .menubar.tools entryconfigure "Auto rearrange all" -state normal
+    # .menubar.tools entryconfigure "Auto rearrange all" -indicatoron off
+    # .menubar.tools entryconfigure "Auto rearrange selected" -state normal
+    # .menubar.tools entryconfigure "Auto rearrange selected" -indicatoron off	swy
+	.menubar.tools entryconfigure "自动重新安排所有节点" -state normal
+    .menubar.tools entryconfigure "自动重新安排所有节点" -indicatoron off
+    .menubar.tools entryconfigure "对选择的节点进行排列" -state normal
+    .menubar.tools entryconfigure "对选择的节点进行排列" -indicatoron off
 }
 
 
@@ -4049,7 +4088,9 @@ proc configRemoteServers {} {
 
     wm transient $wi .
     wm resizable $wi 0 0
-    wm title $wi "CORE emulation servers"
+    # wm title $wi "CORE emulation servers"swy
+	wm title $wi "CORE 仿真模拟"
+
 
     set last_server_selected -1
 
@@ -4550,7 +4591,7 @@ proc wallpaperAdjustCanvas { c f style } {
     # For topleft and centered, resize the canvas to fit the image
     # if the size difference isn't too large
     } elseif { $style == "topleft" || $style == "centered" } {
-        if { [expr {abs($cx - $imgx)} ] < 300 } {
+        if { [expr {abs($cx - $imgx)} ] < 300 } { 
 	    set cx $imgx
 	}
         if { [expr {abs($cy - $imgy)} ] < 300 } {
