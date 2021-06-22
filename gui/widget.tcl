@@ -24,9 +24,9 @@ if {$vtysh == ""} {
 # }
 # swy
 array set widgets {
-	"网络吞吐量"
+	"Throughput"
 	{ widget_thru_config widget_thru_init widget_thru_periodic widget_thru_move }
-	"邻接"
+	"Adjacency"
 	{ widget_adjacency_config widget_adjacency_init widget_adjacency_periodic widget_adjacency_move }
 }
 # TODO:   fix CPU Widget; it is disabled because Linux network namespaces
@@ -1091,7 +1091,7 @@ proc thruPlot { c link x y height width isresize} {
 	# [lindex $widgets($w) 1] menu
     # }
     # swy
-    set w "网络吞吐量"
+    set w "Throughput"
     if { ![set enable_$w] } {
 	set enable_$w 1 ;# turn on the Throughput Widget
 	[lindex $widgets($w) 1] menu
@@ -2291,7 +2291,7 @@ proc widget_adjacency_init_submenu { m } {
     # $m add cascade -label "邻接" -menu $m.adj
     # set w "Adjacency"
     # swy
-    set w "邻接"
+    set w "Adjacency"
 
 #    foreach v [list 2 3] {
 #	global enable_${w}_v${v}

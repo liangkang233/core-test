@@ -213,7 +213,7 @@ menu .menubar
 .menubar add cascade -label 画布 -underline 0 -menu .menubar.canvas
 .menubar add cascade -label 视图 -underline 0 -menu .menubar.view
 .menubar add cascade -label 工具 -underline 0 -menu .menubar.tools
-.menubar add cascade -label 权重 -underline 0 -menu .menubar.widgets
+.menubar add cascade -label 部件 -underline 0 -menu .menubar.widgets
 .menubar add cascade -label 会话 -underline 0 -menu .menubar.session
 .menubar add cascade -label 帮助 -underline 0 -menu .menubar.help
 

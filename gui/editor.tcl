@@ -1276,10 +1276,10 @@ proc button3node { c x y button } {
     # Configure node
     #
     if { [nodeType $node] != "pseudo" } {
-	.button3menu add command -label "Configure" \
+	.button3menu add command -label "配置" \
 	    -command "popupConfigDialog $c"
     } else {
-	.button3menu add command -label "Configure" \
+	.button3menu add command -label "配置" \
 	    -command "popupConfigDialog $c" -state disabled
     }
 
@@ -1287,10 +1287,10 @@ proc button3node { c x y button } {
     # Select adjacent
     #
     if { [nodeType $node] != "pseudo" } {
-	.button3menu add command -label "Select adjacent" \
+	.button3menu add command -label " 选择邻接点" \
 	    -command "selectAdjacent"
     } else {
-	.button3menu add command -label "Select adjacent" \
+	.button3menu add command -label " 选择邻接点" \
 	    -command "selectAdjacent" -state disabled
     }
 
@@ -1302,7 +1302,7 @@ proc button3node { c x y button } {
 	#.button3menu add cascade -label "Create link to" \
 	    -menu .button3menu.connect -state disabled
     } else {
-	.button3menu add cascade -label "Create link to" \
+	.button3menu add cascade -label "创建链接" \
 	    -menu .button3menu.connect
     }
     destroy .button3menu.connect.selected
@@ -1346,7 +1346,7 @@ proc button3node { c x y button } {
     if { $oper_mode != "exec" } {
 	global exec_servers node_location
 	.button3menu.assign delete 0 end
-	.button3menu add cascade -label "Assign to" -menu .button3menu.assign
+	.button3menu add cascade -label "分配至" -menu .button3menu.assign
 	.button3menu.assign add command -label "(none)" \
 		-command "assignSelection \"\""
 	foreach server [lsort -dictionary [array names exec_servers]] {
@@ -1376,7 +1376,7 @@ proc button3node { c x y button } {
     #
     .button3menu.moveto delete 0 end
     if { $oper_mode != "exec" && [nodeType $node] != "pseudo" } {
-	.button3menu add cascade -label "Move to" \
+	.button3menu add cascade -label "移动至" \
 	    -menu .button3menu.moveto
 	.button3menu.moveto add command -label "Canvas:" -state disabled
 	foreach canvas $canvas_list {
@@ -1404,13 +1404,13 @@ proc button3node { c x y button } {
     # Delete selection
     #
     if { $oper_mode != "exec" } {
-	.button3menu add command -label "Cut" -command cutSelection
-	.button3menu add command -label "Copy" -command copySelection
-	.button3menu add command -label "Paste" -command pasteSelection
-	.button3menu add command -label "Delete" -command deleteSelection
+	.button3menu add command -label "剪切" -command cutSelection
+	.button3menu add command -label "复制" -command copySelection
+	.button3menu add command -label "粘贴" -command pasteSelection
+	.button3menu add command -label "删除" -command deleteSelection
     }
 
-    .button3menu add command -label "Hide" -command "hideSelected"
+    .button3menu add command -label "隐藏" -command "hideSelected"
 
     # Boeing: flag used below
     set execstate disabled
@@ -1441,7 +1441,7 @@ proc button3node { c x y button } {
     if { $oper_mode == "exec" && [[typemodel $node].layer] == "NETWORK" } {
 	addServicesRightClickMenu .button3menu $node
     } else {
-	.button3menu add command -label "Services..." -command \
+	.button3menu add command -label "服务..." -command \
 		"sendConfRequestMessage -1 $node services 0x1 -1 \"\""
     }
 
@@ -5219,7 +5219,8 @@ proc saveRestoreWlanLinks { c cmd } {
 }
 
 proc cutSelection {} {
-    editCopy
+    # editCopy
+	copySelection
     deleteSelection
 }
 
