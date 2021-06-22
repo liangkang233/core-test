@@ -109,10 +109,10 @@ class Menubar(tk.Menu):
         menu.add_command(label="Custom Nodes", command=self.click_custom_nodes)
         menu.add_command(label="Show Hidden Nodes", command=self.click_show_hidden)
         menu.add_separator()
-        # menu.add_command(label="Undo", accelerator="Ctrl+Z", state=tk.DISABLED) swy
-        menu.add_command(label="撤销", accelerator="Ctrl+Z", state=tk.DISABLED)
-        # menu.add_command(label="Redo", accelerator="Ctrl+Y", state=tk.DISABLED) swy
-        menu.add_command(label="恢复", accelerator="Ctrl+Y", state=tk.DISABLED)
+        menu.add_command(label="Undo", accelerator="Ctrl+Z", state=tk.DISABLED) 
+        # menu.add_command(label="撤销", accelerator="Ctrl+Z", state=tk.DISABLED)
+        menu.add_command(label="Redo", accelerator="Ctrl+Y", state=tk.DISABLED) 
+        # menu.add_command(label="恢复", accelerator="Ctrl+Y", state=tk.DISABLED)
         menu.add_separator()
         menu.add_command(label="Cut", accelerator="Ctrl+X", command=self.click_cut)
         menu.add_command(label="Copy", accelerator="Ctrl+C", command=self.click_copy)
