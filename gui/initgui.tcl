@@ -629,7 +629,7 @@ menu .menubar.help -tearoff 0
 #   "_launchBrowser https://github.com/coreemu/core"
 
 .menubar.help add command -label "开放仿真模型 GitHub (www)" -command \
-"_launchBrowser https://github.com/coreemu/core"
+"_launchBrowser https://github.com/liangkang233/core-test"
 
 # .menubar.help add command -label "CORE Documentation (www)" -command \
 #   "_launchBrowser https://coreemu.github.io/core/"
