@@ -606,15 +606,15 @@ menu .menubar.session -tearoff 1
 # 	-command "popupNodesConfig" swy
 .menubar.session add command -label "节点类型..." -underline 0 \
 	-command "popupNodesConfig"
-.menubar.session add command -label "调用评论窗口..." -underline 0 \
+.menubar.session add command -label "注释窗口..." -underline 0 \
 	-command "popupCommentsConfig"
-.menubar.session add command -label "调用回话挂钩窗口..." -underline 0 \
+.menubar.session add command -label "调用会话Hook..." -underline 0 \
 	-command "popupHooksConfig"
 .menubar.session add command -label "复位节点位置" -underline 0 \
 	-command "resetAllNodeCoords reset"
 # .menubar.session add command -label "Emulation servers..." \
 # 	-underline 0 -command "configRemoteServers" swy
-.menubar.session add command -label "仿真模拟..." \
+.menubar.session add command -label "服务配置..." \
 	-underline 0 -command "configRemoteServers"
 .menubar.session add command -label "选项..." \
 	-underline 0 -command "sendConfRequestMessage -1 0 session 0x1 -1 \"\""
