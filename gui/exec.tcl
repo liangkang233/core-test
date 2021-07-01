@@ -306,7 +306,7 @@ proc updateMenus { mode } {
 	.menubar.tools entryconfigure "自动重新安排所有节点" -state $s
     .menubar.tools entryconfigure "对选择的节点进行排列" -state $s
     .menubar.session entryconfigure "节点类型..." -state $s
-    .menubar.session entryconfigure "仿真模拟..." -state $s
+    .menubar.session entryconfigure "服务配置..." -state $s
 
     if { $s == "normal" } { set s "" }
     updateUndoRedoMenu $s
