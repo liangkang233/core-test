@@ -576,3 +576,38 @@ def test_emane(c):
     pytest = get_pytest(c)
     with c.cd(DAEMON_DIR):
         c.run(f"sudo {pytest} -v --lf -x tests/emane", pty=True)
+
+@task(
+    help={
+        "dev": "install development mode",
+        "verbose": "enable verbose",
+        "local": "determines if core will install to local system, default is False",
+        "prefix": f"prefix where scripts are installed, default is {DEFAULT_PREFIX}",
+        "install-type": "used to force an install type, "
+                        "can be one of the following (redhat, debian)",
+    },
+)
+def reinstall_core(
+    c, dev=False, verbose=False, local=False, prefix=DEFAULT_PREFIX, install_type=None
+):
+    """
+    reinstall core by LK233
+    """
+    hide = not verbose
+    p = Progress(verbose)
+    c.run("sudo -v", hide=True)
+
+    print(f"uninstalling core with prefix: {prefix}")
+    with p.start("uninstalling core"):
+        c.run("sudo make uninstall", hide=hide)
+
+    with p.start("cleaning build directory"):
+        c.run("make clean", hide=hide)
+        c.run("./bootstrap.sh clean", hide=hide)
+
+    print(f"installing core with prefix: {prefix}")
+    with p.start("building core"):
+        build_core(c, hide, prefix)
+    with p.start("installing vcmd/gui"):
+        install_core(c, hide)
+        

@@ -1,24 +1,31 @@
 # CORE
 
-CORE: Common Open Research Emulator
+通用开放式研究仿真器
 
-Copyright (c)2005-2020 the Boeing Company.
+版权(c)2005-2020波音公司。
 
-See the LICENSE file included in this distribution.
+请参阅此发行版中包含的许可证文件。
 
-## About
+## 关于
 
-The Common Open Research Emulator (CORE) is a tool for emulating
-networks on one or more machines. You can connect these emulated
-networks to live networks. CORE consists of a GUI for drawing
-topologies of lightweight virtual machines, and Python modules for
-scripting network emulation.
+公共开放研究仿真器(CORE)是一个用于在一台或多台机器上仿真网络的工具。
 
-## Documentation & Support
+您可以将这些模拟网络连接到实际网络。
 
-We are leveraging GitHub hosted documentation and Discord for persistent
-chat rooms. This allows for more dynamic conversations and the
-capability to respond faster. Feel free to join us at the link below.
+CORE包含一个用于绘制轻量级虚拟机拓扑的GUI，以及用于编写网络仿真脚本的Python模块。
 
-* [Documentation](https://coreemu.github.io/core/)
-* [Discord Channel](https://discord.gg/AKd7kmP)
+## 文档和支持
+
+Core使用GitHub托管文档和Discord来创建持久的聊天室。
+
+这允许更多的动态对话和更快的响应能力。
+
+欢迎通过下面的链接加入Core官方开源社区。
+
+* [官方文档](https://coreemu.github.io/core/)
+
+* [讨论频道](https://discord.gg/AKd7kmP)
+
+## 二次开发
+
+关于二次开发修改内容记录于[此文档](./docs/更改记录.md)中。
