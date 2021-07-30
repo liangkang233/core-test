@@ -1,0 +1,57 @@
+coresendmsg -H  
+Example coresendmsg invocations:  
+  coresendmsg node number=3 x_position=125 y_position=525  
+		move node number 3 to x,y=(125,525)
+
+  coresendmsg node number=4 icon=/usr/local/share/core/icons/normal/router_red.gif  
+		change node number 4"s icon to red
+
+  coresendmsg node flags=add number=5 type=0 name="n5" x_position=500 y_position=500  
+		add a new router node n5
+
+  coresendmsg link n1_number=2 n2_number=3 delay=15000  
+		set a 15ms delay on the link between n2 and n3
+
+  coresendmsg link n1_number=2 n2_number=3 gui_attributes="color=blue"  
+		change the color of the link between n2 and n3
+
+  coresendmsg link flags=add n1_number=4 n2_number=5 interface1_ip4="10.0.3.2"   interface1_ip4_mask=24 interface2_ip4="10.0.3.1" interface2_ip4_mask=24  
+		link node n5 with n4 using the given interface addresses
+
+  coresendmsg execute flags=string,text node=1 number=1000 command="uname -a" -l  
+		run a command on node 1 and wait for the result
+
+  coresendmsg execute node=2 number=1001 command="killall ospfd"  
+		run a command on node 2 and ignore the result
+
+  coresendmsg file flags=add node=1 name="/var/log/test.log" data="hello world."  
+		write a test.log file on node 1 with the given contents
+    
+  coresendmsg file flags=add node=2 name="test.log" source_name="./test.log"  
+		move a test.log file from host to node 2
+
+
+coresendmsg -h  
+Usage: coresendmsg [options] [message-type] [flags] [message-TLVs]
+
+[options]:  
+  -t, --list-tlvs       展示指定的 message type的TLV api.  
+  -h, --help            show this help message and exit  
+  -H                    show example usage help message and exit    
+  -p PORT, --port=PORT  选择加入指定端口的core-daemon, default: 4038    
+  -a ADDRESS, --address=ADDRESS
+                        选择加入指定ip的core-daemon, default: localhost
+  -s SESSION, --session=SESSION  
+                        coresendmsg加入指定的会话 default: None，即加入会话列表的第一个
+  -l, --listen          监听返回的数据并打印出来  
+  --tcp                 使用tcp套接字而不是udp套接字连接到会话
+                        default: False
+
+[message-type]:  
+  node link execute register config file interface event session exception
+
+[flags] (flags=f1,f2,...):  
+  none add delete cri local string text tty
+
+[message-TLVs]:
+  使用 coresendmsg -t "message-type" 查看对应type的TLV

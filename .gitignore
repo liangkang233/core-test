@@ -61,3 +61,7 @@ __pycache__
 
 # ignore log
 test.log*
+
+# ignore tools
+mytools/fetch1
+mytools/http_server

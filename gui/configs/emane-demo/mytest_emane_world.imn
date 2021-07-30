@@ -1,0 +1,162 @@
+node n1 {
+    type router
+    model mdr
+    network-config {
+	hostname n1
+	!
+	interface eth0
+	 ipv6 address 2001:0::1/128
+	 ip address 192.168.1.1/24
+	!
+    }
+    canvas c1
+    iconcoords {584.9999999999999 807.0}
+    labelcoords {584.9999999999999 883.0}
+    interface-peer {eth0 n4}
+}
+
+node n2 {
+    type router
+    model mdr
+    network-config {
+	hostname n2
+	!
+	interface eth0
+	 ipv6 address 2001:0::2/128
+	 ip address 192.168.1.2/24
+	!
+    }
+    canvas c1
+    iconcoords {588.4999999999999 629.5}
+    labelcoords {630.4999999999999 725.5}
+    interface-peer {eth0 n4}
+}
+
+node n3 {
+    type router
+    model mdr
+    network-config {
+	hostname n3
+	!
+	interface eth0
+	 ipv6 address 2001:0::3/128
+	 ip address 192.168.1.3/24
+	!
+    }
+    canvas c1
+    iconcoords {735.5 565.3333333333334}
+    labelcoords {739.5 651.3333333333334}
+    interface-peer {eth0 n4}
+}
+
+node n4 {
+    type wlan
+    network-config {
+	hostname wlan4
+	!
+	interface wireless
+	 ipv6 address 2001:0::0/128
+	 ip address 192.168.1.0/24
+	!
+	mobmodel
+	coreapi
+	emane_rfpipe
+	!
+    }
+    custom-config {
+	custom-config-id emane_rfpipe
+	custom-command {4 9 11 11 2 9 9 10 11 9 4 10 9 9 9 9 9 9 11 4 4 4 11 4 4 4 10 10 2 9 4 9 11 10 10}
+	config {
+	datarate=1000000
+	delay=0.000000
+	enablepromiscuousmode=0
+	flowcontrolenable=0
+	flowcontroltokens=10
+	jitter=0.000000
+	neighbormetricdeletetime=60.000000
+	pcrcurveuri=/usr/share/emane/xml/models/mac/rfpipe/rfpipepcr.xml
+	radiometricenable=0
+	radiometricreportinterval=1.000000
+	bandwidth=1000000
+	fading.model=none
+	fading.nakagami.distance0=100.000000
+	fading.nakagami.distance1=250.000000
+	fading.nakagami.m0=0.750000
+	fading.nakagami.m1=1.000000
+	fading.nakagami.m2=200.000000
+	fixedantennagain=0.000000
+	fixedantennagainenable=1
+	frequency=2347000000
+	frequencyofinterest=2347000000
+	noisebinsize=20
+	noisemaxclampenable=0
+	noisemaxmessagepropagation=200000
+	noisemaxsegmentduration=1000000
+	noisemaxsegmentoffset=300000
+	noisemode=none
+	propagationmodel=2ray
+	subid=1
+	systemnoisefigure=4.000000
+	timesyncthreshold=10000
+	txpower=0.000000
+	external=0
+	platformendpoint=127.0.0.1:40001
+	transportendpoint=127.0.0.1:50002
+	}
+    }
+    custom-config {
+	custom-config-id basic_range
+	custom-command {3 3 9 9 9}
+	config {
+	range=275
+	bandwidth=54000000
+	jitter=0
+	delay=20000
+	error=0
+	}
+    }
+    canvas c1
+    iconcoords {733.0 732.6666666666666}
+    labelcoords {735.0 780.6666666666666}
+    interface-peer {e0 n1}
+    interface-peer {e1 n2}
+    interface-peer {e2 n3}
+}
+
+link l1 {
+    nodes {n4 n1}
+}
+
+link l2 {
+    nodes {n4 n2}
+}
+
+link l3 {
+    nodes {n4 n3}
+}
+
+canvas c1 {
+    name {Canvas1}
+    wallpaper-style {upperleft}
+    wallpaper {/home/lk233/.core/configs/static/Mercator_projection_SW.jpg}
+    refpt {0 0 85 -180 2.0}
+    scale 111319
+    size {3600 3600}
+}
+
+option global {
+    interface_names no
+    ip_addresses yes
+    ipv6_addresses no
+    node_labels yes
+    link_labels yes
+    show_api no
+    background_images no
+    annotations yes
+    grid no
+    traffic_start 0
+}
+
+option session {
+}
+

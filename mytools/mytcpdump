@@ -1,0 +1,122 @@
+#!/bin/bash
+# 命令后加 &，后台执行
+
+# XXX会被随即字符代替保证唯一，-d生成目录，-t表示生成在/temp中，
+# 脚本临时文件全部存在此处，程序捕获到EXIT后执行finish删除临时文件夹
+scratch=$(mktemp -d -t coretmp.XXX)
+function finish {
+  rm -rf "$scratch"
+}
+trap finish EXIT
+
+function ApiCall {
+  local nodeId=$1; 
+  local cmd=$2;
+  # tee一边重定向到文件一边打印，防止等待response卡死，也方便打印报错信息 
+  coresendmsg execute flags=tty node=$nodeId number=1001 command="$cmd" -l | tee $scratch/core_msg
+  res=$(awk -F ': ' '{if($1 ~ /RESULT/) print $2}' $scratch/core_msg)
+  # [ ]符号旁必须有空格，否则会被shell认为是命令执行
+  if [ "$res" == "" ]; then
+    exit 0
+  else 
+      echo -e "excute core api command: \n$res\n"
+  fi
+  eval $res
+}
+
+function SetMap {
+  file=$1
+  Mymap=$2
+  local IdArry=(`awk '$1=="node" {print $2}' $file`)
+  local NameArry=(`awk '$1=="hostname" {print $2}' $file`)
+
+  # ${!nodeId[@]}为数组或字典全部index   ${nodeId[@]}为全部value
+  for i in ${!IdArry[@]}
+  do
+    Mymap[${NameArry[i]}]=${IdArry[i]:1}
+  done
+  # echo ${!Mymap[@]} ${Mymap[@]}
+}
+
+# 默认命令、场景文件参数
+nodeId='1'
+protocol='icmp'
+interface='eth0'
+imnPwd=$(echo $HOME/.core/configs/)
+scene='sample1'
+declare -A Mymap
+
+# 读取参数
+if [ $# == 0 ]; then
+  echo -e "The required parameters are imn scenario name and node name\n\
+When \$3 is CMD, \$4 is the command to execute...
+Otherwise, \$3 indicates the NIC ID and \$4 indicates the packet capture protocol (optional).\n\
+!! default: nodename=n1, interface=$interface, protocol=$protocol(options) !!
+sense file: echo $imnPwd$scene.imn"
+else
+  scene=$1
+  file=$(echo $imnPwd$scene.imn)
+  echo -e "sense file: $file"
+  SetMap $file ${Mymap[*]}  
+  # echo "场景节点名: ${!Mymap[@]} \n 场景节点id: ${Mymap[@]}"
+  nodeId=${Mymap[$2]}
+  interface=$3
+  protocol=$4
+  if [ ! -n "$nodeId" ]; then
+    echo "node name error!"
+    exit 0
+  # unset Mymap[$findkey] 删除操作
+  fi
+fi
+
+if [ "$3" == "cmd" ] ; then
+  ApiCall $nodeId "$4"
+elif [ $# -ge 3 ] || [ $# == 0 ];  then
+  cmd=$(echo tcpdump $protocol -i $interface -l)
+  # $cmd不加双引号会自动以空格为分割符号传参
+  ApiCall $nodeId "$cmd"
+else 
+  echo "Invalid input parameter"
+  exit 0
+fi
+
+
+
+
+# if [ `whoami` != "root" ];then
+# 	echo "Please run it as a superuser"
+#     exit 0
+# fi
+
+# read -p $'Please input a number...    \n1 means icmp,2 means udp ,3 means tcp '
+# case $n in 
+# 1)
+#     echo "you will accept icmp data"
+#     tcpdump icmp -c 5 -i ens33 -l -w./aaa.cap &
+#     ;;
+# 2)
+#     echo "you will accept udp data"
+#     tcpdump udp -c 5 -i ens33
+#     ;;
+# 3)
+#     echo "you will accept tcp data"
+#     tcpdump tcp -c 5 -i ens33 
+#     ;;
+# *)
+#     echo "invail command"
+#     ;;
+# esac
+
+
+# datetime=`date +%F-%H:%M:%S`
+# i=1
+# while [ $i -lt 5 ];do
+#     echo "start NO.$i capture data"
+#     # sudo tcpdump icmp -i ens33 -w ./$datetime.cap &
+#     # sudo tcpdump icmp -i ens33 -w ./`date +%F-%H:%M:%S` &
+#     tdid=`pgrep tcpdump`
+#     sleep 10s
+#     echo "$tdid"
+#     kill -9 $tdid
+#     ((i++))
+# done

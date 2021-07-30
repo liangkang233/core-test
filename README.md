@@ -26,6 +26,3 @@ Core使用GitHub托管文档和Discord来创建持久的聊天室。
 
 * [讨论频道](https://discord.gg/AKd7kmP)
 
-## 二次开发
-
-关于二次开发修改内容记录于[此文档](./docs/更改记录.md)中。
