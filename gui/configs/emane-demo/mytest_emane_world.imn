@@ -10,9 +10,10 @@ node n1 {
 	!
     }
     canvas c1
-    iconcoords {584.9999999999999 807.0}
-    labelcoords {584.9999999999999 883.0}
+    iconcoords {2598.0 1350.0}
+    labelcoords {2602.0 1393.0}
     interface-peer {eth0 n4}
+    custom-image /home/lk233/.core/configs/static/Exata_ico/satellite3.png
 }
 
 node n2 {
@@ -27,9 +28,10 @@ node n2 {
 	!
     }
     canvas c1
-    iconcoords {588.4999999999999 629.5}
-    labelcoords {630.4999999999999 725.5}
+    iconcoords {2601.5 1172.5}
+    labelcoords {2627.5 1226.5}
     interface-peer {eth0 n4}
+    custom-image /home/lk233/.core/configs/static/Exata_ico/satellite3.png
 }
 
 node n3 {
@@ -44,9 +46,10 @@ node n3 {
 	!
     }
     canvas c1
-    iconcoords {735.5 565.3333333333334}
-    labelcoords {739.5 651.3333333333334}
+    iconcoords {2887.5 1171.3333333333335}
+    labelcoords {2905.5 1218.3333333333335}
     interface-peer {eth0 n4}
+    custom-image /home/lk233/.core/configs/static/Exata_ico/satellite3.png
 }
 
 node n4 {
@@ -116,11 +119,50 @@ node n4 {
 	}
     }
     canvas c1
-    iconcoords {733.0 732.6666666666666}
-    labelcoords {735.0 780.6666666666666}
+    iconcoords {2747.0 1265.6666666666665}
+    labelcoords {2749.0 1313.6666666666665}
     interface-peer {e0 n1}
     interface-peer {e1 n2}
     interface-peer {e2 n3}
+    custom-image /home/lk233/.core/configs/static/Exata_ico/palette/wireless-subnet.png
+    interface-peer {e3 n5}
+    interface-peer {e4 n6}
+}
+
+node n5 {
+    type router
+    model mdr
+    network-config {
+	hostname n5
+	!
+	interface eth0
+	 ip address 192.168.1.4/24
+	 ipv6 address 2001:0::4/128
+	!
+    }
+    canvas c1
+    iconcoords {2790.5 1420.5}
+    labelcoords {2816.5 1474.5}
+    interface-peer {eth0 n4}
+    custom-image /home/lk233/.core/configs/static/Exata_ico/satellite3.png
+}
+
+node n6 {
+    type router
+    model mdr
+    network-config {
+	hostname n6
+	!
+	interface eth0
+	 ip address 192.168.1.5/24
+	 ipv6 address 2001:0::5/128
+	!
+    }
+    canvas c1
+    iconcoords {2952.5 1354.5}
+    labelcoords {2978.5 1408.5}
+    interface-peer {eth0 n4}
+    custom-image /home/lk233/.core/configs/static/Exata_ico/satellite3.png
 }
 
 link l1 {
@@ -135,12 +177,20 @@ link l3 {
     nodes {n4 n3}
 }
 
+link l4 {
+    nodes {n4 n5}
+}
+
+link l5 {
+    nodes {n4 n6}
+}
+
 canvas c1 {
     name {Canvas1}
-    wallpaper-style {upperleft}
-    wallpaper {/home/lk233/.core/configs/static/Mercator_projection_SW.jpg}
+    wallpaper-style {scaled}
+    wallpaper {/home/lk233/.core/configs/static/canvas/Specular.jpg}
     refpt {0 0 85 -180 2.0}
-    scale 111319
+    scale {111319}
     size {3600 3600}
 }
 
@@ -153,7 +203,7 @@ option global {
     show_api no
     background_images no
     annotations yes
-    grid no
+    grid yes
     traffic_start 0
 }
 

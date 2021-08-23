@@ -1,0 +1,15 @@
+#!/bin/bash
+rm -f  gps.pty 
+killall -q gpsd emaneeventd
+
+emaneeventd $HOME/core/mytools/emane_server_test/emane_gpsd/eventdaemon.xml \
+-r -d -l 3 -f $HOME/core/mytools/emane_server_test/emane_gpsd/emaneeventd.log
+
+sleep 0.1 # 等待gps.pty生成
+gpsd -G -n -b $(cat gps.pty)
+
+if [ $? == 0 ]; then
+    echo "gpsdaemon run succeed, please run 'cgps'"
+else 
+    echo "mygps run error"
+fi

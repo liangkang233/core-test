@@ -79,7 +79,22 @@ node n5 {
 	mobmodel
 	coreapi
 	emane_rfpipe
+	ns2script
 	!
+    }
+    custom-config {
+	custom-config-id ns2script
+	custom-command {10 3 11 10 10 10 10 10}
+	config {
+	file=/home/lk233/.core/configs/emane-demo/my_emane0.scen
+	refresh_ms=50
+	loop=1
+	autostart=1
+	map=
+	script_start=
+	script_pause=
+	script_stop=
+	}
     }
     custom-config {
 	custom-config-id emane
@@ -143,6 +158,7 @@ node n3 {
     iconcoords {312.0 60.0}
     labelcoords {312.0 92.0}
     interface-peer {eth0 n5}
+    services {zebra OSPFv3MDR IPForward}
 }
 
 link l1 {
@@ -159,9 +175,11 @@ link l3 {
 
 canvas c1 {
     name {Canvas1}
+    wallpaper-style {centered}
+    wallpaper {/home/lk233/.core/configs/static/canvas/Mercator_projection_SW3600.jpg}
     refpt {0 0 85 -180 2.0}
-    scale 11131
-    size {1800 1800}
+    scale {11131}
+    size {3600 3600}
 }
 
 option global {

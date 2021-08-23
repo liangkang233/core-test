@@ -1,0 +1,1688 @@
+node n1 {
+    type router
+    model router
+    network-config {
+	hostname n1
+	!
+	interface eth3
+	 ip address 10.0.14.1/24
+	 ipv6 address 2001:14::1/64
+	!
+	interface eth2
+	 ip address 10.0.13.1/24
+	 ipv6 address 2001:13::1/64
+	!
+	interface eth1
+	 ip address 10.0.12.1/24
+	 ipv6 address 2001:12::1/64
+	!
+	interface eth0
+	 ip address 10.0.0.1/24
+	 ipv6 address 2001:0::1/64
+	!
+    }
+    canvas c1
+    iconcoords {215.0 151.0}
+    labelcoords {215.0 183.0}
+    interface-peer {eth0 n2}
+    interface-peer {eth1 n5}
+    interface-peer {eth2 n6}
+    interface-peer {eth3 n7}
+}
+
+node n2 {
+    type router
+    model router
+    network-config {
+	hostname n2
+	!
+	interface eth4
+	 ip address 10.0.11.1/24
+	 ipv6 address 2001:11::1/64
+	!
+	interface eth3
+	 ip address 10.0.10.1/24
+	 ipv6 address 2001:10::1/64
+	!
+	interface eth2
+	 ip address 10.0.9.1/24
+	 ipv6 address 2001:9::1/64
+	!
+	interface eth1
+	 ip address 10.0.1.1/24
+	 ipv6 address 2001:1::1/64
+	!
+	interface eth0
+	 ip address 10.0.0.2/24
+	 ipv6 address 2001:0::2/64
+	!
+    }
+    canvas c1
+    iconcoords {446.0 153.0}
+    labelcoords {446.0 185.0}
+    interface-peer {eth0 n1}
+    interface-peer {eth1 n3}
+    interface-peer {eth2 n10}
+    interface-peer {eth3 n9}
+    interface-peer {eth4 n8}
+}
+
+node n3 {
+    type router
+    model router
+    network-config {
+	hostname n3
+	!
+	interface eth4
+	 ip address 10.0.5.1/24
+	 ipv6 address 2001:5::1/64
+	!
+	interface eth3
+	 ip address 10.0.4.1/24
+	 ipv6 address 2001:4::1/64
+	!
+	interface eth2
+	 ip address 10.0.3.1/24
+	 ipv6 address 2001:3::1/64
+	!
+	interface eth1
+	 ip address 10.0.2.1/24
+	 ipv6 address 2001:2::1/64
+	!
+	interface eth0
+	 ip address 10.0.1.2/24
+	 ipv6 address 2001:1::2/64
+	!
+    }
+    canvas c1
+    iconcoords {735.0 166.0}
+    labelcoords {735.0 198.0}
+    interface-peer {eth0 n2}
+    interface-peer {eth1 n4}
+    interface-peer {eth2 n11}
+    interface-peer {eth3 n12}
+    interface-peer {eth4 n13}
+}
+
+node n4 {
+    type router
+    model router
+    network-config {
+	hostname n4
+	!
+	interface eth4
+	 ip address 10.0.13.2/24
+	 ipv6 address 2001:13::2/64
+	!
+	interface eth3
+	 ip address 10.0.8.1/24
+	 ipv6 address 2001:8::1/64
+	!
+	interface eth2
+	 ip address 10.0.7.1/24
+	 ipv6 address 2001:7::1/64
+	!
+	interface eth1
+	 ip address 10.0.6.1/24
+	 ipv6 address 2001:6::1/64
+	!
+	interface eth0
+	 ip address 10.0.2.2/24
+	 ipv6 address 2001:2::2/64
+	!
+    }
+    canvas c1
+    iconcoords {494.0 305.0}
+    labelcoords {494.0 337.0}
+    interface-peer {eth0 n3}
+    interface-peer {eth1 n14}
+    interface-peer {eth2 n15}
+    interface-peer {eth3 n16}
+    interface-peer {eth4 n6}
+}
+
+node n5 {
+    type hub
+    network-config {
+	hostname n5
+	!
+    }
+    canvas c1
+    iconcoords {108.0 185.0}
+    labelcoords {108.0 209.0}
+    interface-peer {e0 n1}
+    interface-peer {e1 n17}
+    interface-peer {e2 n18}
+    interface-peer {e3 n19}
+    interface-peer {e4 n20}
+}
+
+node n6 {
+    type hub
+    network-config {
+	hostname n6
+	!
+    }
+    canvas c1
+    iconcoords {193.0 232.0}
+    labelcoords {193.0 256.0}
+    interface-peer {e0 n1}
+    interface-peer {e1 n4}
+    interface-peer {e2 n21}
+    interface-peer {e3 n22}
+    interface-peer {e4 n23}
+}
+
+node n7 {
+    type hub
+    network-config {
+	hostname n7
+	!
+    }
+    canvas c1
+    iconcoords {270.0 301.0}
+    labelcoords {270.0 325.0}
+    interface-peer {e0 n1}
+    interface-peer {e1 n24}
+    interface-peer {e2 n25}
+    interface-peer {e3 n26}
+}
+
+node n8 {
+    type hub
+    network-config {
+	hostname n8
+	!
+    }
+    canvas c1
+    iconcoords {306.0 85.0}
+    labelcoords {306.0 109.0}
+    interface-peer {e0 n2}
+    interface-peer {e1 n27}
+    interface-peer {e2 n28}
+    interface-peer {e3 n29}
+}
+
+node n9 {
+    type hub
+    network-config {
+	hostname n9
+	!
+    }
+    canvas c1
+    iconcoords {403.0 90.0}
+    labelcoords {403.0 114.0}
+    interface-peer {e0 n2}
+    interface-peer {e1 n30}
+    interface-peer {e2 n31}
+    interface-peer {e3 n32}
+}
+
+node n10 {
+    type hub
+    network-config {
+	hostname n10
+	!
+    }
+    canvas c1
+    iconcoords {481.0 80.0}
+    labelcoords {481.0 104.0}
+    interface-peer {e0 n2}
+    interface-peer {e1 n33}
+    interface-peer {e2 n34}
+    interface-peer {e3 n35}
+    interface-peer {e4 n36}
+}
+
+node n11 {
+    type hub
+    network-config {
+	hostname n11
+	!
+    }
+    canvas c1
+    iconcoords {766.0 92.0}
+    labelcoords {766.0 116.0}
+    interface-peer {e0 n3}
+    interface-peer {e1 n37}
+    interface-peer {e2 n38}
+    interface-peer {e3 n39}
+}
+
+node n12 {
+    type hub
+    network-config {
+	hostname n12
+	!
+    }
+    canvas c1
+    iconcoords {833.0 185.0}
+    labelcoords {833.0 209.0}
+    interface-peer {e0 n3}
+    interface-peer {e1 n40}
+    interface-peer {e2 n41}
+    interface-peer {e3 n42}
+    interface-peer {e4 n43}
+}
+
+node n13 {
+    type hub
+    network-config {
+	hostname n13
+	!
+    }
+    canvas c1
+    iconcoords {745.0 278.0}
+    labelcoords {745.0 302.0}
+    interface-peer {e0 n3}
+    interface-peer {e1 n46}
+    interface-peer {e2 n45}
+    interface-peer {e3 n44}
+}
+
+node n14 {
+    type hub
+    network-config {
+	hostname n14
+	!
+    }
+    canvas c1
+    iconcoords {591.0 372.0}
+    labelcoords {591.0 396.0}
+    interface-peer {e0 n4}
+    interface-peer {e1 n47}
+    interface-peer {e2 n48}
+    interface-peer {e3 n49}
+}
+
+node n15 {
+    type hub
+    network-config {
+	hostname n15
+	!
+    }
+    canvas c1
+    iconcoords {486.0 447.0}
+    labelcoords {482.0 477.0}
+    interface-peer {e0 n4}
+    interface-peer {e1 n50}
+    interface-peer {e2 n51}
+    interface-peer {e3 n52}
+    interface-peer {e4 n53}
+}
+
+node n16 {
+    type hub
+    network-config {
+	hostname n16
+	!
+    }
+    canvas c1
+    iconcoords {421.0 403.0}
+    labelcoords {421.0 427.0}
+    interface-peer {e0 n4}
+    interface-peer {e1 n54}
+    interface-peer {e2 n55}
+    interface-peer {e3 n56}
+}
+
+node n17 {
+    type router
+    model PC
+    network-config {
+	hostname n17
+	!
+	interface eth0
+	 ip address 10.0.12.20/24
+	 ipv6 address 2001:12::20/64
+	!
+    }
+    canvas c1
+    iconcoords {28.0 145.0}
+    labelcoords {28.0 177.0}
+    interface-peer {eth0 n5}
+}
+
+node n18 {
+    type router
+    model PC
+    network-config {
+	hostname n18
+	!
+	interface eth0
+	 ip address 10.0.12.21/24
+	 ipv6 address 2001:12::21/64
+	!
+    }
+    canvas c1
+    iconcoords {28.0 193.0}
+    labelcoords {28.0 225.0}
+    interface-peer {eth0 n5}
+}
+
+node n19 {
+    type router
+    model PC
+    network-config {
+	hostname n19
+	!
+	interface eth0
+	 ip address 10.0.12.22/24
+	 ipv6 address 2001:12::22/64
+	!
+    }
+    canvas c1
+    iconcoords {30.0 244.0}
+    labelcoords {30.0 276.0}
+    interface-peer {eth0 n5}
+}
+
+node n20 {
+    type router
+    model PC
+    network-config {
+	hostname n20
+	!
+	interface eth0
+	 ip address 10.0.12.23/24
+	 ipv6 address 2001:12::23/64
+	!
+    }
+    canvas c1
+    iconcoords {33.0 293.0}
+    labelcoords {33.0 325.0}
+    interface-peer {eth0 n5}
+}
+
+node n21 {
+    type router
+    model PC
+    network-config {
+	hostname n21
+	!
+	interface eth0
+	 ip address 10.0.13.20/24
+	 ipv6 address 2001:13::20/64
+	!
+    }
+    canvas c1
+    iconcoords {116.0 329.0}
+    labelcoords {116.0 361.0}
+    interface-peer {eth0 n6}
+}
+
+node n22 {
+    type router
+    model PC
+    network-config {
+	hostname n22
+	!
+	interface eth0
+	 ip address 10.0.13.21/24
+	 ipv6 address 2001:13::21/64
+	!
+    }
+    canvas c1
+    iconcoords {172.0 353.0}
+    labelcoords {172.0 385.0}
+    interface-peer {eth0 n6}
+}
+
+node n23 {
+    type router
+    model PC
+    network-config {
+	hostname n23
+	!
+	interface eth0
+	 ip address 10.0.13.22/24
+	 ipv6 address 2001:13::22/64
+	!
+    }
+    canvas c1
+    iconcoords {202.0 393.0}
+    labelcoords {202.0 425.0}
+    interface-peer {eth0 n6}
+}
+
+node n24 {
+    type router
+    model PC
+    network-config {
+	hostname n24
+	!
+	interface eth0
+	 ip address 10.0.14.20/24
+	 ipv6 address 2001:14::20/64
+	!
+    }
+    canvas c1
+    iconcoords {256.0 443.0}
+    labelcoords {256.0 475.0}
+    interface-peer {eth0 n7}
+}
+
+node n25 {
+    type router
+    model PC
+    network-config {
+	hostname n25
+	!
+	interface eth0
+	 ip address 10.0.14.21/24
+	 ipv6 address 2001:14::21/64
+	!
+    }
+    canvas c1
+    iconcoords {300.0 450.0}
+    labelcoords {300.0 482.0}
+    interface-peer {eth0 n7}
+}
+
+node n26 {
+    type router
+    model PC
+    network-config {
+	hostname n26
+	!
+	interface eth0
+	 ip address 10.0.14.22/24
+	 ipv6 address 2001:14::22/64
+	!
+    }
+    canvas c1
+    iconcoords {320.0 376.0}
+    labelcoords {320.0 408.0}
+    interface-peer {eth0 n7}
+}
+
+node n27 {
+    type router
+    model PC
+    network-config {
+	hostname n27
+	!
+	interface eth0
+	 ip address 10.0.11.20/24
+	 ipv6 address 2001:11::20/64
+	!
+    }
+    canvas c1
+    iconcoords {161.0 73.0}
+    labelcoords {161.0 105.0}
+    interface-peer {eth0 n8}
+}
+
+node n28 {
+    type router
+    model PC
+    network-config {
+	hostname n28
+	!
+	interface eth0
+	 ip address 10.0.11.21/24
+	 ipv6 address 2001:11::21/64
+	!
+    }
+    canvas c1
+    iconcoords {207.0 40.0}
+    labelcoords {207.0 72.0}
+    interface-peer {eth0 n8}
+}
+
+node n29 {
+    type router
+    model PC
+    network-config {
+	hostname n29
+	!
+	interface eth0
+	 ip address 10.0.11.22/24
+	 ipv6 address 2001:11::22/64
+	!
+    }
+    canvas c1
+    iconcoords {274.0 33.0}
+    labelcoords {274.0 65.0}
+    interface-peer {eth0 n8}
+}
+
+node n30 {
+    type router
+    model PC
+    network-config {
+	hostname n30
+	!
+	interface eth0
+	 ip address 10.0.10.20/24
+	 ipv6 address 2001:10::20/64
+	!
+    }
+    canvas c1
+    iconcoords {355.0 48.0}
+    labelcoords {355.0 80.0}
+    interface-peer {eth0 n9}
+}
+
+node n31 {
+    type router
+    model PC
+    network-config {
+	hostname n31
+	!
+	interface eth0
+	 ip address 10.0.10.21/24
+	 ipv6 address 2001:10::21/64
+	!
+    }
+    canvas c1
+    iconcoords {401.0 31.0}
+    labelcoords {401.0 63.0}
+    interface-peer {eth0 n9}
+}
+
+node n32 {
+    type router
+    model PC
+    network-config {
+	hostname n32
+	!
+	interface eth0
+	 ip address 10.0.10.22/24
+	 ipv6 address 2001:10::22/64
+	!
+    }
+    canvas c1
+    iconcoords {438.0 31.0}
+    labelcoords {438.0 63.0}
+    interface-peer {eth0 n9}
+}
+
+node n33 {
+    type router
+    model PC
+    network-config {
+	hostname n33
+	!
+	interface eth0
+	 ip address 10.0.9.20/24
+	 ipv6 address 2001:9::20/64
+	!
+    }
+    canvas c1
+    iconcoords {540.0 48.0}
+    labelcoords {540.0 80.0}
+    interface-peer {eth0 n10}
+}
+
+node n34 {
+    type router
+    model PC
+    network-config {
+	hostname n34
+	!
+	interface eth0
+	 ip address 10.0.9.21/24
+	 ipv6 address 2001:9::21/64
+	!
+    }
+    canvas c1
+    iconcoords {587.0 65.0}
+    labelcoords {587.0 97.0}
+    interface-peer {eth0 n10}
+}
+
+node n35 {
+    type router
+    model PC
+    network-config {
+	hostname n35
+	!
+	interface eth0
+	 ip address 10.0.9.22/24
+	 ipv6 address 2001:9::22/64
+	!
+    }
+    canvas c1
+    iconcoords {606.0 111.0}
+    labelcoords {606.0 143.0}
+    interface-peer {eth0 n10}
+}
+
+node n36 {
+    type router
+    model PC
+    network-config {
+	hostname n36
+	!
+	interface eth0
+	 ip address 10.0.9.23/24
+	 ipv6 address 2001:9::23/64
+	!
+    }
+    canvas c1
+    iconcoords {550.0 126.0}
+    labelcoords {550.0 158.0}
+    interface-peer {eth0 n10}
+}
+
+node n37 {
+    type router
+    model host
+    network-config {
+	hostname n37
+	!
+	interface eth0
+	 ip address 10.0.3.10/24
+	 ipv6 address 2001:3::10/64
+	!
+    }
+    canvas c1
+    iconcoords {715.0 28.0}
+    labelcoords {715.0 60.0}
+    interface-peer {eth0 n11}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s37
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n38 {
+    type router
+    model host
+    network-config {
+	hostname n38
+	!
+	interface eth0
+	 ip address 10.0.3.11/24
+	 ipv6 address 2001:3::11/64
+	!
+    }
+    canvas c1
+    iconcoords {787.0 31.0}
+    labelcoords {787.0 63.0}
+    interface-peer {eth0 n11}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s38
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n39 {
+    type router
+    model host
+    network-config {
+	hostname n39
+	!
+	interface eth0
+	 ip address 10.0.3.12/24
+	 ipv6 address 2001:3::12/64
+	!
+    }
+    canvas c1
+    iconcoords {851.0 40.0}
+    labelcoords {851.0 72.0}
+    interface-peer {eth0 n11}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s39
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n40 {
+    type router
+    model host
+    network-config {
+	hostname n40
+	!
+	interface eth0
+	 ip address 10.0.4.10/24
+	 ipv6 address 2001:4::10/64
+	!
+    }
+    canvas c1
+    iconcoords {894.0 124.0}
+    labelcoords {894.0 156.0}
+    interface-peer {eth0 n12}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s40
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n41 {
+    type router
+    model host
+    network-config {
+	hostname n41
+	!
+	interface eth0
+	 ip address 10.0.4.11/24
+	 ipv6 address 2001:4::11/64
+	!
+    }
+    canvas c1
+    iconcoords {902.0 183.0}
+    labelcoords {902.0 215.0}
+    interface-peer {eth0 n12}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s41
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n42 {
+    type router
+    model host
+    network-config {
+	hostname n42
+	!
+	interface eth0
+	 ip address 10.0.4.12/24
+	 ipv6 address 2001:4::12/64
+	!
+    }
+    canvas c1
+    iconcoords {894.0 238.0}
+    labelcoords {894.0 270.0}
+    interface-peer {eth0 n12}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s42
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n43 {
+    type router
+    model host
+    network-config {
+	hostname n43
+	!
+	interface eth0
+	 ip address 10.0.4.13/24
+	 ipv6 address 2001:4::13/64
+	!
+    }
+    canvas c1
+    iconcoords {883.0 306.0}
+    labelcoords {883.0 338.0}
+    interface-peer {eth0 n12}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s43
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n44 {
+    type router
+    model host
+    network-config {
+	hostname n44
+	!
+	interface eth0
+	 ip address 10.0.5.12/24
+	 ipv6 address 2001:5::12/64
+	!
+    }
+    canvas c1
+    iconcoords {815.0 336.0}
+    labelcoords {815.0 368.0}
+    interface-peer {eth0 n13}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s44
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n45 {
+    type router
+    model host
+    network-config {
+	hostname n45
+	!
+	interface eth0
+	 ip address 10.0.5.11/24
+	 ipv6 address 2001:5::11/64
+	!
+    }
+    canvas c1
+    iconcoords {751.0 352.0}
+    labelcoords {751.0 384.0}
+    interface-peer {eth0 n13}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s45
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n46 {
+    type router
+    model host
+    network-config {
+	hostname n46
+	!
+	interface eth0
+	 ip address 10.0.5.10/24
+	 ipv6 address 2001:5::10/64
+	!
+    }
+    canvas c1
+    iconcoords {703.0 315.0}
+    labelcoords {703.0 347.0}
+    interface-peer {eth0 n13}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s46
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n47 {
+    type router
+    model host
+    network-config {
+	hostname n47
+	!
+	interface eth0
+	 ip address 10.0.6.10/24
+	 ipv6 address 2001:6::10/64
+	!
+    }
+    canvas c1
+    iconcoords {694.0 412.0}
+    labelcoords {694.0 444.0}
+    interface-peer {eth0 n14}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s47
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n48 {
+    type router
+    model host
+    network-config {
+	hostname n48
+	!
+	interface eth0
+	 ip address 10.0.6.11/24
+	 ipv6 address 2001:6::11/64
+	!
+    }
+    canvas c1
+    iconcoords {654.0 428.0}
+    labelcoords {654.0 460.0}
+    interface-peer {eth0 n14}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s48
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n49 {
+    type router
+    model host
+    network-config {
+	hostname n49
+	!
+	interface eth0
+	 ip address 10.0.6.12/24
+	 ipv6 address 2001:6::12/64
+	!
+    }
+    canvas c1
+    iconcoords {598.0 435.0}
+    labelcoords {598.0 467.0}
+    interface-peer {eth0 n14}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s49
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n50 {
+    type router
+    model host
+    network-config {
+	hostname n50
+	!
+	interface eth0
+	 ip address 10.0.7.10/24
+	 ipv6 address 2001:7::10/64
+	!
+    }
+    canvas c1
+    iconcoords {548.0 595.0}
+    labelcoords {548.0 627.0}
+    interface-peer {eth0 n15}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s50
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n51 {
+    type router
+    model host
+    network-config {
+	hostname n51
+	!
+	interface eth0
+	 ip address 10.0.7.11/24
+	 ipv6 address 2001:7::11/64
+	!
+    }
+    canvas c1
+    iconcoords {491.0 608.0}
+    labelcoords {491.0 640.0}
+    interface-peer {eth0 n15}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s51
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n52 {
+    type router
+    model host
+    network-config {
+	hostname n52
+	!
+	interface eth0
+	 ip address 10.0.7.12/24
+	 ipv6 address 2001:7::12/64
+	!
+    }
+    canvas c1
+    iconcoords {437.0 569.0}
+    labelcoords {437.0 601.0}
+    interface-peer {eth0 n15}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s52
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n53 {
+    type router
+    model host
+    network-config {
+	hostname n53
+	!
+	interface eth0
+	 ip address 10.0.7.13/24
+	 ipv6 address 2001:7::13/64
+	!
+    }
+    canvas c1
+    iconcoords {363.0 579.0}
+    labelcoords {363.0 611.0}
+    interface-peer {eth0 n15}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s53
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n54 {
+    type router
+    model host
+    network-config {
+	hostname n54
+	!
+	interface eth0
+	 ip address 10.0.8.10/24
+	 ipv6 address 2001:8::10/64
+	!
+    }
+    canvas c1
+    iconcoords {408.0 488.0}
+    labelcoords {408.0 520.0}
+    interface-peer {eth0 n16}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s54
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n55 {
+    type router
+    model host
+    network-config {
+	hostname n55
+	!
+	interface eth0
+	 ip address 10.0.8.11/24
+	 ipv6 address 2001:8::11/64
+	!
+    }
+    canvas c1
+    iconcoords {373.0 442.0}
+    labelcoords {373.0 474.0}
+    interface-peer {eth0 n16}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s55
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n56 {
+    type router
+    model host
+    network-config {
+	hostname n56
+	!
+	interface eth0
+	 ip address 10.0.8.12/24
+	 ipv6 address 2001:8::12/64
+	!
+    }
+    canvas c1
+    iconcoords {371.0 373.0}
+    labelcoords {371.0 405.0}
+    interface-peer {eth0 n16}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('myiperf3.sh', )
+	cmdup=('bash myiperf3.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:myiperf3.sh
+	custom-command myiperf3.sh
+	config {
+	#!/bin/sh
+	# auto-generated by IPForward service (utility.py)
+	mkdir -p ../myiperf3log
+	iperf3 -s -D --logfile ../myiperf3log/myiperf3_s56
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+link l1 {
+    nodes {n1 n2}
+    bandwidth 0
+}
+
+link l2 {
+    nodes {n2 n3}
+    bandwidth 0
+}
+
+link l3 {
+    nodes {n3 n4}
+    bandwidth 0
+}
+
+link l4 {
+    nodes {n3 n11}
+    bandwidth 0
+}
+
+link l5 {
+    nodes {n3 n12}
+    bandwidth 0
+}
+
+link l6 {
+    nodes {n3 n13}
+    bandwidth 0
+}
+
+link l7 {
+    nodes {n4 n14}
+    bandwidth 0
+}
+
+link l8 {
+    nodes {n4 n15}
+    bandwidth 0
+}
+
+link l9 {
+    nodes {n4 n16}
+    bandwidth 0
+}
+
+link l10 {
+    nodes {n2 n10}
+    bandwidth 0
+}
+
+link l11 {
+    nodes {n2 n9}
+    bandwidth 0
+}
+
+link l12 {
+    nodes {n2 n8}
+    bandwidth 0
+}
+
+link l13 {
+    nodes {n1 n5}
+    bandwidth 0
+}
+
+link l14 {
+    nodes {n1 n6}
+    bandwidth 0
+}
+
+link l15 {
+    nodes {n1 n7}
+    bandwidth 0
+}
+
+link l16 {
+    nodes {n6 n4}
+    bandwidth 0
+}
+
+link l17 {
+    nodes {n17 n5}
+    bandwidth 0
+}
+
+link l18 {
+    nodes {n18 n5}
+    bandwidth 0
+}
+
+link l19 {
+    nodes {n19 n5}
+    bandwidth 0
+}
+
+link l20 {
+    nodes {n20 n5}
+    bandwidth 0
+}
+
+link l21 {
+    nodes {n6 n21}
+    bandwidth 0
+}
+
+link l22 {
+    nodes {n6 n22}
+    bandwidth 0
+}
+
+link l23 {
+    nodes {n6 n23}
+    bandwidth 0
+}
+
+link l24 {
+    nodes {n7 n24}
+    bandwidth 0
+}
+
+link l25 {
+    nodes {n7 n25}
+    bandwidth 0
+}
+
+link l26 {
+    nodes {n7 n26}
+    bandwidth 0
+}
+
+link l27 {
+    nodes {n8 n27}
+    bandwidth 0
+}
+
+link l28 {
+    nodes {n28 n8}
+    bandwidth 0
+}
+
+link l29 {
+    nodes {n8 n29}
+    bandwidth 0
+}
+
+link l30 {
+    nodes {n30 n9}
+    bandwidth 0
+}
+
+link l31 {
+    nodes {n9 n31}
+    bandwidth 0
+}
+
+link l32 {
+    nodes {n9 n32}
+    bandwidth 0
+}
+
+link l33 {
+    nodes {n10 n33}
+    bandwidth 0
+}
+
+link l34 {
+    nodes {n10 n34}
+    bandwidth 0
+}
+
+link l35 {
+    nodes {n10 n35}
+    bandwidth 0
+}
+
+link l36 {
+    nodes {n10 n36}
+    bandwidth 0
+}
+
+link l37 {
+    nodes {n37 n11}
+    bandwidth 0
+}
+
+link l38 {
+    nodes {n11 n38}
+    bandwidth 0
+}
+
+link l39 {
+    nodes {n11 n39}
+    bandwidth 0
+}
+
+link l40 {
+    nodes {n12 n40}
+    bandwidth 0
+}
+
+link l41 {
+    nodes {n12 n41}
+    bandwidth 0
+}
+
+link l42 {
+    nodes {n12 n42}
+    bandwidth 0
+}
+
+link l43 {
+    nodes {n12 n43}
+    bandwidth 0
+}
+
+link l44 {
+    nodes {n13 n46}
+    bandwidth 0
+}
+
+link l45 {
+    nodes {n13 n45}
+    bandwidth 0
+}
+
+link l46 {
+    nodes {n13 n44}
+    bandwidth 0
+}
+
+link l47 {
+    nodes {n14 n47}
+    bandwidth 0
+}
+
+link l48 {
+    nodes {n14 n48}
+    bandwidth 0
+}
+
+link l49 {
+    nodes {n14 n49}
+    bandwidth 0
+}
+
+link l50 {
+    nodes {n15 n50}
+    bandwidth 0
+}
+
+link l51 {
+    nodes {n15 n51}
+    bandwidth 0
+}
+
+link l52 {
+    nodes {n15 n52}
+    bandwidth 0
+}
+
+link l53 {
+    nodes {n15 n53}
+    bandwidth 0
+}
+
+link l54 {
+    nodes {n16 n54}
+    bandwidth 0
+}
+
+link l55 {
+    nodes {n55 n16}
+    bandwidth 0
+}
+
+link l56 {
+    nodes {n56 n16}
+    bandwidth 0
+}
+
+canvas c1 {
+    name {Canvas1}
+}
+
+option global {
+    interface_names no
+    ip_addresses yes
+    ipv6_addresses no
+    node_labels yes
+    link_labels yes
+    show_api no
+    background_images no
+    annotations yes
+    grid yes
+    traffic_start 0
+}
+
+option session {
+}
+

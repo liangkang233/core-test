@@ -1,0 +1,40 @@
+#! /bin/bash
+
+#gpsd daemon
+emaneeventd eventdaemon.xml -r -d -l 3 -f emaneeventd.log
+gpsd -G -n -b $(cat gps.pty) #gps.pty 是生成在当前目录的
+
+#gpsd client
+cgps
+
+#emaneevent dump
+emaneevent-dump -i ctrl0
+
+#emane event serveice, loglevel -- INFO(3)
+emaneeventservice eventservice.xml -l 3
+#Run with realtime priority and SCHED_RR.  Must  have  superuser privileged.
+sudo emaneeventservice eventservice.xml -l 3 -r
+
+
+#core source_code Scenario file
+code ~/core/gui/data/xmls/
+code ~/core/gui/configs/
+#core source_code config file
+code ~/core/daemon/data/
+
+#core Scenario file
+code ~/.coregui/xmls/
+code ~/.core/configs/
+#core config file
+code /etc/core
+
+#set mytools link
+sudo ln -s ~/core/mytools/mygps /usr/bin/
+sudo ln -s ~/core/mytools/mytcpdump /usr/bin/
+
+#emane shell cmd
+get config nems phy txpower
+set config nems phy txpower=100
+
+get config nems phy fixedantennagain
+set config nems phy fixedantennagai=10

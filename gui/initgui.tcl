@@ -357,8 +357,8 @@ bind . <Control-j> selectAdjacent
 .menubar.edit add command -label "查询..." -underline 0 -accelerator "Ctrl+F" \
     -command popupFind
 bind . <Control-f> popupFind
-.menubar.edit add command -label " 清除标记" -command clearMarker
-.menubar.edit add command -label "参考..." -command popupPrefs
+.menubar.edit add command -label "清除标记" -command clearMarker
+.menubar.edit add command -label "首选项..." -command popupPrefs
 
 #
 # Canvas

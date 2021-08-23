@@ -30,6 +30,29 @@ Example coresendmsg invocations:
   coresendmsg file flags=add node=2 name="test.log" source_name="./test.log"  
 		move a test.log file from host to node 2
 
+~/core/daemon/core/emulator/enumerations.py
+class EventTypes(Enum):
+    NONE = 0
+    DEFINITION_STATE = 1
+    CONFIGURATION_STATE = 2
+    INSTANTIATION_STATE = 3
+    RUNTIME_STATE = 4
+    DATACOLLECT_STATE = 5
+    SHUTDOWN_STATE = 6
+    START = 7
+    STOP = 8
+    PAUSE = 9
+    RESTART = 10
+    FILE_OPEN = 11
+    FILE_SAVE = 12
+    SCHEDULED = 13
+    RECONFIGURE = 14
+    INSTANTIATION_COMPLETE = 15
+
+coresendmsg event type=9 name="mobility:ns2script" node=5 
+#控制节点n5的云对应的节点子网移动性暂停， type 属于 {7,8,9,10,14}
+name还可以为 "service:XXX,XXX,XXX" 或 "mobility:XXX,XXXX,XXX"
+
 
 coresendmsg -h  
 Usage: coresendmsg [options] [message-type] [flags] [message-TLVs]

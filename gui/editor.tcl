@@ -4089,7 +4089,7 @@ proc configRemoteServers {} {
     wm transient $wi .
     wm resizable $wi 0 0
     # wm title $wi "CORE emulation servers"swy
-	wm title $wi "CORE 服务配置 "
+	wm title $wi "分布式服务器件配置 "
 
 
     set last_server_selected -1
