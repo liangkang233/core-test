@@ -127,8 +127,9 @@ class EmaneNet(CoreNetworkBase):
         node = iface.node
         x, y, z = node.getposition()
         lat, lon, alt = self.session.location.getgeo(x, y, z)
-        if node.position.alt is not None:
-            alt = node.position.alt
+        # if node.position.alt is not None:
+        #     alt = node.position.alt        
+        #logging.info("lon lat alt(%f %f %f)", lon, lat, alt) #使得高度能够动态随z变化
         node.position.set_geo(lon, lat, alt)
         # altitude must be an integer or warning is printed
         alt = int(round(alt))

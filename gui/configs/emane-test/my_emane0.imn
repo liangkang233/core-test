@@ -86,7 +86,7 @@ node n5 {
 	custom-config-id ns2script
 	custom-command {10 3 11 10 10 10 10 10}
 	config {
-	file=/home/lk233/.core/configs/emane-demo/my_emane0.scen
+	file=/home/lk233/.core/configs/configuration/myemane0.scen
 	refresh_ms=50
 	loop=1
 	autostart=1

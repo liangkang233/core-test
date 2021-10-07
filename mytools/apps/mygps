@@ -1,0 +1,24 @@
+#!/bin/bash
+# 清除之前的gps进程
+rm -rf  gps.pty ./emane_gpsd
+killall -q gpsd emaneeventd
+
+# emaneeventd $HOME/core/mytools/emane_server_test/emane_gpsd/eventdaemon.xml \
+# -r -d -l 3 -f $HOME/core/mytools/emane_server_test/emane_gpsd/emaneeventd.log
+
+cp -r $HOME/core/mytools/emane_server_test/emane_gpsd ./
+
+# 取出 nem id 默认使用第1个id调用emane事件
+id=$(emanesh localhost show | awk 'NR==1{print $2}')
+sed -i "/nemid=\"/ s|[0-9]\+|$id|g" ./emane_gpsd/eventdaemon.xml
+
+emaneeventd ./emane_gpsd/eventdaemon.xml -r -d -l 3 -f ./emane_gpsd/emaneeventd.log
+
+sleep 0.1 # 等待gps.pty生成
+gpsd -G -n -b $(cat gps.pty)
+
+if [ $? == 0 ]; then
+    echo "gpsdaemon 运行成功, 请运行 'cgps' 监视节点gps坐标"
+else 
+    echo "mygps运行出错，请检查是否虚拟容器终端运行"
+fi

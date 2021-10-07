@@ -1,0 +1,116 @@
+<emane-tdma-schedule >
+  <structure frames='4' slots='10' slotoverhead='0' slotduration='1000' bandwidth='1M'/>
+  <multiframe frequency='2.4G' power='0' class='0' datarate='1M'>
+    <frame index='0'>
+      <slot index='0,5' nodes='1'>
+        <tx/>
+      </slot>
+      <slot index='1,6' nodes='2'>
+        <tx/>
+      </slot>
+      <slot index='2,7' nodes='3'>
+        <tx/>
+      </slot>
+      <slot index='3,8' nodes='4'>
+        <tx power='30'/>
+      </slot>
+      <slot index='4,9' nodes='5'>
+        <tx/>
+      </slot>
+    </frame>
+    <frame index='1' datarate='11M'>
+      <slot index='0:4' nodes='1'>
+        <tx/>
+      </slot>
+      <slot index='5' nodes='2'>
+        <tx/>
+      </slot>
+      <slot index='6' nodes='3'>
+        <tx/>
+      </slot>
+      <slot index='7' nodes='4'>
+        <tx/>
+      </slot>
+      <slot index='8' nodes='5'>
+        <tx destination='2'/>
+      </slot>
+    </frame>
+    <frame index='2'>
+      <slot index='0:9' nodes='1'>
+        <tx frequency='2G' class='3'/>
+      </slot>
+      <slot index='0:9' nodes='2:10'>
+        <rx frequency='2G'/>
+      </slot>
+    </frame>
+  </multiframe>
+</emane-tdma-schedule>
+
+!注意上述记录的nodes标号非core中节点主机或id号，而是nem节点号
+
+Sending a TDMA Schedule
+A TDMA schedule is sent to a TDMA model instance using a TDMA Schedule event. The emaneevent-tdmaschedule script can be used to process a TDMA Schedule XML file. A schedule event is sent to each NEM referenced in the schedule XML. Each event contains only schedule information for the recipient NEM.
+
+[me@host ~]$# emaneevent-tdmaschedule schedule-sample.xml -i lo
+Verifying TDMA Schedule
+TDMA model instances contain statistics to indicate the number of full and update schedules accepted and rejected.
+
+[me@host ~]$ emanesh localhost get stat 1 mac | grep scheduler
+nem 1   mac  scheduler.scheduleAcceptFull = 4
+nem 1   mac  scheduler.scheduleAcceptUpdate = 0
+nem 1   mac  scheduler.scheduleRejectFrameIndexRange = 0
+nem 1   mac  scheduler.scheduleRejectSlotIndexRange = 0
+nem 1   mac  scheduler.scheduleRejectUpdateBeforeFull = 0
+TDMA model instances maintain a schedule and structure table that indicates the current schedule and slot structure.
+
+[me@host ~]$ emanesh localhost get table 1 mac scheduler.ScheduleInfoTable scheduler.StructureInfoTable 
+nem 1   mac scheduler.ScheduleInfoTable
+| Index | Frame | Slot | Type | Frequency  | Data Rate | Power | Class | Destination |
+| 0     | 0     | 0    | TX   | 2400000000 | 1000000   | 0.0   | 0     | 0           |
+| 1     | 0     | 1    | RX   | 2400000000 |           |       |       |             |
+| 2     | 0     | 2    | RX   | 2400000000 |           |       |       |             |
+| 3     | 0     | 3    | RX   | 2400000000 |           |       |       |             |
+| 4     | 0     | 4    | RX   | 2400000000 |           |       |       |             |
+| 5     | 0     | 5    | TX   | 2400000000 | 1000000   | 0.0   | 0     | 0           |
+| 6     | 0     | 6    | RX   | 2400000000 |           |       |       |             |
+| 7     | 0     | 7    | RX   | 2400000000 |           |       |       |             |
+| 8     | 0     | 8    | RX   | 2400000000 |           |       |       |             |
+| 9     | 0     | 9    | RX   | 2400000000 |           |       |       |             |
+| 10    | 1     | 0    | TX   | 2400000000 | 11000000  | 0.0   | 0     | 0           |
+| 11    | 1     | 1    | TX   | 2400000000 | 11000000  | 0.0   | 0     | 0           |
+| 12    | 1     | 2    | TX   | 2400000000 | 11000000  | 0.0   | 0     | 0           |
+| 13    | 1     | 3    | TX   | 2400000000 | 11000000  | 0.0   | 0     | 0           |
+| 14    | 1     | 4    | TX   | 2400000000 | 11000000  | 0.0   | 0     | 0           |
+| 15    | 1     | 5    | RX   | 2400000000 |           |       |       |             |
+| 16    | 1     | 6    | RX   | 2400000000 |           |       |       |             |
+| 17    | 1     | 7    | RX   | 2400000000 |           |       |       |             |
+| 18    | 1     | 8    | RX   | 2400000000 |           |       |       |             |
+| 19    | 1     | 9    | RX   | 2400000000 |           |       |       |             |
+| 20    | 2     | 0    | TX   | 2000000000 | 1000000   | 0.0   | 3     | 0           |
+| 21    | 2     | 1    | TX   | 2000000000 | 1000000   | 0.0   | 3     | 0           |
+| 22    | 2     | 2    | TX   | 2000000000 | 1000000   | 0.0   | 3     | 0           |
+| 23    | 2     | 3    | TX   | 2000000000 | 1000000   | 0.0   | 3     | 0           |
+| 24    | 2     | 4    | TX   | 2000000000 | 1000000   | 0.0   | 3     | 0           |
+| 25    | 2     | 5    | TX   | 2000000000 | 1000000   | 0.0   | 3     | 0           |
+| 26    | 2     | 6    | TX   | 2000000000 | 1000000   | 0.0   | 3     | 0           |
+| 27    | 2     | 7    | TX   | 2000000000 | 1000000   | 0.0   | 3     | 0           |
+| 28    | 2     | 8    | TX   | 2000000000 | 1000000   | 0.0   | 3     | 0           |
+| 29    | 2     | 9    | TX   | 2000000000 | 1000000   | 0.0   | 3     | 0           |
+| 30    | 3     | 0    | IDLE |            |           |       |       |             |
+| 31    | 3     | 1    | IDLE |            |           |       |       |             |
+| 32    | 3     | 2    | IDLE |            |           |       |       |             |
+| 33    | 3     | 3    | IDLE |            |           |       |       |             |
+| 34    | 3     | 4    | IDLE |            |           |       |       |             |
+| 35    | 3     | 5    | IDLE |            |           |       |       |             |
+| 36    | 3     | 6    | IDLE |            |           |       |       |             |
+| 37    | 3     | 7    | IDLE |            |           |       |       |             |
+| 38    | 3     | 8    | IDLE |            |           |       |       |             |
+| 39    | 3     | 9    | IDLE |            |           |       |       |             |
+
+nem 1   mac scheduler.StructureInfoTable
+| Name         | Value   |
+| bandwidth    | 1000000 |
+| frames       | 4       |
+| slotduration | 1000    |
+| slotoverhead | 0       |
+| slots        | 10      |

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# tdma相关
+id=$(emanesh localhost show | awk 'NR==1{print $2}') # may need to show nemid
+emanesh localhost get stat $id mac | grep scheduler #获取TDMA模型实例统计信息，显示接受和拒绝的完整调度表和更新调度表的数量。
+echo ""
+emanesh localhost get table $id mac scheduler.ScheduleInfoTable scheduler.StructureInfoTable  #帧时隙结构及信息表
+    

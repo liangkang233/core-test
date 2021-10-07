@@ -62,6 +62,7 @@ __pycache__
 # ignore log
 test.log*
 emaneeventd.log
+Schedule_update.log
 
 # ignore tools
 mytools/fetch1

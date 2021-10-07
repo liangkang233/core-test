@@ -1,0 +1,39 @@
+<emane-tdma-schedule >
+  <structure frames='1' slots='32' slotoverhead='40' slotduration='10000' bandwidth='1M'/>
+  <multiframe frequency='2.347G' power='10' class='0' datarate='10M'>
+    <frame index='0'>
+      <slot index='0,16' nodes='1'>
+      </slot>
+      <slot index='1,17' nodes='2'>
+      </slot>
+      <slot index='2,18' nodes='3'>
+      </slot>
+      <slot index='3,19' nodes='4'>
+      </slot>
+      <slot index='4,20' nodes='5'>
+      </slot>
+      <slot index='5,21' nodes='6'>
+      </slot>
+      <slot index='6,22' nodes='7'>
+      </slot>
+      <slot index='7,23' nodes='8'>
+      </slot>
+      <slot index='8,24' nodes='9'>
+      </slot>
+      <slot index='9,25' nodes='10'>
+      </slot>
+      <slot index='10,26' nodes='11'>
+      </slot>
+      <slot index='11,27' nodes='12'>
+      </slot>
+      <slot index='12,28' nodes='13'>
+      </slot>
+      <slot index='13,29' nodes='14'>
+      </slot>
+      <slot index='14,30' nodes='15'>
+      </slot>
+      <slot index='15,31' nodes='16'>
+      </slot>
+    </frame>
+  </multiframe>
+</emane-tdma-schedule>

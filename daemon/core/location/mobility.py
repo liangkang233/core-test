@@ -676,19 +676,35 @@ class WayPointMobility(WirelessModel):
             return True
 
         # linear speed value
-        alpha = math.atan2(y2 - y1, x2 - x1)
-        sx = speed * math.cos(alpha)
-        sy = speed * math.sin(alpha)
+        # alpha = math.atan2(y2 - y1, x2 - x1)
+        # sx = speed * math.cos(alpha)
+        # sy = speed * math.sin(alpha)
+
+        #by@luokui
+        #两点间的平面距离
+        planedis = math.sqrt(math.pow(y2-y1, 2) + math.pow(x2-x1, 2))
+ 
+        #垂直速度
+        alpha1 = math.atan2(planedis, z2 - z1)
+        sz = speed * math.cos(alpha1)
+
+        speedxy = speed * math.sin(alpha1)
+        alpha2 = math.atan2(y2 - y1, x2 - x1)
+        sx = speedxy * math.cos(alpha2)
+        sy = speedxy * math.sin(alpha2)
 
         # calculate dt * speed = distance moved
         dx = sx * dt
         dy = sy * dt
+        dz = sz * dt
         # prevent overshoot
         if abs(dx) > abs(x2 - x1):
             dx = x2 - x1
         if abs(dy) > abs(y2 - y1):
             dy = y2 - y1
-        if dx == 0.0 and dy == 0.0:
+        if abs(dz) > abs(z2 - z1):
+            dz = z2 - z1
+        if dx == 0.0 and dy == 0.0 and dz == 0.0:
             if self.endtime < (self.lasttime - self.timezero):
                 # the last node to reach the last waypoint determines this
                 # script's endtime
@@ -699,7 +715,11 @@ class WayPointMobility(WirelessModel):
             dx = 0.0 - x1
         if (y1 + dy) < 0.0:
             dy = 0.0 - y1
-        self.setnodeposition(node, x1 + dx, y1 + dy, z1)
+        if (z1 + dz) < 0.0:
+            dz = 0.0 - z1    
+        self.setnodeposition(node, x1 + dx, y1 + dy, z1 + dz)
+        # logging.info("test x: %f, y: %f, z: %f", x1 + dx, y1 + dy, z1 + dz)
+        # self.setnodeposition(node, x1 + dx, y1 + dy, z2)
         return True
 
     def movenodesinitial(self) -> None:
@@ -950,7 +970,9 @@ class Ns2ScriptedMobility(WayPointMobility):
         Read in mobility script from a file. This adds waypoints to a
         priority queue, sorted by waypoint time. Initial waypoints are
         stored in a separate dict.
-
+        
+        修改移动性解析：ns2脚本兼容可输入z或不输入z，z不设置则默认设为0
+        
         :return: nothing
         """
         filename = self.findfile(self.file)
@@ -971,27 +993,37 @@ class Ns2ScriptedMobility(WayPointMobility):
                 continue
             try:
                 if line[:8] == "$ns_ at ":
+                    # 兼容1 读完xy后直接读到 移动点坐标行 则存入该xy
                     if ix is not None and iy is not None:
-                        self.addinitial(self.map(inodenum), ix, iy, iz)
+                        self.addinitial(self.map(inodenum), ix, iy, 0)
                         ix = iy = iz = None
                     # waypoints:
                     #    $ns_ at 1.00 "$node_(6) setdest 500.0 178.0 25.0"
+                    #    $ns_ at 1.00 "$node_(6) setdest 500.0 178.0 1.0 25.0"
                     parts = line.split()
                     time = float(parts[2])
                     nodenum = parts[3][1 + parts[3].index("(") : parts[3].index(")")]
                     x = float(parts[5])
                     y = float(parts[6])
-                    z = None
-                    speed = float(parts[7].strip('"'))
+                    # by@luokui 获取高度
+                    if parts[7][-1] != '"':
+                        z = float(parts[7])
+                        speed = float(parts[8].strip('"'))
+                    else:
+                        z = 0
+                        speed = float(parts[7].strip('"'))
                     self.addwaypoint(time, self.map(nodenum), x, y, z, speed)
                 elif line[:7] == "$node_(":
                     # initial position (time=0, speed=0):
                     #    $node_(6) set X_ 780.0
+                    #    $node_(6) set Y_ 100.0
+                    #    $node_(6) set Z_ 0.0
                     parts = line.split()
                     nodenum = parts[0][1 + parts[0].index("(") : parts[0].index(")")]
                     if parts[2] == "X_":
+                        # 兼容2 读完xy后读到新的x
                         if ix is not None and iy is not None:
-                            self.addinitial(self.map(inodenum), ix, iy, iz)
+                            self.addinitial(self.map(inodenum), ix, iy, 0)
                             ix = iy = iz = None
                         ix = float(parts[3])
                     elif parts[2] == "Y_":
@@ -1008,8 +1040,9 @@ class Ns2ScriptedMobility(WayPointMobility):
                     "skipping line %d of file %s '%s'", ln, self.file, line
                 )
                 continue
+        # 兼容3，读完文件有未存入的xy
         if ix is not None and iy is not None:
-            self.addinitial(self.map(inodenum), ix, iy, iz)
+            self.addinitial(self.map(inodenum), ix, iy, 0)
 
     def findfile(self, file_name: str) -> str:
         """

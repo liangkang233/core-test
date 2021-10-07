@@ -48,11 +48,16 @@ declare -A Mymap
 
 # 读取参数
 if [ $# == 0 ]; then
-  echo -e "The required parameters are imn scenario name and node name\n\
-When \$3 is CMD, \$4 is the command to execute...
-Otherwise, \$3 indicates the NIC ID and \$4 indicates the packet capture protocol (optional).\n\
-!! default: nodename=n1, interface=$interface, protocol=$protocol(options) !!
-sense file: echo $imnPwd$scene.imn"
+  echo "!! using default parameter: nodename=n$nodeId, interface=$interface, protocol=$protocol(options) !!"
+  echo "sense file: $imnPwd$scene.imn"
+elif [ $1 == -h ] || [ $1 == -H ]; then 
+  echo "Input parameters: \$1-> imn scenario name \$2->node name"
+  echo "When \$3 is CMD, \$4 is the command to execute..."
+  echo "Otherwise, \$3 indicates the NIC ID and \$4 indicates the packet capture protocol (optional)."
+  echo "Example coresendmsg invocations:"
+  echo "  mytcpdump sample1 n1 eth0 udp"
+  echo "  mytcpdump /mytest/iperf3-test n2 cmd \"ip roucodete\""
+  exit 0
 else
   scene=$1
   file=$(echo $imnPwd$scene.imn)
@@ -71,7 +76,7 @@ fi
 
 if [ "$3" == "cmd" ] ; then
   ApiCall $nodeId "$4"
-elif [ $# -ge 3 ] || [ $# == 0 ];  then
+elif [ $# -ge 3 ] || [ $# == 0 ];  then #ge 是大于等于
   cmd=$(echo tcpdump $protocol -i $interface -l)
   # $cmd不加双引号会自动以空格为分割符号传参
   ApiCall $nodeId "$cmd"

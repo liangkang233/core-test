@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<manifest>
+  <plugin name="tdmaeventschedulerradiomodel">
+    <configuration>
+      <parameter name="enablepromiscuousmode" default="yes" required="no" modifiable="yes">
+        <numeric minValue="false" maxValue="true" type="bool">
+          <values minOccurs="1" maxOccurs="1">
+            <value>false</value>
+          </values>
+          <description>Defines whether promiscuous mode is enabled or not. If promiscuous mode is enabled, all received packets (intended for the given node or not) that pass the probability of reception check are sent upstream to the transport.</description>
+        </numeric>
+      </parameter>
+      <parameter name="flowcontrolenable" default="yes" required="no" modifiable="no">
+        <numeric minValue="false" maxValue="true" type="bool">
+          <values minOccurs="1" maxOccurs="1">
+            <value>false</value>
+          </values>
+          <description>Defines whether flow control is enabled. Flow control only works with the virtual transport and the setting must match the setting within the virtual transport configuration.</description>
+        </numeric>
+      </parameter>
+      <parameter name="flowcontroltokens" default="yes" required="no" modifiable="no">
+        <numeric minValue="0" maxValue="65535" type="uint16">
+          <values minOccurs="1" maxOccurs="1">
+            <value>10</value>
+          </values>
+          <description>Defines the maximum number of flow control tokens (packet transmission units) that can be processed from the virtual transport without being refreshed. The number of available tokens at any given time is coordinated with the virtual transport and when the token count reaches zero, no further packets are transmitted causing application socket queues to backup.</description>
+        </numeric>
+      </parameter>
+      <parameter name="fragmentcheckthreshold" default="yes" required="no" modifiable="no">
+        <numeric minValue="0" maxValue="65535" type="uint16">
+          <values minOccurs="1" maxOccurs="1">
+            <value>2</value>
+          </values>
+          <description>Defines the rate in seconds a check is performed to see if any packet fragment reassembly efforts should be abandoned.</description>
+        </numeric>
+      </parameter>
+      <parameter name="fragmenttimeoutthreshold" default="yes" required="no" modifiable="no">
+        <numeric minValue="0" maxValue="65535" type="uint16">
+          <values minOccurs="1" maxOccurs="1">
+            <value>5</value>
+          </values>
+          <description>Defines the threshold in seconds to wait for another packet fragment for an existing reassembly effort before abandoning the effort.</description>
+        </numeric>
+      </parameter>
+      <parameter name="neighbormetricdeletetime" default="yes" required="no" modifiable="yes">
+        <numeric minValue="1.000000" maxValue="3660.000000" type="float">
+          <values minOccurs="1" maxOccurs="1">
+            <value>60.000000</value>
+          </values>
+          <description>Defines the time in seconds of no RF receptions from a given neighbor before it is removed from the neighbor table.</description>
+        </numeric>
+      </parameter>
+      <parameter name="neighbormetricupdateinterval" default="yes" required="no" modifiable="no">
+        <numeric minValue="0.100000" maxValue="60.000000" type="float">
+          <values minOccurs="1" maxOccurs="1">
+            <value>1.000000</value>
+          </values>
+          <description>Defines the neighbor table update interval in seconds.</description>
+        </numeric>
+      </parameter>
+      <parameter name="pcrcurveuri" default="no" required="yes" modifiable="no">
+        <nonnumeric type="string">
+          <values minOccurs="1" maxOccurs="1"/>
+          <description>Defines the URI of the Packet Completion Rate (PCR) curve file. The PCR curve file contains probability of reception curves as a function of Signal to Interference plus Noise Ratio (SINR).</description>
+        </nonnumeric>
+      </parameter>
+      <parameter name="queue.aggregationenable" default="yes" required="no" modifiable="no">
+        <numeric minValue="false" maxValue="true" type="bool">
+          <values minOccurs="1" maxOccurs="1">
+            <value>true</value>
+          </values>
+          <description>Defines whether packet aggregation is enabled for transmission. When enabled, multiple packets can be sent in the same transmission when there is additional room within the slot.</description>
+        </numeric>
+      </parameter>
+      <parameter name="queue.aggregationslotthreshold" default="yes" required="no" modifiable="no">
+        <numeric minValue="0.000000" maxValue="100.000000" type="double">
+          <values minOccurs="1" maxOccurs="1">
+            <value>90.000000</value>
+          </values>
+          <description>Defines the percentage of a slot that must be filled in order to conclude aggregation when queue.aggregationenable is enabled.</description>
+        </numeric>
+      </parameter>
+      <parameter name="queue.depth" default="yes" required="no" modifiable="no">
+        <numeric minValue="0" maxValue="65535" type="uint16">
+          <values minOccurs="1" maxOccurs="1">
+            <value>256</value>
+          </values>
+          <description>Defines the size of the per service class downstream packet queues (in packets). Each of the 5 queues (control + 4 service classes) will be 'queuedepth' size.</description>
+        </numeric>
+      </parameter>
+      <parameter name="queue.fragmentationenable" default="yes" required="no" modifiable="no">
+        <numeric minValue="false" maxValue="true" type="bool">
+          <values minOccurs="1" maxOccurs="1">
+            <value>true</value>
+          </values>
+          <description>Defines whether packet fragmentation is enabled. When enabled, a single packet will be fragmented into multiple message components to be sent over multiple transmissions when the slot is too small.  When disabled and the packet matches the traffic class for the transmit slot as defined in the TDMA schedule, the packet will be discarded.</description>
+        </numeric>
+      </parameter>
+      <parameter name="queue.strictdequeueenable" default="yes" required="no" modifiable="no">
+        <numeric minValue="false" maxValue="true" type="bool">
+          <values minOccurs="1" maxOccurs="1">
+            <value>false</value>
+          </values>
+          <description>Defines whether packets will be dequeued from a queue other than what has been specified when there are no eligible packets for dequeue in the specified queue. Queues are dequeued highest priority first.</description>
+        </numeric>
+      </parameter>
+    </configuration>
+    <statistics>
+      <element name="avgProcessAPIQueueDepth" type="double" clearable="yes">
+        <description>Average API queue depth for a processUpstreamPacket, processUpstreamControl, processDownstreamPacket, processDownstreamControl, processEvent and processTimedEvent.</description>
+      </element>
+      <element name="avgProcessAPIQueueWait" type="double" clearable="yes">
+        <description>Average API queue wait for a processUpstreamPacket, processUpstreamControl, processDownstreamPacket, processDownstreamControl, processEvent and processTimedEvent in microseconds.</description>
+      </element>
+      <element name="avgTimedEventLatency" type="double" clearable="yes"/>
+      <element name="avgTimedEventLatencyRatio" type="double" clearable="yes">
+        <description>Average ratio of the delta between the scheduled timer expiration and the actual firing over the requested duration. An average ratio approaching 1 indicates that timer latencies are large in comparison to the requested durations.</description>
+      </element>
+      <element name="highWaterMarkQueue0" type="uint64" clearable="yes">
+        <description>High water mark queue 0</description>
+      </element>
+      <element name="highWaterMarkQueue1" type="uint64" clearable="yes">
+        <description>High water mark queue 1</description>
+      </element>
+      <element name="highWaterMarkQueue2" type="uint64" clearable="yes">
+        <description>High water mark queue 2</description>
+      </element>
+      <element name="highWaterMarkQueue3" type="uint64" clearable="yes">
+        <description>High water mark queue 3</description>
+      </element>
+      <element name="highWaterMarkQueue4" type="uint64" clearable="yes">
+        <description>High water mark queue 4</description>
+      </element>
+      <element name="numRxSlotErrorMissed" type="uint64" clearable="no">
+        <description>Number of Rx slot missed errors.</description>
+      </element>
+      <element name="numRxSlotErrorRxDuringIdle" type="uint64" clearable="no">
+        <description>Number of Rx slot rx during idle errors.</description>
+      </element>
+      <element name="numRxSlotErrorRxDuringTx" type="uint64" clearable="no">
+        <description>Number of Rx slot during tx errors.</description>
+      </element>
+      <element name="numRxSlotErrorRxLock" type="uint64" clearable="no">
+        <description>Number of Rx slot rx lock errors.</description>
+      </element>
+      <element name="numRxSlotErrorRxTooLong" type="uint64" clearable="no">
+        <description>Number of Rx slot rx too long errors.</description>
+      </element>
+      <element name="numRxSlotErrorRxWrongFrequency" type="uint64" clearable="no">
+        <description>Number of Rx slot rx wrong frequency errors.</description>
+      </element>
+      <element name="numRxSlotValid" type="uint64" clearable="no">
+        <description>Number of valid Rx slots</description>
+      </element>
+      <element name="numTxSlotErrorMissed" type="uint64" clearable="no">
+        <description>Number of Tx slot missed errors.</description>
+      </element>
+      <element name="numTxSlotErrorTooBig" type="uint64" clearable="no">
+        <description>Number of Tx slot too big errors.</description>
+      </element>
+      <element name="numTxSlotValid" type="uint64" clearable="no">
+        <description>Number of valid Tx slots</description>
+      </element>
+      <element name="processedConfiguration" type="uint64" clearable="yes"/>
+      <element name="processedDownstreamControl" type="uint64" clearable="yes"/>
+      <element name="processedDownstreamPackets" type="uint64" clearable="yes"/>
+      <element name="processedEvents" type="uint64" clearable="yes"/>
+      <element name="processedTimedEvents" type="uint64" clearable="yes"/>
+      <element name="processedUpstreamControl" type="uint64" clearable="yes"/>
+      <element name="processedUpstreamPackets" type="uint64" clearable="yes"/>
+      <element name="scheduler.scheduleAcceptFull" type="uint64" clearable="yes">
+        <description>Number of full schedules accepted.</description>
+      </element>
+      <element name="scheduler.scheduleAcceptUpdate" type="uint64" clearable="yes">
+        <description>Number of update schedules accepted.</description>
+      </element>
+      <element name="scheduler.scheduleRejectFrameIndexRange" type="uint64" clearable="yes">
+        <description>Number of schedules rejected due to out of range frame index.</description>
+      </element>
+      <element name="scheduler.scheduleRejectOther" type="uint64" clearable="yes">
+        <description>Number of schedules rejected due to other reasons.</description>
+      </element>
+      <element name="scheduler.scheduleRejectSlotIndexRange" type="uint64" clearable="yes">
+        <description>Number of schedules rejected due to out of range slot index.</description>
+      </element>
+      <element name="scheduler.scheduleRejectUpdateBeforeFull" type="uint64" clearable="yes">
+        <description>Number of schedules rejected due to an update before full schedule.</description>
+      </element>
+    </statistics>
+    <statistictables>
+      <table name="BroadcastByteAcceptTable0" clearable="yes">
+        <description>Broadcast bytes accepted</description>
+      </table>
+      <table name="BroadcastByteAcceptTable1" clearable="yes">
+        <description>Broadcast bytes accepted</description>
+      </table>
+      <table name="BroadcastByteAcceptTable2" clearable="yes">
+        <description>Broadcast bytes accepted</description>
+      </table>
+      <table name="BroadcastByteAcceptTable3" clearable="yes">
+        <description>Broadcast bytes accepted</description>
+      </table>
+      <table name="BroadcastByteAcceptTable4" clearable="yes">
+        <description>Broadcast bytes accepted</description>
+      </table>
+      <table name="BroadcastByteDropTable0" clearable="yes">
+        <description>Broadcast bytes dropped</description>
+      </table>
+      <table name="BroadcastByteDropTable1" clearable="yes">
+        <description>Broadcast bytes dropped</description>
+      </table>
+      <table name="BroadcastByteDropTable2" clearable="yes">
+        <description>Broadcast bytes dropped</description>
+      </table>
+      <table name="BroadcastByteDropTable3" clearable="yes">
+        <description>Broadcast bytes dropped</description>
+      </table>
+      <table name="BroadcastByteDropTable4" clearable="yes">
+        <description>Broadcast bytes dropped</description>
+      </table>
+      <table name="EventReceptionTable" clearable="yes">
+        <description>Received event counts</description>
+      </table>
+      <table name="NeighborMetricTable" clearable="no">
+        <description>Neighbor Metric Table</description>
+      </table>
+      <table name="NeighborStatusTable" clearable="no">
+        <description>Neighbor Status Table</description>
+      </table>
+      <table name="PacketComponentAggregationHistogram" clearable="no">
+        <description>Shows a histogram of the number of components contained in transmitted messages.</description>
+      </table>
+      <table name="QueueFragmentHistogram" clearable="no">
+        <description>Shows a per queue histogram of the number of message components required to transmit packets.</description>
+      </table>
+      <table name="QueueStatusTable" clearable="no">
+        <description>Shows for each queue the number of packets enqueued, dequeued, dropped due to queue overflow (enqueue), dropped due to too big (dequeue) and which slot classes fragments are being transmitted.</description>
+      </table>
+      <table name="RxSlotStatusTable" clearable="no">
+        <description>Shows the number of Rx slot receptions that were valid or missed based on slot timing deadlines</description>
+      </table>
+      <table name="TxSlotStatusTable" clearable="no">
+        <description>Shows the number of Tx slot opportunities that were valid or missed based on slot timing deadlines</description>
+      </table>
+      <table name="UnicastByteAcceptTable0" clearable="yes">
+        <description>Unicast bytes accepted</description>
+      </table>
+      <table name="UnicastByteAcceptTable1" clearable="yes">
+        <description>Unicast bytes accepted</description>
+      </table>
+      <table name="UnicastByteAcceptTable2" clearable="yes">
+        <description>Unicast bytes accepted</description>
+      </table>
+      <table name="UnicastByteAcceptTable3" clearable="yes">
+        <description>Unicast bytes accepted</description>
+      </table>
+      <table name="UnicastByteAcceptTable4" clearable="yes">
+        <description>Unicast bytes accepted</description>
+      </table>
+      <table name="UnicastByteDropTable0" clearable="yes">
+        <description>Unicast bytes dropped</description>
+      </table>
+      <table name="UnicastByteDropTable1" clearable="yes">
+        <description>Unicast bytes dropped</description>
+      </table>
+      <table name="UnicastByteDropTable2" clearable="yes">
+        <description>Unicast bytes dropped</description>
+      </table>
+      <table name="UnicastByteDropTable3" clearable="yes">
+        <description>Unicast bytes dropped</description>
+      </table>
+      <table name="UnicastByteDropTable4" clearable="yes">
+        <description>Unicast bytes dropped</description>
+      </table>
+      <table name="scheduler.ScheduleInfoTable" clearable="no">
+        <description>Shows the current TDMA schedule.</description>
+      </table>
+      <table name="scheduler.StructureInfoTable" clearable="no">
+        <description>Shows the current TDMA structure: slot size, slot overhead, number of slots per frame, number of frames per multiframe and transceiver bandwidth.</description>
+      </table>
+    </statistictables>
+  </plugin>
+</manifest>

@@ -5,13 +5,13 @@
 
 $node_(1) set X_ 69.0
 $node_(1) set Y_ 102.0
-$node_(1) set z_ 2.0
+$node_(1) set Z_ 12.0
 $node_(2) set X_ 105.0
 $node_(2) set Y_ 236.0
-$node_(2) set Z_ 2.00
+$node_(2) set Z_ 12.00
 $node_(3) set X_ 312.0
 $node_(3) set Y_ 60.0
-$node_(3) set Z_ 2.00
+$node_(3) set Z_ 12.00
 $ns_ at 1.00 "$node_(1) setdest 500.0 178.0 25.0"
 $ns_ at 1.00 "$node_(2) setdest 400.0 288.0 15.0"
 $ns_ at 1.00 "$node_(3) setdest 590.0 520.0 17.0"

@@ -1,0 +1,252 @@
+node n1 {
+    type router
+    model mdr
+    network-config {
+	hostname n1
+	!
+	interface eth0
+	 ipv6 address 2001:0::1/128
+	 ip address 10.0.0.1/24
+	!
+    }
+    canvas c1
+    iconcoords {780.0 228.0}
+    labelcoords {780.0 260.0}
+    interface-peer {eth0 n9}
+    services {zebra OSPFv3MDR IPForward}
+}
+
+node n2 {
+    type router
+    model mdr
+    network-config {
+	hostname n2
+	!
+	interface eth0
+	 ipv6 address 2001:0::2/128
+	 ip address 10.0.0.2/24
+	!
+    }
+    canvas c1
+    iconcoords {680.0 328.0}
+    labelcoords {680.0 360.0}
+    interface-peer {eth0 n9}
+    services {zebra OSPFv3MDR IPForward}
+}
+
+node n3 {
+    type router
+    model mdr
+    network-config {
+	hostname n3
+	!
+	interface eth0
+	 ipv6 address 2001:0::3/128
+	 ip address 10.0.0.3/24
+	!
+    }
+    canvas c1
+    iconcoords {580.0 428.0}
+    labelcoords {580.0 460.0}
+    interface-peer {eth0 n9}
+    services {zebra OSPFv3MDR IPForward}
+}
+
+node n4 {
+    type router
+    model mdr
+    network-config {
+	hostname n4
+	!
+	interface eth0
+	 ipv6 address 2001:0::4/128
+	 ip address 10.0.0.4/24
+	!
+    }
+    canvas c1
+    iconcoords {480.0 128.0}
+    labelcoords {480.0 160.0}
+    interface-peer {eth0 n9}
+    services {zebra OSPFv3MDR IPForward}
+}
+
+node n5 {
+    type router
+    model mdr
+    network-config {
+	hostname n5
+	!
+	interface eth0
+	 ipv6 address 2001:0::5/128
+	 ip address 10.0.0.5/24
+	!
+    }
+    canvas c1
+    iconcoords {380.0 231.0}
+    labelcoords {380.0 263.0}
+    interface-peer {eth0 n9}
+    services {zebra OSPFv3MDR IPForward}
+}
+
+node n6 {
+    type router
+    model mdr
+    network-config {
+	hostname n6
+	!
+	interface eth0
+	 ipv6 address 2001:0::6/128
+	 ip address 10.0.0.6/24
+	!
+    }
+    canvas c1
+    iconcoords {180.0 638.0}
+    labelcoords {180.0 670.0}
+    interface-peer {eth0 n9}
+    services {zebra OSPFv3MDR IPForward}
+}
+
+node n7 {
+    type router
+    model mdr
+    network-config {
+	hostname n7
+	!
+	interface eth0
+	 ipv6 address 2001:0::7/128
+	 ip address 10.0.0.7/24
+	!
+    }
+    canvas c1
+    iconcoords {816.0 348.0}
+    labelcoords {816.0 380.0}
+    interface-peer {eth0 n9}
+    services {zebra OSPFv3MDR IPForward}
+}
+
+node n8 {
+    type router
+    model mdr
+    network-config {
+	hostname n8
+	!
+	interface eth0
+	 ipv6 address 2001:0::8/128
+	 ip address 10.0.0.8/24
+	!
+    }
+    canvas c1
+    iconcoords {672.0 420.0}
+    labelcoords {672.0 452.0}
+    interface-peer {eth0 n9}
+    services {zebra OSPFv3MDR IPForward}
+}
+
+node n9 {
+    type wlan
+    network-config {
+	hostname wlan9
+	!
+	interface wireless
+	 ipv6 address 2001:0::0/128
+	 ip address 10.0.0.0/24
+	!
+	mobmodel
+	coreapi
+	emane_rfpipe
+	ns2script
+	!
+    }
+    custom-config {
+	custom-config-id ns2script
+	custom-command {10 3 11 10 10 10 10 10}
+	config {
+	file=/home/lk233/.core/configs/configuration/myemane_ns2.scen
+	refresh_ms=50
+	loop=1
+	autostart=
+	map=
+	script_start=
+	script_pause=
+	script_stop=
+	}
+    }
+    custom-config {
+	custom-config-id basic_range
+	custom-command {3 3 9 9 9}
+	config {
+	range=275
+	bandwidth=54000000
+	jitter=0
+	delay=20000
+	error=0
+	}
+    }
+    canvas c1
+    iconcoords {150.0 62.0}
+    labelcoords {150.0 94.0}
+    interface-peer {e0 n1}
+    interface-peer {e1 n2}
+    interface-peer {e2 n3}
+    interface-peer {e3 n4}
+    interface-peer {e4 n5}
+    interface-peer {e5 n6}
+    interface-peer {e6 n7}
+    interface-peer {e7 n8}
+}
+
+link l1 {
+    nodes {n9 n1}
+}
+
+link l2 {
+    nodes {n9 n2}
+}
+
+link l3 {
+    nodes {n9 n3}
+}
+
+link l4 {
+    nodes {n9 n4}
+}
+
+link l5 {
+    nodes {n9 n5}
+}
+
+link l6 {
+    nodes {n9 n6}
+}
+
+link l7 {
+    nodes {n9 n7}
+}
+
+link l8 {
+    nodes {n9 n8}
+}
+
+canvas c1 {
+    name {Canvas1}
+    refpt {0 0 85 -180 2.0}
+    scale {11131}
+    size {152717 129565}
+}
+
+option global {
+    interface_names no
+    ip_addresses yes
+    ipv6_addresses yes
+    node_labels yes
+    link_labels yes
+    show_api no
+    background_images no
+    annotations yes
+    grid yes
+    traffic_start 0
+}
+
+option session {
+}
+

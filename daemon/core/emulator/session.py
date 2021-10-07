@@ -1257,6 +1257,11 @@ class Session:
 
         :return: nothing
         """
+        # 关闭时隙更新程序 by@lk233
+        if self.emane.is_there_models("emane_CRradio"):
+            utils.mute_detach("killall -q Schedule_update")
+            logging.info("CRradio data_collect, killall Schedule_update")
+
         if self.state.already_collected():
             logging.info(
                 "session(%s) state(%s) already data collected", self.id, self.state

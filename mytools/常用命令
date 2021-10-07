@@ -1,40 +1,62 @@
 #! /bin/bash
 
-#gpsd daemon
-emaneeventd eventdaemon.xml -r -d -l 3 -f emaneeventd.log
-gpsd -G -n -b $(cat gps.pty) #gps.pty 是生成在当前目录的
-
-#gpsd client
-cgps
-
-#emaneevent dump
-emaneevent-dump -i ctrl0
-
-#emane event serveice, loglevel -- INFO(3)
-emaneeventservice eventservice.xml -l 3
-#Run with realtime priority and SCHED_RR.  Must  have  superuser privileged.
-sudo emaneeventservice eventservice.xml -l 3 -r
-
-
-#core source_code Scenario file
+# core 源码存放场景文件目录
 code ~/core/gui/data/xmls/
 code ~/core/gui/configs/
-#core source_code config file
+# core 源码处配置文件目录
 code ~/core/daemon/data/
 
-#core Scenario file
+# core 安装后默认场景文件夹目录
 code ~/.coregui/xmls/
 code ~/.core/configs/
-#core config file
+# core 安装后配置文件目录
 code /etc/core
 
-#set mytools link
-sudo ln -s ~/core/mytools/mygps /usr/bin/
-sudo ln -s ~/core/mytools/mytcpdump /usr/bin/
+# 虚拟环境中安装库
+cd ~/core/daemon
+poetry run pip install psutil
+# 安装常用 工具 软链接
+ToolsDir=$HOME/core/mytools/apps
+chmod 777 $ToolsDir/mygps $ToolsDir/mytcpdump $ToolsDir/myschedule_table
+sudo ln -s $ToolsDir/mygps /usr/bin/
+sudo ln -s $ToolsDir/mytcpdump /usr/bin/
+sudo ln -s $ToolsDir/myschedule_table /usr/bin
 
-#emane shell cmd
-get config nems phy txpower
-set config nems phy txpower=100
+# emane shell 常用cmd
+    # 通用
+    emanesh localhost
+    get config nems phy txpower
+    set config nems phy txpower=100
+    get config nems phy fixedantennagain
+    set config nems phy fixedantennagai=10
+# 查看nemid
+    cat /tmp/pycore*/emane_nems
 
-get config nems phy fixedantennagain
-set config nems phy fixedantennagai=10
+#读取时隙xml文件 lo为emane事件网卡（主控制网卡） 使用外部主机运行，非仿真容器
+emaneevent-tdmaschedule schedule-sample.xml -i lo 
+
+# emaneevent dump emane事件 全数据导出
+emaneevent-dump -i ctrl0
+
+# emane event serveice, loglevel -- INFO(3)
+emaneeventservice eventservice.xml -l 3
+
+# Run with realtime priority and SCHED_RR.  Must  have  superuser privileged.
+sudo emaneeventservice eventservice.xml -l 3 -r
+
+# emane 配置文件路径
+/usr/share/emane/
+
+#gps后台
+    # gpsd daemon
+    emaneeventd eventdaemon.xml -r -d -l 3 -f emaneeventd.log
+    gpsd -G -n -b $(cat gps.pty) #gps.pty 是生成在当前目录的
+    # gpsd client
+    cgps
+
+# 探查当前会话目录（会话id）
+for D in /tmp/pycore*; do
+  if [ -d "${D}" ]; then  # -d 判断是否为目录 -f 判断是否为文件
+  echo ${D}
+  fi
+done

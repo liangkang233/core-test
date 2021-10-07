@@ -1,0 +1,15 @@
+<emane-tdma-schedule >
+  <multiframe frequency='2.347G' power='10' class='0' datarate='10M'>
+    <frame index='0'>
+      <slot index='0,16,14,30' nodes='1'>
+      </slot>
+      <slot index='1,17,15,31' nodes='2'>
+      </slot>
+    </frame>
+  </multiframe>
+</emane-tdma-schedule>
+
+哪怕列表值与之前节点时隙相同，其更新次数也会增加
+列表中没有涉及的节点就不会对其进行更新
+查看节点更新次数: emanesh localhost get stat 1 mac | grep scheduler
+scheduler.scheduleAcceptUpdate = 0 #即为更新次数
