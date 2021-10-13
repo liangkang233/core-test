@@ -16,8 +16,6 @@ CRS_WGS84: int = 4326
 CRS_PROJ: int = 3857
 
 
-
-
 class GeoLocation:
     """
     Provides logic to convert x,y,z coordinates to lon,lat,alt using
@@ -132,85 +130,118 @@ class GeoLocation:
 
 def main():
     geo = GeoLocation()
-    geo.setrefgeo(85.0512,-180,0)
+    geo.setrefgeo(85.051117, -180, 0)
 
     x, y, z = geo.getxyz(0, 0, 0)
-    #print(f"px={geo.refproj[0]},py={geo.refproj[1]},alt={geo.refproj[2]}")
+    # print(f"px={geo.refproj[0]},py={geo.refproj[1]},alt={geo.refproj[2]}")
     # x = validate_xyz(x)
     # y = validate_xyz(y)
     # z = validate_xyz(z)
     print(x, y, z)
     x, y, z = geo.getgeo(x, y, z)
     print(x, y, z)
-    nodes_path = '/home/hyh/core/daemon/core/location/test.nodes' 
-    file = open(nodes_path, 'r', encoding='utf8',errors='ignore')
-    newfile_path = nodes_path[:-6] + '.ns'
-    file2 = open(newfile_path, 'w', encoding='utf8',errors='ignore')
-    
+    nodes_path = "/home/hyh/core/daemon/core/location/test.nodes"
+    file = open(nodes_path, "r", encoding="utf8", errors="ignore")
+    newfile_path = nodes_path[:-6] + ".ns"
+    file2 = open(newfile_path, "w", encoding="utf8", errors="ignore")
 
     strs = file.readlines()
-    maxnodenum = 52  #最大节点数量
-    #lastTime = [-1][0.0, 0.0, 0.0] * (maxnodenum + 1)  #前一个时间
-    #lastdata = [[-1.0, 0.0, 0.0, 0.0]] * (maxnodenum + 1)
+    maxnodenum = 52  # 最大节点数量
+    # lastTime = [-1][0.0, 0.0, 0.0] * (maxnodenum + 1)  #前一个时间
+    # lastdata = [[-1.0, 0.0, 0.0, 0.0]] * (maxnodenum + 1)
     lastdata = []
-    for i in range(maxnodenum+1):
+    for i in range(maxnodenum + 1):
         lastdata.append([])
         for j in range(4):
             lastdata[i].append(-1)
     for stri in strs:
-        str_elements = stri.split(' ')   # 以空格为分界划分元素
-        nodeid = int(str_elements[0])   # 节点号
-        
-        if str_elements[1] == '0':
+        str_elements = stri.split(" ")  # 以空格为分界划分元素
+        nodeid = int(str_elements[0])  # 节点号
+
+        if str_elements[1] == "0":
             time = 0
-            #lastTime[nodeid] = time
+            # lastTime[nodeid] = time
             lastdata[nodeid][0] = time
         else:
             time = int(str_elements[1][0:-1:1])
-            
+
             # newtime = lastTime[nodeid]
             # lastTime[nodeid] = time
             newtime = lastdata[nodeid][0]
             lastdata[nodeid][0] = time
 
-        lon = float(str_elements[2][1:-1:1])    # 经度
-        lat = float(str_elements[3][0:-1:1])    # 纬度
+        lon = float(str_elements[2][1:-1:1])  # 经度
+        lat = float(str_elements[3][0:-1:1])  # 纬度
         alt = float(str_elements[4][0:-1:1])
 
-        #print(nodeid, time, lon, lat, alt)
+        # print(nodeid, time, lon, lat, alt)
         x, y, z = geo.getxyz(lat, lon, alt)
         x = validate_xyz(x)
         y = validate_xyz(y)
         z = validate_xyz(z)
-        #print(x,y,z)
+        # print(x,y,z)
         if time == 0:
             lastdata[nodeid][1] = x
             lastdata[nodeid][2] = y
             lastdata[nodeid][3] = z
-            newstr = '$node_(' + str(nodeid) + ') set X_ ' + str(x) + '\n' + '$node_(' + str(nodeid) + ') set Y_ ' + str(y) + '\n' + '$node_(' + str(nodeid) + ') set Z_ ' + str(z) + '\n'
-            #print(newstr)
+            newstr = (
+                "$node_("
+                + str(nodeid)
+                + ") set X_ "
+                + str(x)
+                + "\n"
+                + "$node_("
+                + str(nodeid)
+                + ") set Y_ "
+                + str(y)
+                + "\n"
+                + "$node_("
+                + str(nodeid)
+                + ") set Z_ "
+                + str(z)
+                + "\n"
+            )
+            # print(newstr)
         else:
             newx = lastdata[nodeid][1]
             newy = lastdata[nodeid][2]
             newz = lastdata[nodeid][3]
-            speed = sqrt(pow(newx-x,2) + pow(newy-y,2) + pow(newz-z,2)) / (time - newtime)
+            speed = sqrt(pow(newx - x, 2) + pow(newy - y, 2) + pow(newz - z, 2)) / (
+                time - newtime
+            )
             lastdata[nodeid][1] = x
             lastdata[nodeid][2] = y
             lastdata[nodeid][3] = z
-            newstr = '$ns_ at ' + str(newtime) + ' "$node_(' + str(nodeid) + ') ' + 'setdest ' + str(x) + ' ' + str(y) + ' ' + str(z) + ' ' + str(speed) + '"\n'
-            #print(newstr)
+            newstr = (
+                "$ns_ at "
+                + str(newtime)
+                + ' "$node_('
+                + str(nodeid)
+                + ") "
+                + "setdest "
+                + str(x)
+                + " "
+                + str(y)
+                + " "
+                + str(z)
+                + " "
+                + str(speed)
+                + '"\n'
+            )
+            # print(newstr)
 
-        file2.writelines(newstr)      
+        file2.writelines(newstr)
 
     file.close()
 
     file2.close()
 
-def validate_xyz(num : float) -> float:
+
+def validate_xyz(num: float) -> float:
     if num < 0:
         return 0
     return num
-    
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

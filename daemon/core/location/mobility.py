@@ -680,11 +680,11 @@ class WayPointMobility(WirelessModel):
         # sx = speed * math.cos(alpha)
         # sy = speed * math.sin(alpha)
 
-        #by@luokui
-        #两点间的平面距离
-        planedis = math.sqrt(math.pow(y2-y1, 2) + math.pow(x2-x1, 2))
- 
-        #垂直速度
+        # by@luokui
+        # 两点间的平面距离
+        planedis = math.sqrt(math.pow(y2 - y1, 2) + math.pow(x2 - x1, 2))
+
+        # 垂直速度
         alpha1 = math.atan2(planedis, z2 - z1)
         sz = speed * math.cos(alpha1)
 
@@ -716,7 +716,7 @@ class WayPointMobility(WirelessModel):
         if (y1 + dy) < 0.0:
             dy = 0.0 - y1
         if (z1 + dz) < 0.0:
-            dz = 0.0 - z1    
+            dz = 0.0 - z1
         self.setnodeposition(node, x1 + dx, y1 + dy, z1 + dz)
         # logging.info("test x: %f, y: %f, z: %f", x1 + dx, y1 + dy, z1 + dz)
         # self.setnodeposition(node, x1 + dx, y1 + dy, z2)
@@ -970,9 +970,9 @@ class Ns2ScriptedMobility(WayPointMobility):
         Read in mobility script from a file. This adds waypoints to a
         priority queue, sorted by waypoint time. Initial waypoints are
         stored in a separate dict.
-        
+
         修改移动性解析：ns2脚本兼容可输入z或不输入z，z不设置则默认设为0
-        
+
         :return: nothing
         """
         filename = self.findfile(self.file)

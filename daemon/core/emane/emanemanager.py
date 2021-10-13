@@ -488,13 +488,13 @@ class EmaneManager(ModelManager):
             model_class = self.models[model_name]
             emane_net.setmodel(model_class, config)
 
-    def is_there_models(self, module_name : str) -> bool:
+    def is_there_models(self, module_name: str) -> bool:
         """
         查找当前仿真会话是否存在对应emane模型,存在返回true  by@lk233
         """
         for node_id in self._emane_nets:
-            emane_net = self._emane_nets[node_id]   #emane_net就是无线子网节点
-            if emane_net.model.name == module_name :
+            emane_net = self._emane_nets[node_id]  # emane_net就是无线子网节点
+            if emane_net.model.name == module_name:
                 # logging.info("LK233 checking emane model for node: %s", emane_net.model.name)
                 return True
         return False
