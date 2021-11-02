@@ -1757,6 +1757,14 @@ class CoreHandler(socketserver.BaseRequestHandler):
             return (self.session_message(),)
         else:
             # handle ADD or DEL flags
+
+            # lk233 当number不指定且flag包含delete则停止全部会话，不指定某个session
+            if message.flags & MessageFlags.DELETE.value and session_id_str is None:
+            # if message.flags & MessageFlags.DELETE.value :
+                logging.info("shutdown all session bye,bye")
+                self.coreemu.shutdown()
+                return ()
+
             for session_id in session_ids:
                 session_id = int(session_id)
                 session = self.coreemu.sessions.get(session_id)

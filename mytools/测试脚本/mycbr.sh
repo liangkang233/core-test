@@ -38,6 +38,7 @@ do
     index=$i-17
     # cmd="mytcpdump mytest/iperf3-test n$i cmd \"iperf3  -c ${ipaddr[$index]} $* --logfile ../myiperf3log/myiperf3_c$i &\""
     # echo $cmd;
-    mytcpdump mytest/iperf3-test n$i cmd "iperf3  -c ${ipaddr[$index]} $* --logfile ../myiperf3log/myiperf3_c$i &"
+    # mytcpdump mytest/iperf3-test n$i cmd "iperf3  -c ${ipaddr[$index]} $* --logfile ../myiperf3log/myiperf3_c$i &"
+    coresendmsg execute node=$i number=1001 command="iperf3  -c ${ipaddr[$index]} $* --logfile ../myiperf3log/myiperf3_c$i &"
 done
 

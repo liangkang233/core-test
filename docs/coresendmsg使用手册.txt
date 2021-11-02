@@ -53,6 +53,8 @@ coresendmsg event type=9 name="mobility:ns2script" node=5
 #控制节点n5的云对应的节点子网移动性暂停， type 属于 {7,8,9,10,14}
 name还可以为 "service:XXX,XXX,XXX" 或 "mobility:XXX,XXXX,XXX"
 
+添加一行命令，当使用如下命令删除全部会话 (后面name参数随便填入，只是为了跳过长度的检测)
+coresendmsg session flags=delete name="all"
 
 coresendmsg -h  
 Usage: coresendmsg [options] [message-type] [flags] [message-TLVs]
