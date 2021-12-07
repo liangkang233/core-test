@@ -11,7 +11,7 @@ from core.nodes.base import CoreNode
 from core.nodes.interface import DEFAULT_MTU, CoreInterface
 from core.nodes.network import PtpNet, WlanNode
 from core.nodes.physical import Rj45Node
-from core.services.coreservices import CoreService, ServiceMode
+from core.services.coreservices import CoreService
 
 QUAGGA_STATE_DIR: str = "/var/run/quagga"
 

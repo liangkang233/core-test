@@ -60,3 +60,9 @@ for D in /tmp/pycore*; do
   echo ${D}
   fi
 done
+
+# 代码检测筛查
+cd daemon
+poetry shell
+poetry run black --check .
+poetry run flake8
