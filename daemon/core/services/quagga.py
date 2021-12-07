@@ -11,7 +11,7 @@ from core.nodes.base import CoreNode
 from core.nodes.interface import DEFAULT_MTU, CoreInterface
 from core.nodes.network import PtpNet, WlanNode
 from core.nodes.physical import Rj45Node
-from core.services.coreservices import CoreService
+from core.services.coreservices import CoreService, ServiceMode
 
 QUAGGA_STATE_DIR: str = "/var/run/quagga"
 
@@ -427,6 +427,8 @@ class Ospfv3mdr(Ospfv3):
 
     name: str = "OSPFv3MDR"
     ipv4_routing: bool = True
+    # validation_mode: ServiceMode = ServiceMode.TIMER
+    # validation_timer: float = 1.2
 
     @classmethod
     def generate_quagga_iface_config(cls, node: CoreNode, iface: CoreInterface) -> str:

@@ -1,0 +1,880 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario name="/tmp/tmpyfl0zbfd">
+  <networks>
+    <network id="28" name="emane28" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="1074.96435546875" y="194.82411193847656" lat="47.57904835322907" lon="-122.13135856183958" alt="2.0"/>
+    </network>
+    <network id="29" name="emane29" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="1107.4434814453125" y="399.7829284667969" lat="47.578924152409314" lon="-122.1313293853443" alt="2.0"/>
+    </network>
+    <network id="30" name="emane30" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="1111.1920166015625" y="653.1768798828125" lat="47.57877060048852" lon="-122.13132601797788" alt="2.0"/>
+    </network>
+    <network id="31" name="emane31" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="1097.4525146484375" y="858.754150390625" lat="47.578646024237074" lon="-122.13133836038247" alt="2.0"/>
+    </network>
+    <network id="37" name="emane37" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="63.84528732299805" y="295.1907043457031" lat="47.57898753317888" lon="-122.13226686555255" alt="2.0"/>
+    </network>
+    <network id="38" name="emane38" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="182.12298583984375" y="260.7765808105469" lat="47.57900838742399" lon="-122.13216061488822" alt="2.0"/>
+    </network>
+    <network id="39" name="emane39" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="345.7027282714844" y="259.4246826171875" lat="47.57900920664609" lon="-122.13201366870543" alt="2.0"/>
+    </network>
+    <network id="40" name="emane40" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="267.2926025390625" y="256.7208557128906" lat="47.57901084510874" lon="-122.13208410571978" alt="2.0"/>
+    </network>
+    <network id="41" name="emane41" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="424.11285400390625" y="252.66517639160156" lat="47.57901330276563" lon="-122.13194323169103" alt="2.0"/>
+    </network>
+    <network id="42" name="emane42" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="499.8191833496094" y="255.3689727783203" lat="47.57901166432156" lon="-122.13187522353829" alt="2.0"/>
+    </network>
+    <network id="43" name="emane43" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="572.8217163085938" y="263.4803771972656" lat="47.579006748979765" lon="-122.13180964424714" alt="2.0"/>
+    </network>
+    <network id="44" name="emane44" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="697.1964111328125" y="212.10821533203125" lat="47.57903787942992" lon="-122.13169791655783" alt="2.0"/>
+    </network>
+    <network id="45" name="emane45" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="693.35595703125" y="293.57916259765625" lat="47.578988509739936" lon="-122.13170136649646" alt="2.0"/>
+    </network>
+    <network id="46" name="emane46" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="797.8380737304688" y="306.93798828125" lat="47.57898041456655" lon="-122.13160750861411" alt="2.0"/>
+    </network>
+    <network id="47" name="emane47" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="862.0896606445312" y="175.8489227294922" lat="47.579059851787854" lon="-122.13154979043154" alt="2.0"/>
+    </network>
+    <network id="48" name="emane48" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="260.1789245605469" y="501.0687561035156" lat="47.578862775175935" lon="-122.13209049604545" alt="2.0"/>
+    </network>
+    <network id="50" name="emane50" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="377.66290283203125" y="615.6683959960938" lat="47.57879332994559" lon="-122.13198495839214" alt="2.0"/>
+    </network>
+    <network id="51" name="emane51" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="351.96905517578125" y="505.5467834472656" lat="47.57886006157715" lon="-122.13200803956818" alt="2.0"/>
+    </network>
+    <network id="52" name="emane52" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="326.436767578125" y="878.2166748046875" lat="47.578634230270325" lon="-122.13203097561237" alt="2.0"/>
+    </network>
+    <network id="53" name="emane53" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="592.7928466796875" y="801.6527709960938" lat="47.57868062670987" lon="-122.13179170387549" alt="2.0"/>
+    </network>
+    <network id="54" name="emane54" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="603.1353759765625" y="908.2700805664062" lat="47.578616018400055" lon="-122.13178241302336" alt="2.0"/>
+    </network>
+    <network id="55" name="emane55" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="730.1544189453125" y="795.9395141601562" lat="47.57868408884588" lon="-122.13166830987568" alt="2.0"/>
+    </network>
+    <network id="56" name="emane56" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="574.7906494140625" y="641.0150756835938" lat="47.578777970321106" lon="-122.13180787552444" alt="2.0"/>
+    </network>
+    <network id="57" name="emane57" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="623.8618774414062" y="481.3044128417969" lat="47.57887475198759" lon="-122.13176379409029" alt="2.0"/>
+    </network>
+    <network id="58" name="emane58" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="589.6631469726562" y="385.96258544921875" lat="47.57893252726169" lon="-122.13179451533256" alt="2.0"/>
+    </network>
+    <network id="59" name="emane59" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="265.29364013671875" y="747.6397705078125" lat="47.578713357656085" lon="-122.13208590141826" alt="2.0"/>
+    </network>
+    <network id="49" name="emane49" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="418.34136962890625" y="444.2577209472656" lat="47.57889720156255" lon="-122.13194841630367" alt="2.0"/>
+    </network>
+  </networks>
+  <devices>
+    <device id="1" name="n1" icon="/home/lk233/core/mytools/nest/xmls/icons/Satellite.png" canvas="0" type="mdr" class="" image="">
+      <position x="101.15695190429688" y="109.5180435180664" lat="47.57910004686201" lon="-122.132233347914" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="2" name="n2" icon="/home/lk233/core/mytools/nest/xmls/icons/Satellite.png" canvas="0" type="mdr" class="" image="">
+      <position x="297.0982971191406" y="132.6134796142578" lat="47.57908605153215" lon="-122.13205733080878" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="3" name="n3" icon="/home/lk233/core/mytools/nest/xmls/icons/Satellite.png" canvas="0" type="mdr" class="" image="">
+      <position x="468.79150390625" y="113.43621063232422" lat="47.57909767253859" lon="-122.13190309617696" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="4" name="n4" icon="/home/lk233/core/mytools/nest/xmls/icons/Satellite.png" canvas="0" type="mdr" class="" image="">
+      <position x="707.474609375" y="103.83402252197266" lat="47.57910349125401" lon="-122.13168868349527" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="5" name="n5" icon="/home/lk233/core/mytools/nest/xmls/icons/Arleigh-Burke-3D.png" canvas="0" type="mdr" class="" image="">
+      <position x="469.6626281738281" y="352.7401428222656" lat="47.57895265939418" lon="-122.13190231363272" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="6" name="n6" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="708.8463745117188" y="402.8738098144531" lat="47.57892227939665" lon="-122.13168745121767" alt="2.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="OSPFv2"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="7" name="n7" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="473.2131042480469" y="557.7495727539062" lat="47.578828427676655" lon="-122.1318991241858" alt="2.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="OSPFv2"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="8" name="n8" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="856.5711059570312" y="501.2158508300781" lat="47.57886268603935" lon="-122.13155474783356" alt="2.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="OSPFv2"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="9" name="n9" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="641.0386962890625" y="718.965087890625" lat="47.578730734010605" lon="-122.1317483638914" alt="2.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="OSPFv2"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="10" name="n10" icon="/home/lk233/core/mytools/nest/xmls/icons/Arleigh-Burke-3D.png" canvas="0" type="mdr" class="" image="">
+      <position x="870.9412841796875" y="648.4556274414062" lat="47.578773461481916" lon="-122.13154183888282" alt="2.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="OSPFv2"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="11" name="n11" icon="/home/lk233/core/mytools/nest/xmls/icons/Arleigh-Burke-3D.png" canvas="0" type="mdr" class="" image="">
+      <position x="940.5170288085938" y="257.11285400390625" lat="47.57901060756596" lon="-122.13147933792801" alt="2.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="OSPFv2"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="12" name="n12" icon="/home/lk233/core/mytools/nest/xmls/icons/Arleigh-Burke-3D.png" canvas="0" type="mdr" class="" image="">
+      <position x="1003.9376831054688" y="376.26678466796875" lat="47.57893840272289" lon="-122.13142236618495" alt="2.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="OSPFv2"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="13" name="n13" icon="/home/lk233/core/mytools/nest/xmls/icons/Arleigh-Burke-3D.png" canvas="0" type="mdr" class="" image="">
+      <position x="982.992431640625" y="666.8841552734375" lat="47.57876229412719" lon="-122.13144118162447" alt="2.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="OSPFv2"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="14" name="n14" icon="/home/lk233/core/mytools/nest/xmls/icons/Arleigh-Burke-3D.png" canvas="0" type="mdr" class="" image="">
+      <position x="962.807861328125" y="846.825439453125" lat="47.57865325283659" lon="-122.13145931373249" alt="2.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="OSPFv2"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="15" name="n15" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="772.66015625" y="860.7332763671875" lat="47.57864482491971" lon="-122.13163012632218" alt="2.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="OSPFv2"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="16" name="n16" icon="/home/lk233/core/mytools/nest/xmls/icons/soldier.png" canvas="0" type="mdr" class="" image="">
+      <position x="1203.808837890625" y="142.76351928710938" lat="47.57907990082861" lon="-122.13124281887175" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="17" name="n17" icon="/home/lk233/core/mytools/nest/xmls/icons/soldier.png" canvas="0" type="mdr" class="" image="">
+      <position x="1204.769775390625" y="195.6140594482422" lat="47.57904787453772" lon="-122.13124195564693" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="18" name="n18" icon="/home/lk233/core/mytools/nest/xmls/icons/soldier.png" canvas="0" type="mdr" class="" image="">
+      <position x="1202.847900390625" y="259.0346984863281" lat="47.579009442968335" lon="-122.13124368209658" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="19" name="n19" icon="/home/lk233/core/mytools/nest/xmls/icons/soldier.png" canvas="0" type="mdr" class="" image="">
+      <position x="1230.7144775390625" y="390.6805725097656" lat="47.57892966825573" lon="-122.1312186491244" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="20" name="n20" icon="/home/lk233/core/mytools/nest/xmls/icons/soldier.png" canvas="0" type="mdr" class="" image="">
+      <position x="1231.6754150390625" y="446.41387939453125" lat="47.57889589497272" lon="-122.13121778589958" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="21" name="n21" icon="/home/lk233/core/mytools/nest/xmls/icons/soldier.png" canvas="0" type="mdr" class="" image="">
+      <position x="1236.47998046875" y="501.1862487792969" lat="47.57886270397763" lon="-122.13121346988503" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="22" name="n22" icon="/home/lk233/core/mytools/nest/xmls/icons/soldier.png" canvas="0" type="mdr" class="" image="">
+      <position x="1231.6754150390625" y="647.2459106445312" lat="47.578774194548345" lon="-122.13121778589958" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="23" name="n23" icon="/home/lk233/core/mytools/nest/xmls/icons/soldier.png" canvas="0" type="mdr" class="" image="">
+      <position x="1236.47998046875" y="693.3699951171875" lat="47.57874624418285" lon="-122.13121346988503" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="24" name="n24" icon="/home/lk233/core/mytools/nest/xmls/icons/soldier.png" canvas="0" type="mdr" class="" image="">
+      <position x="1241.28466796875" y="750.064208984375" lat="47.57871188848864" lon="-122.13120915376082" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="25" name="n25" icon="/home/lk233/core/mytools/nest/xmls/icons/soldier.png" canvas="0" type="mdr" class="" image="">
+      <position x="1259.9677734375" y="850.1768188476562" lat="47.57865122195677" lon="-122.13119237044158" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="26" name="n26" icon="/home/lk233/core/mytools/nest/xmls/icons/soldier.png" canvas="0" type="mdr" class="" image="">
+      <position x="1137.9766845703125" y="944.9041137695312" lat="47.57859381876907" lon="-122.13130195690127" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="27" name="n27" icon="/home/lk233/core/mytools/nest/xmls/icons/soldier.png" canvas="0" type="mdr" class="" image="">
+      <position x="1232.1375732421875" y="915.5099487304688" lat="47.57861163115791" lon="-122.1312173707358" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="32" name="n32" icon="/home/lk233/core/mytools/nest/xmls/icons/Arleigh-Burke-3D.png" canvas="0" type="mdr" class="" image="">
+      <position x="206.45716857910156" y="840.7411499023438" lat="47.57865693981401" lon="-122.13213875511993" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="33" name="n33" icon="/home/lk233/core/mytools/nest/xmls/icons/tank.png" canvas="0" type="mdr" class="" image="">
+      <position x="86.13818359375" y="501.41455078125" lat="47.578862565630985" lon="-122.13224683950313" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="34" name="n34" icon="/home/lk233/core/mytools/nest/xmls/icons/tank.png" canvas="0" type="mdr" class="" image="">
+      <position x="269.99639892578125" y="393.8313903808594" lat="47.57892775892292" lon="-122.13208167685816" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="35" name="n35" icon="/home/lk233/core/mytools/nest/xmls/icons/tank.png" canvas="0" type="mdr" class="" image="">
+      <position x="202.40147399902344" y="631.1968383789062" lat="47.578783919993946" lon="-122.13214239841234" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+    <device id="36" name="n36" icon="/home/lk233/core/mytools/nest/xmls/icons/tank.png" canvas="0" type="mdr" class="" image="">
+      <position x="487.652099609375" y="889.4094848632812" lat="47.57862744761201" lon="-122.13188615341556" alt="2.0"/>
+      <services>
+        <service name="zebra"/>
+        <service name="UserDefined"/>
+        <service name="IPForward"/>
+        <service name="OSPFv3MDR"/>
+      </services>
+    </device>
+  </devices>
+  <links>
+    <link node1="28" node2="11">
+      <iface2 id="1" name="eth1" ip4="10.0.1.1" ip4_mask="24" ip6="2001:0:0:1::1" ip6_mask="128"/>
+    </link>
+    <link node1="28" node2="16">
+      <iface2 id="0" name="eth0" ip4="10.0.1.2" ip4_mask="24" ip6="2001:0:0:1::2" ip6_mask="128"/>
+    </link>
+    <link node1="28" node2="17">
+      <iface2 id="0" name="eth0" ip4="10.0.1.3" ip4_mask="24" ip6="2001:0:0:1::3" ip6_mask="128"/>
+    </link>
+    <link node1="28" node2="18">
+      <iface2 id="0" name="eth0" ip4="10.0.1.4" ip4_mask="24" ip6="2001:0:0:1::4" ip6_mask="128"/>
+    </link>
+    <link node1="29" node2="12">
+      <iface2 id="2" name="eth2" ip4="10.0.14.1" ip4_mask="24" ip6="2001:0:0:e::1" ip6_mask="128"/>
+    </link>
+    <link node1="29" node2="19">
+      <iface2 id="0" name="eth0" ip4="10.0.14.2" ip4_mask="24" ip6="2001:0:0:e::2" ip6_mask="128"/>
+    </link>
+    <link node1="29" node2="20">
+      <iface2 id="0" name="eth0" ip4="10.0.14.3" ip4_mask="24" ip6="2001:0:0:e::3" ip6_mask="128"/>
+    </link>
+    <link node1="29" node2="21">
+      <iface2 id="0" name="eth0" ip4="10.0.14.4" ip4_mask="24" ip6="2001:0:0:e::4" ip6_mask="128"/>
+    </link>
+    <link node1="30" node2="13">
+      <iface2 id="2" name="eth2" ip4="10.0.13.1" ip4_mask="24" ip6="2001:0:0:d::1" ip6_mask="128"/>
+    </link>
+    <link node1="30" node2="22">
+      <iface2 id="0" name="eth0" ip4="10.0.13.2" ip4_mask="24" ip6="2001:0:0:d::2" ip6_mask="128"/>
+    </link>
+    <link node1="30" node2="23">
+      <iface2 id="0" name="eth0" ip4="10.0.13.3" ip4_mask="24" ip6="2001:0:0:d::3" ip6_mask="128"/>
+    </link>
+    <link node1="30" node2="24">
+      <iface2 id="0" name="eth0" ip4="10.0.13.4" ip4_mask="24" ip6="2001:0:0:d::4" ip6_mask="128"/>
+    </link>
+    <link node1="31" node2="14">
+      <iface2 id="3" name="eth3" ip4="10.0.15.1" ip4_mask="24" ip6="2001:0:0:f::1" ip6_mask="128"/>
+    </link>
+    <link node1="31" node2="25">
+      <iface2 id="0" name="eth0" ip4="10.0.15.2" ip4_mask="24" ip6="2001:0:0:f::2" ip6_mask="128"/>
+    </link>
+    <link node1="31" node2="26">
+      <iface2 id="0" name="eth0" ip4="10.0.15.3" ip4_mask="24" ip6="2001:0:0:f::3" ip6_mask="128"/>
+    </link>
+    <link node1="31" node2="27">
+      <iface2 id="0" name="eth0" ip4="10.0.15.4" ip4_mask="24" ip6="2001:0:0:f::4" ip6_mask="128"/>
+    </link>
+    <link node1="37" node2="1">
+      <iface2 id="0" name="eth0" ip4="10.0.16.1" ip4_mask="24" ip6="2001:0:0:10::1" ip6_mask="128"/>
+    </link>
+    <link node1="37" node2="33">
+      <iface2 id="0" name="eth0" ip4="10.0.16.2" ip4_mask="24" ip6="2001:0:0:10::2" ip6_mask="128"/>
+    </link>
+    <link node1="38" node2="1">
+      <iface2 id="1" name="eth1" ip4="10.0.17.1" ip4_mask="24" ip6="2001:0:0:11::1" ip6_mask="128"/>
+    </link>
+    <link node1="38" node2="35">
+      <iface2 id="0" name="eth0" ip4="10.0.17.2" ip4_mask="24" ip6="2001:0:0:11::2" ip6_mask="128"/>
+    </link>
+    <link node1="39" node2="1">
+      <iface2 id="2" name="eth2" ip4="10.0.18.1" ip4_mask="24" ip6="2001:0:0:12::1" ip6_mask="128"/>
+    </link>
+    <link node1="39" node2="34">
+      <iface2 id="0" name="eth0" ip4="10.0.18.2" ip4_mask="24" ip6="2001:0:0:12::2" ip6_mask="128"/>
+    </link>
+    <link node1="40" node2="2">
+      <iface2 id="0" name="eth0" ip4="10.0.19.1" ip4_mask="24" ip6="2001:0:0:13::1" ip6_mask="128"/>
+    </link>
+    <link node1="40" node2="35">
+      <iface2 id="1" name="eth1" ip4="10.0.19.2" ip4_mask="24" ip6="2001:0:0:13::2" ip6_mask="128"/>
+    </link>
+    <link node1="41" node2="2">
+      <iface2 id="1" name="eth1" ip4="10.0.20.1" ip4_mask="24" ip6="2001:0:0:14::1" ip6_mask="128"/>
+    </link>
+    <link node1="41" node2="34">
+      <iface2 id="1" name="eth1" ip4="10.0.20.2" ip4_mask="24" ip6="2001:0:0:14::2" ip6_mask="128"/>
+    </link>
+    <link node1="42" node2="2">
+      <iface2 id="2" name="eth2" ip4="10.0.21.1" ip4_mask="24" ip6="2001:0:0:15::1" ip6_mask="128"/>
+    </link>
+    <link node1="42" node2="36">
+      <iface2 id="0" name="eth0" ip4="10.0.21.2" ip4_mask="24" ip6="2001:0:0:15::2" ip6_mask="128"/>
+    </link>
+    <link node1="43" node2="3">
+      <iface2 id="0" name="eth0" ip4="10.0.22.1" ip4_mask="24" ip6="2001:0:0:16::1" ip6_mask="128"/>
+    </link>
+    <link node1="43" node2="34">
+      <iface2 id="2" name="eth2" ip4="10.0.22.2" ip4_mask="24" ip6="2001:0:0:16::2" ip6_mask="128"/>
+    </link>
+    <link node1="44" node2="3">
+      <iface2 id="1" name="eth1" ip4="10.0.23.1" ip4_mask="24" ip6="2001:0:0:17::1" ip6_mask="128"/>
+    </link>
+    <link node1="45" node2="3">
+      <iface2 id="2" name="eth2" ip4="10.0.24.1" ip4_mask="24" ip6="2001:0:0:18::1" ip6_mask="128"/>
+    </link>
+    <link node1="45" node2="6">
+      <iface2 id="1" name="eth1" ip4="10.0.24.2" ip4_mask="24" ip6="2001:0:0:18::2" ip6_mask="128"/>
+    </link>
+    <link node1="46" node2="4">
+      <iface2 id="0" name="eth0" ip4="10.0.25.1" ip4_mask="24" ip6="2001:0:0:19::1" ip6_mask="128"/>
+    </link>
+    <link node1="46" node2="6">
+      <iface2 id="2" name="eth2" ip4="10.0.25.2" ip4_mask="24" ip6="2001:0:0:19::2" ip6_mask="128"/>
+    </link>
+    <link node1="47" node2="4">
+      <iface2 id="1" name="eth1" ip4="10.0.26.1" ip4_mask="24" ip6="2001:0:0:1a::1" ip6_mask="128"/>
+    </link>
+    <link node1="47" node2="11">
+      <iface2 id="2" name="eth2" ip4="10.0.26.2" ip4_mask="24" ip6="2001:0:0:1a::2" ip6_mask="128"/>
+    </link>
+    <link node1="48" node2="34">
+      <iface2 id="3" name="eth3" ip4="10.0.27.1" ip4_mask="24" ip6="2001:0:0:1b::1" ip6_mask="128"/>
+    </link>
+    <link node1="48" node2="35">
+      <iface2 id="2" name="eth2" ip4="10.0.27.2" ip4_mask="24" ip6="2001:0:0:1b::2" ip6_mask="128"/>
+    </link>
+    <link node1="50" node2="35">
+      <iface2 id="3" name="eth3" ip4="10.0.28.1" ip4_mask="24" ip6="2001:0:0:1c::1" ip6_mask="128"/>
+    </link>
+    <link node1="50" node2="7">
+      <iface2 id="3" name="eth3" ip4="10.0.28.2" ip4_mask="24" ip6="2001:0:0:1c::2" ip6_mask="128"/>
+    </link>
+    <link node1="51" node2="34">
+      <iface2 id="6" name="eth6" ip4="10.0.29.1" ip4_mask="24" ip6="2001:0:0:1d::1" ip6_mask="128"/>
+    </link>
+    <link node1="51" node2="7">
+      <iface2 id="4" name="eth4" ip4="10.0.29.2" ip4_mask="24" ip6="2001:0:0:1d::2" ip6_mask="128"/>
+    </link>
+    <link node1="52" node2="32">
+      <iface2 id="0" name="eth0" ip4="10.0.30.1" ip4_mask="24" ip6="2001:0:0:1e::1" ip6_mask="128"/>
+    </link>
+    <link node1="52" node2="36">
+      <iface2 id="1" name="eth1" ip4="10.0.30.2" ip4_mask="24" ip6="2001:0:0:1e::2" ip6_mask="128"/>
+    </link>
+    <link node1="53" node2="9">
+      <iface2 id="3" name="eth3" ip4="10.0.31.1" ip4_mask="24" ip6="2001:0:0:1f::1" ip6_mask="128"/>
+    </link>
+    <link node1="53" node2="36">
+      <iface2 id="2" name="eth2" ip4="10.0.31.2" ip4_mask="24" ip6="2001:0:0:1f::2" ip6_mask="128"/>
+    </link>
+    <link node1="54" node2="36">
+      <iface2 id="3" name="eth3" ip4="10.0.32.1" ip4_mask="24" ip6="2001:0:0:20::1" ip6_mask="128"/>
+    </link>
+    <link node1="54" node2="15">
+      <iface2 id="1" name="eth1" ip4="10.0.32.2" ip4_mask="24" ip6="2001:0:0:20::2" ip6_mask="128"/>
+    </link>
+    <link node1="55" node2="9">
+      <iface2 id="4" name="eth4" ip4="10.0.33.1" ip4_mask="24" ip6="2001:0:0:21::1" ip6_mask="128"/>
+    </link>
+    <link node1="55" node2="15">
+      <iface2 id="2" name="eth2" ip4="10.0.33.2" ip4_mask="24" ip6="2001:0:0:21::2" ip6_mask="128"/>
+    </link>
+    <link node1="56" node2="7">
+      <iface2 id="5" name="eth5" ip4="10.0.34.1" ip4_mask="24" ip6="2001:0:0:22::1" ip6_mask="128"/>
+    </link>
+    <link node1="56" node2="9">
+      <iface2 id="5" name="eth5" ip4="10.0.34.2" ip4_mask="24" ip6="2001:0:0:22::2" ip6_mask="128"/>
+    </link>
+    <link node1="57" node2="7">
+      <iface2 id="6" name="eth6" ip4="10.0.35.1" ip4_mask="24" ip6="2001:0:0:23::1" ip6_mask="128"/>
+    </link>
+    <link node1="57" node2="6">
+      <iface2 id="3" name="eth3" ip4="10.0.35.2" ip4_mask="24" ip6="2001:0:0:23::2" ip6_mask="128"/>
+    </link>
+    <link node1="58" node2="5">
+      <iface2 id="1" name="eth1" ip4="10.0.36.1" ip4_mask="24" ip6="2001:0:0:24::1" ip6_mask="128"/>
+    </link>
+    <link node1="58" node2="6">
+      <iface2 id="4" name="eth4" ip4="10.0.36.2" ip4_mask="24" ip6="2001:0:0:24::2" ip6_mask="128"/>
+    </link>
+    <link node1="59" node2="35">
+      <iface2 id="4" name="eth4" ip4="10.0.37.1" ip4_mask="24" ip6="2001:0:0:25::1" ip6_mask="128"/>
+    </link>
+    <link node1="59" node2="32">
+      <iface2 id="1" name="eth1" ip4="10.0.37.2" ip4_mask="24" ip6="2001:0:0:25::2" ip6_mask="128"/>
+    </link>
+    <link node1="49" node2="34">
+      <iface2 id="4" name="eth4" ip4="10.0.38.1" ip4_mask="24" ip6="2001:0:0:26::1" ip6_mask="128"/>
+    </link>
+    <link node1="49" node2="5">
+      <iface2 id="0" name="eth0" ip4="10.0.38.2" ip4_mask="24" ip6="2001:0:0:26::2" ip6_mask="128"/>
+    </link>
+    <link node1="8" node2="11">
+      <iface1 id="0" name="eth0" ip4="10.0.0.1" ip4_mask="24" ip6="2001::1" ip6_mask="64"/>
+      <iface2 id="0" name="eth0" ip4="10.0.0.2" ip4_mask="24" ip6="2001::2" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="6" node2="8">
+      <iface1 id="0" name="eth0" ip4="10.0.2.1" ip4_mask="24" ip6="2001:0:0:2::1" ip6_mask="64"/>
+      <iface2 id="1" name="eth1" ip4="10.0.2.2" ip4_mask="24" ip6="2001:0:0:2::2" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="7" node2="8">
+      <iface1 id="0" name="eth0" ip4="10.0.3.1" ip4_mask="24" ip6="2001:0:0:3::1" ip6_mask="64"/>
+      <iface2 id="2" name="eth2" ip4="10.0.3.2" ip4_mask="24" ip6="2001:0:0:3::2" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="8" node2="10">
+      <iface1 id="3" name="eth3" ip4="10.0.4.1" ip4_mask="24" ip6="2001:0:0:4::1" ip6_mask="64"/>
+      <iface2 id="0" name="eth0" ip4="10.0.4.2" ip4_mask="24" ip6="2001:0:0:4::2" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="10" node2="7">
+      <iface1 id="1" name="eth1" ip4="10.0.5.1" ip4_mask="24" ip6="2001:0:0:5::1" ip6_mask="64"/>
+      <iface2 id="1" name="eth1" ip4="10.0.5.2" ip4_mask="24" ip6="2001:0:0:5::2" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="8" node2="12">
+      <iface1 id="4" name="eth4" ip4="10.0.6.1" ip4_mask="24" ip6="2001:0:0:6::1" ip6_mask="64"/>
+      <iface2 id="0" name="eth0" ip4="10.0.6.2" ip4_mask="24" ip6="2001:0:0:6::2" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="10" node2="12">
+      <iface1 id="2" name="eth2" ip4="10.0.7.1" ip4_mask="24" ip6="2001:0:0:7::1" ip6_mask="64"/>
+      <iface2 id="1" name="eth1" ip4="10.0.7.2" ip4_mask="24" ip6="2001:0:0:7::2" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="13" node2="9">
+      <iface1 id="0" name="eth0" ip4="10.0.8.1" ip4_mask="24" ip6="2001:0:0:8::1" ip6_mask="64"/>
+      <iface2 id="0" name="eth0" ip4="10.0.8.2" ip4_mask="24" ip6="2001:0:0:8::2" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="9" node2="10">
+      <iface1 id="1" name="eth1" ip4="10.0.9.1" ip4_mask="24" ip6="2001:0:0:9::1" ip6_mask="64"/>
+      <iface2 id="3" name="eth3" ip4="10.0.9.2" ip4_mask="24" ip6="2001:0:0:9::2" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="9" node2="14">
+      <iface1 id="2" name="eth2" ip4="10.0.10.1" ip4_mask="24" ip6="2001:0:0:a::1" ip6_mask="64"/>
+      <iface2 id="0" name="eth0" ip4="10.0.10.2" ip4_mask="24" ip6="2001:0:0:a::2" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="14" node2="13">
+      <iface1 id="1" name="eth1" ip4="10.0.11.1" ip4_mask="24" ip6="2001:0:0:b::1" ip6_mask="64"/>
+      <iface2 id="1" name="eth1" ip4="10.0.11.2" ip4_mask="24" ip6="2001:0:0:b::2" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+    <link node1="14" node2="15">
+      <iface1 id="2" name="eth2" ip4="10.0.12.1" ip4_mask="24" ip6="2001:0:0:c::1" ip6_mask="64"/>
+      <iface2 id="0" name="eth0" ip4="10.0.12.2" ip4_mask="24" ip6="2001:0:0:c::2" ip6_mask="64"/>
+      <options delay="0" bandwidth="0" loss="0.0" dup="0" jitter="0" unidirectional="0" buffer="0"/>
+    </link>
+  </links>
+  <emane_global_configuration>
+    <emulator>
+      <configuration name="antennaprofilemanifesturi" value=""/>
+      <configuration name="controlportendpoint" value="0.0.0.0:47000"/>
+      <configuration name="eventservicedevice" value="ctrl0"/>
+      <configuration name="eventservicegroup" value="224.1.2.8:45703"/>
+      <configuration name="eventservicettl" value="1"/>
+      <configuration name="otamanagerchannelenable" value="1"/>
+      <configuration name="otamanagerdevice" value="ctrl0"/>
+      <configuration name="otamanagergroup" value="224.1.2.8:45702"/>
+      <configuration name="otamanagerloopback" value="0"/>
+      <configuration name="otamanagermtu" value="0"/>
+      <configuration name="otamanagerpartcheckthreshold" value="2"/>
+      <configuration name="otamanagerparttimeoutthreshold" value="5"/>
+      <configuration name="otamanagerttl" value="1"/>
+      <configuration name="stats.event.maxeventcountrows" value="0"/>
+      <configuration name="stats.ota.maxeventcountrows" value="0"/>
+      <configuration name="stats.ota.maxpacketcountrows" value="0"/>
+    </emulator>
+    <core>
+      <configuration name="platform_id_start" value="1"/>
+      <configuration name="nem_id_start" value="1"/>
+      <configuration name="link_enabled" value="1"/>
+      <configuration name="loss_threshold" value="30"/>
+      <configuration name="link_interval" value="1"/>
+      <configuration name="link_timeout" value="4"/>
+    </core>
+  </emane_global_configuration>
+  <service_configurations>
+    <service name="UserDefined" node="1">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s 
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="2">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="3">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="4">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="5">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="6">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="7">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="8">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="9">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="10">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="11">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="12">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="13">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="14">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="15">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="32">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="33">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="34">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="35">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+    <service name="UserDefined" node="36">
+      <startups>
+        <startup>bash cmd.sh</startup>
+      </startups>
+      <files>
+        <file name="cmd.sh"><![CDATA[iperf3 -s
+]]></file>
+      </files>
+    </service>
+  </service_configurations>
+  <session_origin lat="47.579166412353516" lon="-122.13232421875" alt="2.0" scale="10.0"/>
+  <session_hooks>
+    <hook name="runtime_hook.sh" state="4">#!/bin/sh
+# session hook script; write commands here to execute on the host at the
+# specified state
+python3 /home/lk233/core/mytools/nest/temp/WriteIntoSQL.py &amp;
+coresendmsg execute flags=string,text node=7 number=1000 command='core-python /home/lk233/core/mytools/nest/temp/iperf3_client.py 1000 10.0.29.1 1 tcp'
+coresendmsg execute flags=string,text node=9 number=1000 command='core-python /home/lk233/core/mytools/nest/temp/iperf3_client.py 1000 10.0.31.2 2 tcp'
+coresendmsg execute flags=string,text node=33 number=1000 command='core-python /home/lk233/core/mytools/nest/temp/iperf3_client.py 1000 10.0.16.1 3 udp 5M'
+coresendmsg execute flags=string,text node=34 number=1000 command='core-python /home/lk233/core/mytools/nest/temp/iperf3_client.py 1000 10.0.27.2 4 udp 5M'</hook>
+  </session_hooks>
+  <session_options>
+    <configuration name="controlnet" value=""/>
+    <configuration name="controlnet0" value=""/>
+    <configuration name="controlnet1" value=""/>
+    <configuration name="controlnet2" value=""/>
+    <configuration name="controlnet3" value=""/>
+    <configuration name="controlnet_updown_script" value=""/>
+    <configuration name="enablerj45" value="1"/>
+    <configuration name="preservedir" value="0"/>
+    <configuration name="enablesdt" value="0"/>
+    <configuration name="sdturl" value="tcp://127.0.0.1:50000/"/>
+    <configuration name="ovs" value="0"/>
+  </session_options>
+  <session_metadata>
+    <configuration name="shapes" value="[]"/>
+    <configuration name="hidden" value="[37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 49]"/>
+    <configuration name="canvas" value="{&quot;gridlines&quot;: true, &quot;dimensions&quot;: [1500, 1000], &quot;canvases&quot;: [{&quot;id&quot;: 1, &quot;wallpaper&quot;: null, &quot;wallpaper_style&quot;: 1, &quot;fit_image&quot;: false}]}"/>
+    <configuration name="edges" value="[]"/>
+  </session_metadata>
+  <default_services>
+    <node type="mdr">
+      <service name="zebra"/>
+      <service name="OSPFv3MDR"/>
+      <service name="IPForward"/>
+    </node>
+    <node type="PC">
+      <service name="DefaultRoute"/>
+    </node>
+    <node type="prouter"/>
+    <node type="router">
+      <service name="zebra"/>
+      <service name="OSPFv2"/>
+      <service name="OSPFv3"/>
+      <service name="IPForward"/>
+    </node>
+    <node type="host">
+      <service name="DefaultRoute"/>
+      <service name="SSH"/>
+    </node>
+  </default_services>
+</scenario>

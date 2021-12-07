@@ -452,7 +452,7 @@ class CoreServices:
         for boot_path in boot_paths:
             args = (node, boot_path)
             funcs.append((self._boot_service_path, args, {}))
-        result, exceptions = utils.threadpool(funcs)
+        result, exceptions = utils.threadpool(funcs=funcs, workers=3) # 默认的10个进程太大，会造成ssh通道饱和连接失败
         if exceptions:
             raise CoreServiceBootError(*exceptions)
 

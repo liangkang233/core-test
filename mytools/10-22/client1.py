@@ -12,7 +12,8 @@ def main():
              'endNodeName': "6", 'businessType': "7", 'frameLength': "8", 'lastedTime': "9", 'spacedTime': "10"}]
     send_data = json.dumps(msg1)
     udp_socket.sendto(send_data.encode('utf-8'),
-                      ("127.0.0.1", 8082))  # 8082 app
+                    #   ("127.0.0.1", 8082))  # 8082 app
+                      ("127.0.0.1", 5132))  # 8082 app
     udp_socket.close()
 
 

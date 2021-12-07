@@ -1331,7 +1331,7 @@ class Session:
                 if isinstance(node, (CoreNode, PhysicalNode)):
                     self.add_remove_control_iface(node, remove=False)
                     funcs.append((self.boot_node, (node,), {}))
-            results, exceptions = utils.threadpool(funcs)
+            results, exceptions = utils.threadpool(funcs=funcs, workers=1)  # 默认的10个进程太大，会造成ssh通道饱和连接失败
             total = time.monotonic() - start
             logging.debug("boot run time: %s", total)
         if not exceptions:

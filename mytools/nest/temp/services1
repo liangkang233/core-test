@@ -1,0 +1,4 @@
+service_kind,node_id,directories,files,startup,validate,shutdown,data
+'UserDefined',1,,'test.sh;test1.sh','bash test.sh;bash test1.sh','echo hello',,'iperf3 -s;touch 1'
+'UserDefined',2,,'test.sh;test1.sh','bash test.sh;bash test1.sh','echo hello',,'iperf3 -s;touch 1'
+'UserDefined',3,,'test.sh;test1.sh','bash test.sh;bash test1.sh','echo hello',,'iperf3 -s;touch 1'

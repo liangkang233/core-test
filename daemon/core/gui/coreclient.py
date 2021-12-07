@@ -926,7 +926,7 @@ class CoreClient:
         return configs
 
     def get_config_service_configs_proto(
-        self
+        self,
     ) -> List[configservices_pb2.ConfigServiceConfig]:
         config_service_protos = []
         for node in self.session.nodes.values():

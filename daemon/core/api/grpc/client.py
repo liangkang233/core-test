@@ -1170,9 +1170,15 @@ class CoreGrpcClient:
         :param start: True to start session, False otherwise
         :return: response with opened session id
         """
-        with open(file_path, "r") as xml_file:
-            data = xml_file.read()
+        # with open(file_path, "r") as xml_file:
+        #     data = xml_file.read()
+        # request = core_pb2.OpenXmlRequest(data=data, start=start, file=file_path)
+        # return self.stub.OpenXml(request)
+        # 升起文件未找到错误
+        xml_file = open(file_path, "r")
+        data = xml_file.read()
         request = core_pb2.OpenXmlRequest(data=data, start=start, file=file_path)
+        xml_file.close()
         return self.stub.OpenXml(request)
 
     def emane_link(

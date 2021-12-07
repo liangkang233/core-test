@@ -560,9 +560,11 @@ class CoreHandler(socketserver.BaseRequestHandler):
         :return: nothing
         """
         for reply in replies:
-            message_type, message_flags, message_length = coreapi.CoreMessage.unpack_header(
-                reply
-            )
+            (
+                message_type,
+                message_flags,
+                message_length,
+            ) = coreapi.CoreMessage.unpack_header(reply)
             try:
                 reply_message = coreapi.CLASS_MAP[message_type](
                     message_flags,
@@ -1760,7 +1762,7 @@ class CoreHandler(socketserver.BaseRequestHandler):
 
             # lk233 当number不指定且flag包含delete则停止全部会话，不指定某个session
             if message.flags & MessageFlags.DELETE.value and session_id_str is None:
-            # if message.flags & MessageFlags.DELETE.value :
+                # if message.flags & MessageFlags.DELETE.value :
                 logging.info("shutdown all session bye,bye")
                 self.coreemu.shutdown()
                 return ()

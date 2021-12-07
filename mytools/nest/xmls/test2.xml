@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario name="/tmp/tmpl91m5ttc">
+  <networks>
+    <network id="12" name="N12" icon="" canvas="0" model="emane_rfpipe" type="EMANE">
+      <position x="124.0" y="79.0" lat="29.538773416844904" lon="106.60487368625266" alt="10.0"/>
+    </network>
+  </networks>
+  <devices>
+    <device id="1" name="N1" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="1.0" y="2.0" lat="29.539676108026534" lon="106.60321629455346" alt="10.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="2" name="N2" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="24.0" y="3.0" lat="29.53966438481609" lon="106.60352621332649" alt="10.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="3" name="N3" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="12.0" y="123.0" lat="29.538257589694155" lon="106.60336451657534" alt="10.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="4" name="N4" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="12.0" y="5.0" lat="29.539640938391116" lon="106.60336451657534" alt="10.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="5" name="N5" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="9.0" y="56.0" lat="29.53904305271729" lon="106.60332409238755" alt="10.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="6" name="N6" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="12.0" y="9.0" lat="29.53959404552486" lon="106.60336451657534" alt="10.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="7" name="N7" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="22.0" y="14.0" lat="29.53953542941146" lon="106.60349926386796" alt="10.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="8" name="N8" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="16.0" y="87.0" lat="29.538679630285955" lon="106.60341841549238" alt="10.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="9" name="N9" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="18.0" y="98.0" lat="29.538550673625362" lon="106.60344536495091" alt="10.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="10" name="N10" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="10.0" y="45.0" lat="29.53917200874991" lon="106.60333756711681" alt="10.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+    <device id="11" name="N11" icon="" canvas="0" type="mdr" class="" image="">
+      <position x="45.0" y="123.0" lat="29.538257589694155" lon="106.60380918264099" alt="10.0"/>
+      <services>
+        <service name="OSPFv3MDR"/>
+        <service name="IPForward"/>
+        <service name="zebra"/>
+      </services>
+    </device>
+  </devices>
+  <links>
+    <link node1="12" node2="1">
+      <iface2 nem="1" id="0" name="eth0" mac="02:02:00:00:00:01" ip4="10.0.0.1" ip4_mask="24" ip6="2001::1" ip6_mask="64"/>
+    </link>
+    <link node1="12" node2="2">
+      <iface2 nem="2" id="0" name="eth0" mac="02:02:00:00:00:02" ip4="10.0.0.2" ip4_mask="24" ip6="2001::2" ip6_mask="64"/>
+    </link>
+    <link node1="12" node2="3">
+      <iface2 nem="3" id="0" name="eth0" mac="02:02:00:00:00:03" ip4="10.0.0.3" ip4_mask="24" ip6="2001::3" ip6_mask="64"/>
+    </link>
+    <link node1="12" node2="4">
+      <iface2 nem="4" id="0" name="eth0" mac="02:02:00:00:00:04" ip4="10.0.0.4" ip4_mask="24" ip6="2001::4" ip6_mask="64"/>
+    </link>
+    <link node1="12" node2="5">
+      <iface2 nem="5" id="0" name="eth0" mac="02:02:00:00:00:05" ip4="10.0.0.5" ip4_mask="24" ip6="2001::5" ip6_mask="64"/>
+    </link>
+    <link node1="12" node2="6">
+      <iface2 nem="6" id="0" name="eth0" mac="02:02:00:00:00:06" ip4="10.0.0.6" ip4_mask="24" ip6="2001::6" ip6_mask="64"/>
+    </link>
+    <link node1="12" node2="7">
+      <iface2 nem="7" id="0" name="eth0" mac="02:02:00:00:00:07" ip4="10.0.0.7" ip4_mask="24" ip6="2001::7" ip6_mask="64"/>
+    </link>
+    <link node1="12" node2="8">
+      <iface2 nem="8" id="0" name="eth0" mac="02:02:00:00:00:08" ip4="10.0.0.8" ip4_mask="24" ip6="2001::8" ip6_mask="64"/>
+    </link>
+    <link node1="12" node2="9">
+      <iface2 nem="9" id="0" name="eth0" mac="02:02:00:00:00:09" ip4="10.0.0.9" ip4_mask="24" ip6="2001::9" ip6_mask="64"/>
+    </link>
+    <link node1="12" node2="10">
+      <iface2 nem="10" id="0" name="eth0" mac="02:02:00:00:00:0a" ip4="10.0.0.10" ip4_mask="24" ip6="2001::a" ip6_mask="64"/>
+    </link>
+    <link node1="12" node2="11">
+      <iface2 nem="11" id="0" name="eth0" mac="02:02:00:00:00:0b" ip4="10.0.0.11" ip4_mask="24" ip6="2001::b" ip6_mask="64"/>
+    </link>
+  </links>
+  <emane_global_configuration>
+    <emulator>
+      <configuration name="antennaprofilemanifesturi" value=""/>
+      <configuration name="controlportendpoint" value="0.0.0.0:47000"/>
+      <configuration name="eventservicedevice" value="ctrl0"/>
+      <configuration name="eventservicegroup" value="224.1.2.8:45703"/>
+      <configuration name="eventservicettl" value="1"/>
+      <configuration name="otamanagerchannelenable" value="1"/>
+      <configuration name="otamanagerdevice" value="ctrl0"/>
+      <configuration name="otamanagergroup" value="224.1.2.8:45702"/>
+      <configuration name="otamanagerloopback" value="0"/>
+      <configuration name="otamanagermtu" value="0"/>
+      <configuration name="otamanagerpartcheckthreshold" value="2"/>
+      <configuration name="otamanagerparttimeoutthreshold" value="5"/>
+      <configuration name="otamanagerttl" value="1"/>
+      <configuration name="stats.event.maxeventcountrows" value="0"/>
+      <configuration name="stats.ota.maxeventcountrows" value="0"/>
+      <configuration name="stats.ota.maxpacketcountrows" value="0"/>
+    </emulator>
+    <core>
+      <configuration name="platform_id_start" value="1"/>
+      <configuration name="nem_id_start" value="1"/>
+      <configuration name="link_enabled" value="1"/>
+      <configuration name="loss_threshold" value="30"/>
+      <configuration name="link_interval" value="1"/>
+      <configuration name="link_timeout" value="4"/>
+    </core>
+  </emane_global_configuration>
+  <emane_configurations>
+    <emane_configuration node="12" model="emane_rfpipe">
+      <mac>
+        <configuration name="datarate" value="1000000"/>
+        <configuration name="delay" value="0.000000"/>
+        <configuration name="enablepromiscuousmode" value="0"/>
+        <configuration name="flowcontrolenable" value="0"/>
+        <configuration name="flowcontroltokens" value="10"/>
+        <configuration name="jitter" value="0.000000"/>
+        <configuration name="neighbormetricdeletetime" value="60.000000"/>
+        <configuration name="pcrcurveuri" value="/usr/share/emane/xml/models/mac/rfpipe/rfpipepcr.xml"/>
+        <configuration name="radiometricenable" value="0"/>
+        <configuration name="radiometricreportinterval" value="1.000000"/>
+      </mac>
+      <phy>
+        <configuration name="bandwidth" value="1000000"/>
+        <configuration name="fading.model" value="none"/>
+        <configuration name="fading.nakagami.distance0" value="100.000000"/>
+        <configuration name="fading.nakagami.distance1" value="250.000000"/>
+        <configuration name="fading.nakagami.m0" value="200.000000"/>
+        <configuration name="fading.nakagami.m1" value="1.000000"/>
+        <configuration name="fading.nakagami.m2" value="0.750000"/>
+        <configuration name="fixedantennagain" value="0.000000"/>
+        <configuration name="fixedantennagainenable" value="1"/>
+        <configuration name="frequency" value="2347000000"/>
+        <configuration name="frequencyofinterest" value="2347000000"/>
+        <configuration name="noisebinsize" value="20"/>
+        <configuration name="noisemaxclampenable" value="0"/>
+        <configuration name="noisemaxmessagepropagation" value="200000"/>
+        <configuration name="noisemaxsegmentduration" value="1000000"/>
+        <configuration name="noisemaxsegmentoffset" value="300000"/>
+        <configuration name="noisemode" value="none"/>
+        <configuration name="propagationmodel" value="2ray"/>
+        <configuration name="subid" value="1"/>
+        <configuration name="systemnoisefigure" value="4.000000"/>
+        <configuration name="timesyncthreshold" value="10000"/>
+        <configuration name="txpower" value="0.000000"/>
+      </phy>
+      <external>
+        <configuration name="external" value="0"/>
+        <configuration name="platformendpoint" value="127.0.0.1:40001"/>
+        <configuration name="transportendpoint" value="127.0.0.1:50002"/>
+      </external>
+    </emane_configuration>
+  </emane_configurations>
+  <service_configurations>
+    <service name="UserDefined" node="1">
+      <startups>
+        <startup>b</startup>
+        <startup>a</startup>
+        <startup>s</startup>
+        <startup>h</startup>
+        <startup> </startup>
+        <startup>t</startup>
+        <startup>e</startup>
+        <startup>s</startup>
+        <startup>t</startup>
+        <startup>.</startup>
+        <startup>s</startup>
+        <startup>h</startup>
+      </startups>
+      <validates>
+        <validate>e</validate>
+        <validate>c</validate>
+        <validate>h</validate>
+        <validate>o</validate>
+        <validate> </validate>
+        <validate>h</validate>
+        <validate>e</validate>
+        <validate>l</validate>
+        <validate>l</validate>
+        <validate>o</validate>
+      </validates>
+    </service>
+  </service_configurations>
+  <session_origin lat="29.53969955444336" lon="106.60320281982422" alt="10.0" scale="150.0"/>
+  <session_options>
+    <configuration name="controlnet" value="172.18.1.0/24"/>
+    <configuration name="controlnet0" value=""/>
+    <configuration name="controlnet1" value=""/>
+    <configuration name="controlnet2" value=""/>
+    <configuration name="controlnet3" value=""/>
+    <configuration name="controlnet_updown_script" value=""/>
+    <configuration name="enablerj45" value="1"/>
+    <configuration name="preservedir" value="0"/>
+    <configuration name="enablesdt" value="0"/>
+    <configuration name="sdturl" value="tcp://127.0.0.1:50000/"/>
+    <configuration name="ovs" value="0"/>
+  </session_options>
+  <default_services>
+    <node type="mdr">
+      <service name="zebra"/>
+      <service name="OSPFv3MDR"/>
+      <service name="IPForward"/>
+    </node>
+    <node type="PC">
+      <service name="DefaultRoute"/>
+    </node>
+    <node type="prouter"/>
+    <node type="router">
+      <service name="zebra"/>
+      <service name="OSPFv2"/>
+      <service name="OSPFv3"/>
+      <service name="IPForward"/>
+    </node>
+    <node type="host">
+      <service name="DefaultRoute"/>
+      <service name="SSH"/>
+    </node>
+  </default_services>
+</scenario>
