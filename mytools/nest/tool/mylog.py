@@ -17,7 +17,7 @@ def config(log_path, file_level, console_level):
     handler = logging.FileHandler(log_path, encoding='UTF-8')
     handler.setLevel(file_level)
     # 生成并设置文件日志格式
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(asctime)s %(levelname)s - %(module)s:%(funcName)s - %(message)s')
     handler.setFormatter(formatter)
     # console相当于控制台输出，handler文件输出。获取流句柄并设置日志级别，第二层过滤
     console = logging.StreamHandler()
@@ -30,6 +30,7 @@ def config(log_path, file_level, console_level):
 Nest_path: str = os.path.dirname(os.path.split(__file__)[0])
 log_path: str = os.path.join(Nest_path, "nest.log")
 scenario_path: str = os.path.join(Nest_path, "xmls")
+nest_config:str = os.path.join(Nest_path, "nest_config")
 
 logger = config(log_path, logging.INFO, logging.INFO)
 

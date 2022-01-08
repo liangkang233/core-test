@@ -75,8 +75,11 @@ def add_node_data(node_proto: core_pb2.Node) -> Tuple[NodeTypes, int, NodeOption
         options.emane = node_proto.emane
     if node_proto.server:
         options.server = node_proto.server
-    position = node_proto.position
-    options.set_position(position.x, position.y)
+    # 添加判断position，以防止grpc不传xy参数 这里也默认赋值 0.0 0.0,用于后面设置位置时能根据geo值计算xy
+    # 即api修改为 跟edit node 一样 只能传xy 或 geo 另一个值默认换算。
+    if node_proto.HasField("position"):
+        position = node_proto.position
+        options.set_position(position.x, position.y)
     if node_proto.HasField("geo"):
         geo = node_proto.geo
         options.set_location(geo.lat, geo.lon, geo.alt)

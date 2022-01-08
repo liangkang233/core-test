@@ -8,14 +8,10 @@ import os
 import socket
 import json
 from enum import Enum, unique
-
-from dataclasses import MISSING
 from sql import nest_data
 
-SERVER_ADDR: tuple = ('localhost', 5132)
-Nest_path: str = os.path.dirname(os.path.split(__file__)[0])
-scenario_path: str = os.path.join(Nest_path, "nest", "xmls")
-
+Nest_path: str = os.path.dirname(os.path.abspath(__file__))
+scenario_path: str = os.path.join(Nest_path, "xmls")
 
 @unique
 class Instr(Enum):
@@ -51,17 +47,20 @@ def Start_Session(sock):
     session_id = int(input("指定要配置的会话号:"))
     print("读取对应参数文件 例如XXX/nest/temp/XXX 并导入数据库，不输入即为设定默认值")
     # 读取文件并插入数据库
-    index = input("设置系统参数: config")
-    nest_data.insert(session_id, "config", os.path.join(filepath, f"config{index}"))
-    index = input("设置节点参数: nodes")
-    nest_data.insert(session_id, "nodes",
-                     os.path.join(filepath, f"nodes{index}"))
-    index = input("设置链路关系: links")
-    nest_data.insert(session_id, "links",
-                     os.path.join(filepath, f"links{index}"))
-    index = input("设置节点服务文件: services")
-    nest_data.insert(session_id, "services",
-                     os.path.join(filepath, f"services{index}"))
+    # index = input("设置系统参数: config")
+    # nest_data.insert(session_id, "config", os.path.join(filepath, f"config{index}"))
+    # index = input("设置节点参数: nodes")
+    # nest_data.insert(session_id, "nodes",
+    #                  os.path.join(filepath, f"nodes{index}"))
+    # index = input("设置链路关系: links")
+    # nest_data.insert(session_id, "links",
+    #                  os.path.join(filepath, f"links{index}"))
+    # index = input("设置节点服务文件: services")
+    # nest_data.insert(session_id, "services",
+    #                  os.path.join(filepath, f"services{index}"))
+    # index = input("设置无线参数: emanes")
+    # nest_data.insert(session_id, "emanes",
+    #                  os.path.join(filepath, f"emanes{index}"))
 
     msg = {'instr': Instr.start_session.value,
            'session_id': session_id}
@@ -157,6 +156,7 @@ def main(flag=False):
         sock = socket.socket()
     else:
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    SERVER_ADDR = ('localhost', int(nest_data.f["nestport"]))
     sock.connect(SERVER_ADDR)
     help()
     try:

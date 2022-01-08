@@ -26,8 +26,10 @@ poetry add pymysql
 
 **nest_server** 和 **temp_instruct** 就是一对接收发送对应json指令的tcp/udp服务器与客户端
 
+**nest_config** nest的根目录下 nest_config 设置端口 数据库 动态链路 gps 文件位置（更改需要重启nest 空格不要删）
 
 **tool文件夹下**
+
 - nest_core 
 
     是指令解析并实例化场景的关键，其仿真实现原理为调用core-daemon的 grpc api
@@ -45,3 +47,5 @@ poetry add pymysql
 **temp文件夹** 存储文件为模拟前端对**场景节点链路等的定义**文件，模拟前端执行时依照对应会话号读取这些文件并插入数据库
 
 **xmls文件夹** 存储运行的会话场景备份
+
+**gps_link** 文件夹是存放gps地址、链路关系的文件夹

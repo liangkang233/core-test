@@ -8,6 +8,7 @@ import time
 from concurrent import futures
 from typing import Iterable, Optional, Pattern, Type
 
+import netaddr
 import grpc
 from grpc import ServicerContext
 
@@ -101,7 +102,13 @@ from core.api.grpc.wlan_pb2 import (
     WlanLinkResponse,
 )
 from core.emulator.coreemu import CoreEmu
-from core.emulator.data import InterfaceData, LinkData, LinkOptions, NodeOptions
+from core.emulator.data import (
+    InterfaceData,
+    LinkData,
+    LinkOptions,
+    NodeOptions,
+    IpPrefixes,
+)
 from core.emulator.enumerations import (
     EventTypes,
     ExceptionLevels,
@@ -743,6 +750,22 @@ class CoreGrpcServer(core_pb2_grpc.CoreApiServicer):
         logging.debug("get node: %s", request)
         session = self.get_session(request.session_id, context)
         node = self.get_node(session, request.node_id, context, NodeBase)
+
+        # TODO 后续修改到 neweth grpc接口
+        # 根据 core/nodes/data.py的new_iface函数 添加网口
+        # 默认使用 该网段下的主机号 所以每个节点只能使用一次
+        # 为了防止随机mac地址重复，自定义一个mac地址 尾号与节点号一样
+        IpPrefixe = IpPrefixes(ip4_prefix="172.31.0.0/16")
+        value = 0x00173E << 24 | node.id
+        mac = netaddr.EUI(value, dialect=netaddr.mac_unix_expanded)
+        iface_data = IpPrefixe.create_iface(node, name="eth_ovs", mac=mac)
+        iface_id = node.newveth(iface_data.id, iface_data.name)
+        # iface_id = node.newtuntap(iface_data.id, iface_data.name)
+        node.set_mac(iface_id, iface_data.mac)
+        for ip in iface_data.get_ips():
+            node.add_ip(iface_id, ip)
+        node.ifup(iface_id)
+
         ifaces = []
         for iface_id in node.ifaces:
             iface = node.ifaces[iface_id]

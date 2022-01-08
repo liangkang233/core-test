@@ -1,0 +1,11 @@
+nodeid,distribute,position,types,model,emane,servers_set
+1,,'121 232 323',0,3,,'zebra OSPFv3 OSPFv2 IPForward'
+2,,'241 345 342',0,3,,'zebra OSPFv3 OSPFv2 IPForward'
+3,,'341 245 342',0,3,,'zebra OSPFv3 OSPFv2 IPForward UserDefined'
+4,,'121 534 323',0,3,,'zebra OSPFv3 OSPFv2 IPForward UserDefined'
+6,,'121 251 31',0,3,,'zebra OSPFv3 OSPFv2 IPForward UserDefined'
+7,,'512 541 3',0,3,,'zebra OSPFv3 OSPFv2 IPForward UserDefined'
+5,,'151 156 3',0,3,,'zebra OSPFv3 OSPFv2 IPForward UserDefined'
+9,,'214 123 3',0,3,,'zebra OSPFv3 OSPFv2 IPForward UserDefined'
+8,,'524 679 3',10,,0,
+10,,'342 239 3',10,,0,

@@ -1,5 +1,5 @@
 from typing import List
-from tool.mylog import config, logger
+from tool.mylog import logger, nest_config
 import pymysql
 from pymysql.cursors import DictCursor
 import datetime
@@ -38,8 +38,11 @@ SQL 存在更新，不存在插入(后面的部分是插入的值，前面是更
 """
 
 # 连接数据库
-sqlcon = pymysql.connect(db='zhongkeyuan', user='user',
-                         passwd='123456', host='10.16.31.100', port=3306)
+with open(nest_config, "r") as f: 
+    f=f.read().splitlines() #获取 文件全部数据 不要回车, 返回结果是一个列表
+f = {temp.split()[0]:temp.split()[2] for temp in f}
+sqlcon = pymysql.connect(db=f["db"], user=f["user"],
+                         passwd=f["passwd"], host=f["host"], port=int(f["port"]))
 cursor = sqlcon.cursor()
 
 
@@ -64,7 +67,7 @@ def mysql_cmd1(sql, flag=False) -> tuple:
     """
     操作: 查
     :sql: sql为mysql语句
-    :flag: flag默认False, 为true传回字典类型
+    :flag: flag默认False, 为true 返回查询值为字典类型
     """
     try:
         cursor1 = cursor
@@ -119,6 +122,33 @@ def Abtain_Satellite_Position(file_path, period):
     sqlcon.close()
 
 
+""" 
+def Nodes_Mobility(session_id):
+    # 场景初始化时执行此函数修改高度，之后循环遍历修改geo
+    core = CoreGrpcClient()
+    core.connect()
+    while True:
+        mysql_cmd('LOCK TABLES satellite_LLA_test READ')
+        sql = f'SELECT * FROM satellite_LLA_test'
+        positions = mysql_cmd1(sql, True)
+        mysql_cmd('UNLOCK TABLES')
+        if not positions:
+            continue
+        for position in positions:
+            nodeid = position['node_id']
+            lat = position['latitude']
+            lon = position['longitude']
+            alt = position['altitude']
+            geo = Geo(lon=lon, lat=lat, alt=alt)
+            logger.debug(f"nodeid, {geo}")
+            try:
+                response = core.edit_node(session_id, nodeid, geo=geo)
+            except:
+                # logger.error('set postion fault')
+                continue
+        time.sleep(1) """
+
+
 def insert(session_id, type, file_path) -> bool:
     """
     根据会话号创建或清空对应表，根据文本批量插入数据至该表
@@ -157,22 +187,41 @@ def insert(session_id, type, file_path) -> bool:
     return True
 
 
+def set_status(session_id, status):
+    """
+    根据会话号设定会话状态
+    """
+    state = {
+        1:"DEFINITION",
+        2:"CONFIGURATION",
+        3:"INSTANTIATION",
+        4:"RUNTIME",
+        5:"DATACOLLECT",
+        6:"SHUTDOWN",
+    }
+    status = state[status]
+    sql = f"UPDATE session_all_config SET status = '{status}' WHERE session_id = {session_id}"
+    mysql_cmd(sql)
+
+
 def parse(session_id) -> List:
     """
     根据会话号解析对应数据库，并导出数据字典列表
     """
     sql = f'SELECT * FROM session_{session_id}_nodes'
     nodes = mysql_cmd1(sql, True)
-    logger.debug(nodes)
     sql = f'SELECT * FROM session_{session_id}_links'
     links = mysql_cmd1(sql, True)
-    logger.debug(links)
     sql = f'SELECT * FROM session_{session_id}_services'
     services = mysql_cmd1(sql, True)
-    logger.debug(services)
+    sql = f'SELECT * FROM session_{session_id}_emanes'
+    emane = mysql_cmd1(sql, True)
     sql = f'SELECT * FROM session_all_config WHERE session_id = {session_id}'
     session_config = mysql_cmd1(sql, True)
-    return (nodes, links, services, session_config)
+
+    logger.debug(nodes, links, services, emane, session_config)
+    # return (nodes, links, services)
+    return (nodes, links, services, emane, session_config)
 
 def delete(session_id):
     """
@@ -183,6 +232,8 @@ def delete(session_id):
     sql = f'DROP TABLE session_{session_id}_links'
     mysql_cmd(sql)
     sql = f'DROP TABLE session_{session_id}_services'
+    mysql_cmd(sql)
+    sql = f'DROP TABLE session_{session_id}_emanes'
     mysql_cmd(sql)
     sql = f'DELETE FROM session_all_config WHERE session_id = {session_id}'
     mysql_cmd(sql)

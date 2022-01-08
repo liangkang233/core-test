@@ -173,6 +173,8 @@ def parseArgs(type: str, args: str):
         if tlv_typestr == "flags":
             flagstr = tlv_valstr
             continue
+        if tlv_typestr == "command":
+            tlv_valstr = tlv_valstr.replace('+', ' ')
         try:
             tlv_type = tlv_cls.tlv_type_map[tlv_typestr.upper()]
             tlvdata += tlv_cls.pack_string(tlv_type.value, tlv_valstr)

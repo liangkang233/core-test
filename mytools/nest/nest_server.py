@@ -19,10 +19,9 @@ import json
 import socket
 import selectors
 from sql import nest_data
-from tool.nest_core import resolve, core
+from tool.nest_core import resolve, core, AllTimer
 from tool.mylog import logger
 
-SERVER_ADDR: tuple = ("0.0.0.0", 5132)
 
 def accept(sel, sock):
     # 建立Tcp客户端连接
@@ -73,6 +72,7 @@ def read(sel, conn):  # udp接收数据
 
 def main():
     # 初始化前后端通信udp与tcp套接字
+    SERVER_ADDR = ("0.0.0.0", int(nest_data.f["nestport"]))
     app = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     app.bind(SERVER_ADDR)
     app_T = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -105,6 +105,8 @@ def main():
         app_T.close()
         core.close()
         nest_data.sqlcon.close()
+        for T in AllTimer: # 清空定时器
+            AllTimer[T].cancel()
         print('\nPower your dreams!')
 
 

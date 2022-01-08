@@ -22,6 +22,17 @@ sudo ln -s $ToolsDir/mygps /usr/bin/
 sudo ln -s $ToolsDir/mytcpdump /usr/bin/
 sudo ln -s $ToolsDir/myschedule_table /usr/bin
 
+# 查询 coredaemon pid
+ps -ef | grep core-daemon | awk '{print $2}'
+
+
+# flag tty可以查看vnode原始命令
+coresendmsg execute flags=tty node=1 number=1000 command="uname -a" -l
+# 进入节点伪终端tty
+vcmd -c /tmp/pycore.1/N1 -- bash
+
+
+
 # emane shell 常用cmd
     # 通用
     emanesh localhost
@@ -31,6 +42,13 @@ sudo ln -s $ToolsDir/myschedule_table /usr/bin
     set config nems phy fixedantennagai=10
 # 查看nemid
     cat /tmp/pycore*/emane_nems
+
+# 查询、清除 mac phy 状态
+get stat nem all
+get table nems mac
+get table nems phy
+clear stat nems mac
+clear stat 1 2 phy processedEvents processedDownstreamControl
 
 #读取时隙xml文件 lo为emane事件网卡（主控制网卡） 使用外部主机运行，非仿真容器
 emaneevent-tdmaschedule schedule-sample.xml -i lo 

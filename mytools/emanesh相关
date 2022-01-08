@@ -1,0 +1,105 @@
+emanesh 路径：
+/home/lk233/.cache/pypoetry/virtualenvs/core-3XChpotV-py3.6/lib/python3.6/site-packages/emane/shell
+
+
+[emanesh (localhost:47000)] ## get stat nems phy
+nem 6   phy  avgDownstreamProcessingDelay0 = 12.249537467956543
+nem 6   phy  avgProcessAPIQueueDepth = 1.0098314606741574
+nem 6   phy  avgProcessAPIQueueWait = 386.93398876404456
+nem 6   phy  avgTimedEventLatency = 0.0
+nem 6   phy  avgTimedEventLatencyRatio = 0.0
+nem 6   phy  avgUpstreamProcessingDelay0 = 22.180770874023438
+nem 6   phy  numDownstreamBytesBroadcastGenerated0 = 0
+nem 6   phy  numDownstreamBytesBroadcastRx0 = 131120
+nem 6   phy  numDownstreamBytesBroadcastTx0 = 131120
+nem 6   phy  numDownstreamBytesUnicastGenerated0 = 0
+nem 6   phy  numDownstreamBytesUnicastRx0 = 3698
+nem 6   phy  numDownstreamBytesUnicastTx0 = 3698
+nem 6   phy  numDownstreamPacketsBroadcastDrop0 = 0
+nem 6   phy  numDownstreamPacketsBroadcastGenerated0 = 0
+nem 6   phy  numDownstreamPacketsBroadcastRx0 = 1057
+nem 6   phy  numDownstreamPacketsBroadcastTx0 = 1057
+nem 6   phy  numDownstreamPacketsUnicastDrop0 = 0
+nem 6   phy  numDownstreamPacketsUnicastGenerated0 = 0
+nem 6   phy  numDownstreamPacketsUnicastRx0 = 29
+nem 6   phy  numDownstreamPacketsUnicastTx0 = 29
+nem 6   phy  numTimeSyncThresholdRewrite = 6
+nem 6   phy  numUpstreamBytesBroadcastRx0 = 643236
+nem 6   phy  numUpstreamBytesBroadcastTx0 = 638306
+nem 6   phy  numUpstreamBytesUnicastRx0 = 13490
+nem 6   phy  numUpstreamBytesUnicastTx0 = 13490
+nem 6   phy  numUpstreamPacketsBroadcastDrop0 = 43
+nem 6   phy  numUpstreamPacketsBroadcastRx0 = 5216
+nem 6   phy  numUpstreamPacketsBroadcastTx0 = 5173
+nem 6   phy  numUpstreamPacketsUnicastDrop0 = 0
+nem 6   phy  numUpstreamPacketsUnicastRx0 = 99
+nem 6   phy  numUpstreamPacketsUnicastTx0 = 99
+nem 6   phy  processedConfiguration = 0
+nem 6   phy  processedDownstreamControl = 0
+nem 6   phy  processedDownstreamPackets = 1086
+nem 6   phy  processedEvents = 7
+nem 6   phy  processedTimedEvents = 0
+nem 6   phy  processedUpstreamControl = 0
+nem 6   phy  processedUpstreamPackets = 5315
+
+
+[emanesh (localhost:47000)] ## get table nems phy
+nem 6   phy AntennaProfileEventInfoTable
+| NEM | Antenna Profile | Antenna Azimuth | Antenna Elevation |
+
+nem 6   phy BroadcastPacketAcceptTable0
+| NEM | Num Pkts Tx | Num Bytes Tx | Num Pkts Rx | Num Bytes Rx |
+| 1   | 0           | 0            | 1041        | 128513       |
+| 2   | 0           | 0            | 1042        | 128596       |
+| 3   | 0           | 0            | 1042        | 128596       |
+| 4   | 0           | 0            | 1042        | 128583       |
+| 5   | 0           | 0            | 1047        | 129061       |
+| 6   | 1065        | 132104       | 0           | 0            |
+
+nem 6   phy BroadcastPacketDropTable0
+| NEM | Out-of-Band | Rx Sensitivity | Propagation Model | Gain Location | Gain Horizon | Gain Profile | Not FOI | Spectrum Clamp | Fade Location | Fade Algorithm | Fade Select |
+| 1   | 0           | 0              | 6                 | 0             | 0            | 0            | 0       | 0              | 0             | 0              | 0           |
+| 2   | 0           | 0              | 8                 | 0             | 0            | 0            | 0       | 0              | 0             | 0              | 0           |
+| 3   | 0           | 0              | 9                 | 0             | 0            | 0            | 0       | 0              | 0             | 0              | 0           |
+| 4   | 0           | 0              | 10                | 0             | 0            | 0            | 0       | 0              | 0             | 0              | 0           |
+| 5   | 0           | 0              | 10                | 0             | 0            | 0            | 0       | 0              | 0             | 0              | 0           |
+
+nem 6   phy EventReceptionTable
+| Event | Total Rx |
+| 100   | 7        |
+
+nem 6   phy FadingSelectionInfoTable
+| NEM | Model |
+
+nem 6   phy LocationEventInfoTable
+| NEM | Latitude           | Longitude          | Altitude | Pitch | Roll | Yaw | Azimuth | Elevation | Magnitude |
+| 1   | 29.53689811470645  | 106.60904803249962 | 10.0     | 0.0   | 0.0  | 0.0 | 0.0     | 0.0       | 0.0       |
+| 2   | 29.53673398512723  | 106.6116621299764  | 10.0     | 0.0   | 0.0  | 0.0 | 0.0     | 0.0       | 0.0       |
+| 3   | 29.535256806926075 | 106.6125110379199  | 10.0     | 0.0   | 0.0  | 0.0 | 0.0     | 0.0       | 0.0       |
+| 4   | 29.534658895329052 | 106.6054233303282  | 10.0     | 0.0   | 0.0  | 0.0 | 0.0     | 0.0       | 0.0       |
+| 5   | 29.53476440939718  | 106.60736369134189 | 10.0     | 0.0   | 0.0  | 0.0 | 0.0     | 0.0       | 0.0       |
+| 6   | 29.533638920328112 | 106.60759276173934 | 10.0     | 0.0   | 0.0  | 0.0 | 0.0     | 0.0       | 0.0       |
+
+nem 6   phy PathlossEventInfoTable
+| NEM | Forward Pathloss | Reverse Pathloss |
+
+nem 6   phy ReceivePowerTable
+| NEM | Frequency  | Rx Power            | Last Packet Time   |
+| 1   | 2347000000 | -63.54560250306457  | 1641283151.419903  |
+| 2   | 2347000000 | -68.73258920052552  | 1641283152.1066291 |
+| 3   | 2347000000 | -68.28099893595154  | 1641283151.3470871 |
+| 4   | 2347000000 | -55.118229109221886 | 1641283150.655516  |
+| 5   | 2347000000 | -44.11315922017775  | 1641283151.2626402 |
+
+nem 6   phy UnicastPacketAcceptTable0
+| NEM | Num Pkts Tx | Num Bytes Tx | Num Pkts Rx | Num Bytes Rx |
+| 1   | 0           | 0            | 17          | 2298         |
+| 2   | 0           | 0            | 17          | 2298         |
+| 3   | 0           | 0            | 17          | 2298         |
+| 4   | 0           | 0            | 17          | 2298         |
+| 5   | 0           | 0            | 31          | 4298         |
+| 6   | 29          | 3698         | 0           | 0            |
+
+nem 6   phy UnicastPacketDropTable0
+| NEM | Out-of-Band | Rx Sensitivity | Propagation Model | Gain Location | Gain Horizon | Gain Profile | Not FOI | Spectrum Clamp | Fade Location | Fade Algorithm | Fade Select |
+

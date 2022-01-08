@@ -1,2 +1,2 @@
 Ctrlnet0,Ctrlnet1,location,server,hook,emane_config
-'192.168.19.0/24',,'15:11:13:31:21:31:15',,'4:echo.sh:touch 1234','platform_id_start:2;eventservicettl:3'
+'172.16.0.0/24',,'0:0:0:29.537:106.6032:10.0:10',,,

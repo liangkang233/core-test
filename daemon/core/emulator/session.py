@@ -614,8 +614,9 @@ class Session:
         has_lat_lon_alt = all(i is not None for i in [lat, lon, alt])
         using_lat_lon_alt = has_empty_position and has_lat_lon_alt
         if using_lat_lon_alt:
-            x, y, _ = self.location.getxyz(lat, lon, alt)
-            node.setposition(x, y, None)
+            # lk editnode enable z
+            x, y, z = self.location.getxyz(lat, lon, alt)
+            node.setposition(x, y, z)
             node.position.set_geo(lon, lat, alt)
             self.broadcast_node(node)
         elif not has_empty_position:

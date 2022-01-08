@@ -1,0 +1,7 @@
+db = zhongkeyuan # 1-5行作为数据库配置参数
+user = user
+passwd = 123456
+host = 10.16.97.148
+port = 3306
+nestport = 5132 # nest使用端口 ctrlnet也是使用该端口
+gps_link_path = /home/lk233/core/mytools/nest/gps_link # 存放 动态链路、节点位置 的绝对路径
