@@ -53,6 +53,9 @@ AllTimer = {}  # 所有会话的循环定时器字典
 gps_path:str = os.path.join(nest_data.f["gps_link_path"], "TMP") + '/zLEO_LLAXYZ'
 link_path:str = os.path.join(nest_data.f["gps_link_path"], "zAllLinks") + '/zAllLinks'
 
+linkmap = {} # 全局link表字典
+emanemap = {} # 全局emane链接表字典
+
 @unique
 class Instr(Enum):
     created_session = 1
@@ -170,8 +173,10 @@ def pack_nodes(session_id, sqlnodes):
 def pack_links(session_id, sqllinks):
     """
     打包场景链路参数
+    iface1 2 为中间生成的临时网络接口
+    links为最后生成数据 iface为相邻链路数据用于生成拓扑信息
     """
-    links, iface = [], []
+    links, ifaces = [], []
     node_eth={}
     if not sqllinks:
         logger.warning(f"会话 {session_id} 链路 配置表不存在")
@@ -183,7 +188,7 @@ def pack_links(session_id, sqllinks):
         iface1, iface2 = None, None
 
         # swy
-        temp_iface = [sqllink["node1_id"], "", sqllink["node2_id"],""]
+        temp_iface = [sqllink["node1_id"], "", "", sqllink["node2_id"], "", ""]
         if not sqllink["iface1"] is None:
             host = sqllink["iface1"]
             if sqllink["node1_id"] in node_eth:
@@ -194,6 +199,7 @@ def pack_links(session_id, sqllinks):
                 host = sqllink["node1_id"]
             iface1 = iface_helper.create_iface(int(host), node_eth[sqllink["node1_id"]])
             temp_iface[1] = f'eth{node_eth[sqllink["node1_id"]]}'
+            temp_iface[2] = f'{iface1.ip4}'
         if not sqllink["iface2"] is None:
             host = sqllink["iface2"]
             if sqllink["node2_id"] in node_eth:
@@ -203,8 +209,9 @@ def pack_links(session_id, sqllinks):
             if not host:
                 host = sqllink["node2_id"]
             iface2 = iface_helper.create_iface(int(host), node_eth[sqllink["node2_id"]])
-            temp_iface[3] = f'eth{node_eth[sqllink["node2_id"]]}'
-        iface.append(temp_iface) 
+            temp_iface[4] = f'eth{node_eth[sqllink["node2_id"]]}'
+            temp_iface[5] = f'{iface2.ip4}'
+        ifaces.append(temp_iface) 
         type = core_pb2.LinkType.WIRED
         if sqllink["type"] != 1:
             type = core_pb2.LinkType.WIRELESS
@@ -223,14 +230,14 @@ def pack_links(session_id, sqllinks):
                                 iface2=iface2,
                                 options=options,)
         links.append(link)
-
-    if iface:
-        nest_data.mysql_cmd(
-            f"CREATE TABLE IF NOT EXISTS session_{session_id}_iface LIKE session_template_iface")
-        nest_data.mysql_cmd(f"DELETE FROM session_{session_id}_iface")
-        sql=f'INSERT INTO session_{session_id}_iface(node1_id,node1_eth,node2_id,node2_eth) VALUES (%s,%s,%s,%s)'
-        nest_data.mysql_cmd2(sql,iface)
-
+    if ifaces:
+        emanelinkmap(session_id, ifaces)
+        # nest_data.mysql_cmd( # 放弃写入数据库
+        #     f"CREATE TABLE IF NOT EXISTS session_{session_id}_iface LIKE session_template_iface")
+        # nest_data.mysql_cmd(f"DELETE FROM session_{session_id}_iface")
+        # sql=f'INSERT INTO session_{session_id}_iface(node1_id,node1_eth,node1_ip,node2_id,node2_eth,node2_ip) VALUES (%s,%s,%s,%s,%s,%s)'
+        # nest_data.mysql_cmd2(sql,ifaces)
+        # topology_generator(ifaces) # 计算拓扑 废弃
     return links
     
 
@@ -332,7 +339,7 @@ def Created_Session(msg):
         response = core.create_session()
     except grpc.RpcError as e:
         details = e.details()
-        logger.error("error details:{details}")
+        logger.error(f"error details:{details}")
         return {"flag": False, "details": details, }
     session_id = response.session_id
     logger.info(f"创建会话 {session_id}")
@@ -398,7 +405,7 @@ def Run_Node_Cmd(msg):
     """
     try:
         # response = core.get_node_terminal(msg["session_id"], 1)
-        # print(response.terminal) 返回终端cmd命令
+        # logger.info(response.terminal) 返回终端cmd命令
         response = core.node_command(
             msg["session_id"],
             msg["nodeid"],
@@ -409,7 +416,7 @@ def Run_Node_Cmd(msg):
             "output": response.output,
             "return_code": response.return_code,
         }
-        # print(response.output, response.return_code, sep='\n')
+        # logger.info(response.output, response.return_code, sep='\n')
     except grpc.RpcError as e:
         details = e.details()
         logger.error(f"error details:{details}")
@@ -431,7 +438,7 @@ def Stop_Session(msg):
             AllTimer.pop(msg["session_id"])
     except grpc.RpcError as e:
         details = e.details()
-        logger.error("error details:{details}")
+        logger.error(f"error details:{details}")
         return {"flag": False, "details": details}
     # 删除对应数据库数据
     # nest_data.delete(msg["session_id"])
@@ -611,6 +618,64 @@ def match(session_id,node1_id,node2_id,optition):
         logger.info(f"会话{session_id} 地面节点{temp_data_user[0]['node1_id']} {temp_data_user[0]['node1_eth']} is {optition}")
     logger.info(f"会话{session_id} 卫星节点{temp_data_satellite[0]['node1_id']} {temp_data_satellite[0]['node1_eth']} is {optition}")
 
+def emanelinkmap(session_id, ifaces):
+    """
+    :param ifaces: 链路信息列表iface 输入类似
+    [12, 'eth1', '10.0.1.1', 23, 'eth0', '10.0.1.2']
+    输出 下面两个字典存储在全局的字典中 linkmap emanemap
+    ifmap-> key: (节点id1 节点id2) 元祖   value: (节点1网卡 节点1ip 节点2网卡 节点2ip) 元祖
+    emmap-> key: 终端节点id alue: (云节点id 终端ip) 元祖
+    """
+    ifmap, emmap = {}, {}
+    for iface in ifaces:
+        ifmap[(iface[0], iface[3])] = (iface[1], iface[2], iface[4], iface[5])
+        if(not iface[4]):
+            if(iface[0] in emmap):
+                emmap[iface[0]] = None
+            else:
+                emmap[iface[0]] = (iface[3], iface[2])
+    for key in emmap.copy(): # 由于卫星节点重复出现会被标记为none，删除之 注意需要用备份字典进行遍历
+        if(emmap[key] is None):
+            del emmap[key]
+    linkmap[session_id] = ifmap
+    emanemap[session_id] = emmap
+    # print(ifmap)
+    # print(emmap)
+
+
+def topology_generator(ifaces):
+    """
+    :param ifaces: 链路信息列表iface 输入类似
+    [12, 'eth1', '10.0.1.1', 23, 'eth0', '10.0.1.2']
+    假设目前所有有线链路为卫星链路，且按照先 同轨后相异轨的形式拼接
+    输出对应拓扑文件, 之后计算 终端 到 关口站 无线路由
+    """
+    logger.info(ifaces)
+    topo, temptopo = [], [] # 二维拓扑表 临时轨道表
+    myset = set() # 二维列表 所有元素的set 单个轨道内的set
+    ifaceip = {} # key为节点id元祖 value对应ip元祖 哈希表  注意:节点对未查询到需要逆转查询
+    for iface in ifaces:
+        ifaceip[(iface[0], iface[3])] = (iface[2], iface[5])
+        print((iface[0], iface[3]))
+        if (not iface[1]) or (not iface[4]): # 略过无线云
+            # print(ifaceip[(iface[0], iface[3])])
+            continue
+        # 建立拓扑思路：建立所有轨道，确保输入的异轨间链路与输入同轨节点顺序相同
+        if ((not iface[0] in myset) or (not iface[3] in myset)):
+            if (not temptopo):
+                temptopo = [iface[0], iface[3]]
+            else: # 拼接同轨
+                temp = iface[0] if iface[0] not in myset else iface[3]
+                temptopo.append(temp)
+            myset.update((iface[0], iface[3]))
+        else: # temptopo有数据代表同轨建立完毕, 否则是异轨
+            if(temptopo):
+                topo.append(temptopo)
+                temptopo = []
+            else: #跳过异轨间处理
+                pass
+
+    
 
 def Get_Flow(session_id):
     table = f"session_{session_id}_flows"
@@ -689,17 +754,17 @@ def resolve(msg):
     return callback(msg)
 
 
-if __name__ == "__main__":
-    msg1 = [{'timestamp': "1", 'id': "2", 'name': "3", 'startNodeName': "4", 'startNode': "5",
-            'endNodeName': "6", 'businessType': "7", 'frameLength': "8", 'lastedTime': "9", 'spacedTime': "10"},
-            {'timestamp': "1", 'id': "2", 'name': "3", 'startNodeName': "4", 'startNode': "5",
-            'endNodeName': "6", 'businessType': "7", 'frameLength': "8", 'lastedTime': "9", 'spacedTime': "10"}]
+# if __name__ == "__main__":
+#     msg1 = [{'timestamp': "1", 'id': "2", 'name': "3", 'startNodeName': "4", 'startNode': "5",
+#             'endNodeName': "6", 'businessType': "7", 'frameLength': "8", 'lastedTime': "9", 'spacedTime': "10"},
+#             {'timestamp': "1", 'id': "2", 'name': "3", 'startNodeName': "4", 'startNode': "5",
+#             'endNodeName': "6", 'businessType': "7", 'frameLength': "8", 'lastedTime': "9", 'spacedTime': "10"}]
 
-    msg = {'instr': 6, 'id': "2", 'name': "3", 'startNodeName': "4", 'startNode': "5",
-           'endNodeName': "6", 'businessType': "7", 'frameLength': "8", 'lastedTime': "9", 'spacedTime': "10"}
-    msg = json.dumps(msg)
-    # print(msg, type(msg))
-    msg = json.loads(msg)
-    # print(msg, type(msg))
-    resolve(msg)
-    core.close()
+#     msg = {'instr': 6, 'id': "2", 'name': "3", 'startNodeName': "4", 'startNode': "5",
+#            'endNodeName': "6", 'businessType': "7", 'frameLength': "8", 'lastedTime': "9", 'spacedTime': "10"}
+#     msg = json.dumps(msg)
+#     # print(msg, type(msg))
+#     msg = json.loads(msg)
+#     # print(msg, type(msg))
+#     resolve(msg)
+#     core.close()

@@ -127,9 +127,10 @@ class EmaneNet(CoreNetworkBase):
         node = iface.node
         x, y, z = node.getposition()
         lat, lon, alt = self.session.location.getgeo(x, y, z)
+        # 使得读取到ns2移动脚本的z能够写入emane高度 而不是默认初始值
         # if node.position.alt is not None:
         #     alt = node.position.alt
-        # logging.info("lon lat alt(%f %f %f)", lon, lat, alt) #使得高度能够动态随z变化
+        # logging.info("lon lat alt(%f %f %f)", lon, lat, alt)
         node.position.set_geo(lon, lat, alt)
         # altitude must be an integer or warning is printed
         alt = int(round(alt))
@@ -182,6 +183,7 @@ class EmaneNet(CoreNetworkBase):
             nem_ids.add(nem_id)
         emane_links = emane_manager.link_monitor.links
         considered = set()
+        # for link_key in emane_links.copy(): # 似乎某些情况下emane_links字典会在遍历下修改 造成迭代器失效
         for link_key in emane_links:
             considered_key = tuple(sorted(link_key))
             if considered_key in considered:

@@ -8,8 +8,8 @@ import time
 from concurrent import futures
 from typing import Iterable, Optional, Pattern, Type
 
-import netaddr
 import grpc
+import netaddr
 from grpc import ServicerContext
 
 from core import utils
@@ -104,10 +104,10 @@ from core.api.grpc.wlan_pb2 import (
 from core.emulator.coreemu import CoreEmu
 from core.emulator.data import (
     InterfaceData,
+    IpPrefixes,
     LinkData,
     LinkOptions,
     NodeOptions,
-    IpPrefixes,
 )
 from core.emulator.enumerations import (
     EventTypes,

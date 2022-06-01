@@ -19,6 +19,7 @@ class DockerClient:
     def __init__(self, name: str, image: str, run: Callable[..., str]) -> None:
         self.name: str = name
         self.image: str = image
+        # TODO 添加 指定run 命令 self.cmd: str = cmd
         self.run: Callable[..., str] = run
         self.pid: Optional[str] = None
 

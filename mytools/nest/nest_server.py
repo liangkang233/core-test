@@ -19,7 +19,7 @@ import json
 import socket
 import selectors
 from sql import nest_data
-from tool.nest_core import resolve, core, AllTimer
+from tool.nest_core import resolve, core, AllTimer, pack_links
 from tool.mylog import logger
 
 
@@ -111,7 +111,12 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+
+    session_id = 1
+    (sqlnodes, sqllinks, sqlsvss, sqlemanes, sqlconfig) = nest_data.parse(session_id)
+    nest_links = pack_links(session_id, sqllinks)
+
     # logger.info('test')
     # nest_data.parse(1)
 

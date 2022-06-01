@@ -112,6 +112,7 @@ class CRradioModel(emanemodel.EmaneModel):
                 nemid[nem.group(1)]=nem.group(2)
 
         # 读取场景配置文件取出使用了CRradio模型的所有节点的网卡
+        # 生成类似字典 n17 为云节点id {'n17': ['n2 eth0', 'n3 eth0', 'n4 eth0', 'n5 eth0', 'n6 eth0', 'n7 eth0', 'n8 eth0', 'n9 eth0', 'n10 eth0', 'n11 eth0', 'n12 eth0', 'n13 eth0', 'n14 eth0', 'n15 eth0', 'n16 eth0', 'n1 eth0'], 'n2': ['n17 e0'], 'n3': ['n17 e1'], 'n4': ['n17 e2'], 'n5': ['n17 e3'], 'n6': ['n17 e4'], 'n7': ['n17 e5'], 'n8': ['n17 e6'], 'n9': ['n17 e7'], 'n10': ['n17 e8'], 'n11': ['n17 e9'], 'n12': ['n17 e10'], 'n13': ['n17 e11'], 'n14': ['n17 e12'], 'n15': ['n17 e13'], 'n16': ['n17 e14'], 'n1': ['n17 e15']}
         CRradio_model = ''
         with open(self.session.file_name, 'r', encoding='utf-8') as config :
             interface = {}

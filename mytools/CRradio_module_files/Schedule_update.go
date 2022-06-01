@@ -9,6 +9,10 @@
 注意：这里仅仅是为了处理方便将所有节点时隙数据整合在一起
 其实实际各个节点的时隙是单独分派的，例如若两节点n1 n15分别在两个网内（组播域中未互相探测到）
 所以他们的时隙很可能是会有重合冲突的部分，但由于组播无法互相探测到可认为是无影响的。
+
+由于更新时隙表不会默认填充rx时隙，修改很麻烦，这里就直接添加结构
+<structure frames='1' slots='32' slotoverhead='40' slotduration='10000' bandwidth='1M'/>
+输入一个完整时隙表
 */
 
 package main
@@ -85,7 +89,7 @@ func main() {
 				Info.Println("全部节点时隙未变化，取消更新总时隙表文件操作")
 				continue
 			}
-			schedule.basic[3] = nodes_solt[:len(nodes_solt)-1] //去掉多余分号
+			schedule.basic[4] = nodes_solt[:len(nodes_solt)-1] //去掉多余分号
 			if err := write_schedule(upfile, schedule.basic); err != nil {
 				Warning.Println("写入时隙表文件失败", err)
 			}
@@ -189,7 +193,7 @@ func schedule_Parse(filepath string) (filedata, error) {
 	linenum, slots := 0, 0
 	basic := []string{
 		"<emane-tdma-schedule >",
-		// "<structure frames='1' slots='32' slotoverhead='40' slotduration='10000' bandwidth='1M'/>", //更新文件不需要这行
+		"<structure frames='1' slots='32' slotoverhead='40' slotduration='10000' bandwidth='1M'/>",
 		"  <multiframe frequency='2.347G' power='10' class='0' datarate='10M'>", //根据实际读入值将改变
 		"    <frame index='0'>",
 		"      <slot index='' nodes=''\n      </slot>>", //根据实际值改变
@@ -206,6 +210,7 @@ func schedule_Parse(filepath string) (filedata, error) {
 		if linenum == 2 {
 			s := strings.Fields(schedule.Text()[2:])
 			slots, err = strconv.Atoi(strings.Split(s[2], "'")[1])
+			// 以下数据更新文件不需要
 			// frames := strings.Split(s[1], "'")[1]
 			// slotoverhead := strings.Split(s[3], "'")[1]
 			// slotduration := strings.Split(s[4], "'")[1]
@@ -213,8 +218,9 @@ func schedule_Parse(filepath string) (filedata, error) {
 			if err != nil {
 				Error.Fatalln(err)
 			}
-		} else if linenum == 3 {
 			basic[1] = schedule.Text()
+		} else if linenum == 3 {
+			basic[2] = schedule.Text()
 		} else if linenum >= 5 && (linenum-5)&1 == 0 { //(linenum-5)%2 == 0
 			s := strings.Split(schedule.Text()[6:], "'")
 			i, err := strconv.Atoi(s[3])
@@ -228,12 +234,13 @@ func schedule_Parse(filepath string) (filedata, error) {
 	if err := schedule.Err(); err != nil {
 		return filedata{}, err
 	}
-	Info.Printf("解析数据成功,slots: %d, schdule:\n %s\n", slots, basic[1])
+	Info.Printf("解析数据成功,slots: %d, schdule:\n %s\n%s\n", slots, basic[1], basic[2])
 	return filedata{slots, basic, scheduleSlot}, err
 }
 
 /* 按照如下指定格式写入文件中：
 <emane-tdma-schedule >
+  <structure frames='1' slots='32' slotoverhead='40' slotduration='10000' bandwidth='1M'/>
   <multiframe frequency='2.347G' power='10' class='0' datarate='10M'>
     <frame index='0'>
       <slot index='0,16,14,30' nodes='1'>

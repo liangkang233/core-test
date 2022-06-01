@@ -14,6 +14,10 @@ include = [
 ]
 exclude = ["core/constants.py.in"]
 
+# include 是包含 poetry build 没有 init.py 的特殊文件
+# 默认执行 poetry install 会包含当前目录至 虚拟python 环境中
+# 通过 poetry add/remove/update 包名, 
+# 修改 toml 或 手动修改后 需要 poetry update 更新 lock文件
 
 [tool.poetry.dependencies]
 python = "^3.6"

@@ -614,7 +614,7 @@ class Session:
         has_lat_lon_alt = all(i is not None for i in [lat, lon, alt])
         using_lat_lon_alt = has_empty_position and has_lat_lon_alt
         if using_lat_lon_alt:
-            # lk editnode enable z
+            # by@lk 原grpc接口 editnode 无法修改z 此处使能z
             x, y, z = self.location.getxyz(lat, lon, alt)
             node.setposition(x, y, z)
             node.position.set_geo(lon, lat, alt)

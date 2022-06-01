@@ -80,7 +80,23 @@ for D in /tmp/pycore*; do
 done
 
 # 代码检测筛查
-cd daemon
-poetry shell
-poetry run black --check .
-poetry run flake8
+- name: isort
+run: |
+    cd daemon
+    poetry run isort -c -df
+- name: black
+run: |
+    cd daemon
+    poetry run black --check .
+- name: flake8
+run: |
+    cd daemon
+    poetry run flake8
+- name: grpc
+run: |
+    cd daemon/proto
+    poetry run python -m grpc_tools.protoc -I . --python_out=.. --grpc_python_out=.. core/api/grpc/*.proto
+- name: test
+run: |
+    cd daemon
+    poetry run pytest --mock tests
