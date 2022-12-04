@@ -117,7 +117,7 @@ class OvsService(SdnService):
 class RyuService(SdnService):
     name: str = "ryuService"
     group: str = "SDN"
-    executables: Tuple[str, ...] = ("ryu-manager",)
+    # executables: Tuple[str, ...] = ("ryu-manager",)
     configs: Tuple[str, ...] = ("ryuService.sh",)
     startup: Tuple[str, ...] = ("bash ryuService.sh",)
     shutdown: Tuple[str, ...] = ("killall ryu-manager",)

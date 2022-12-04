@@ -829,9 +829,53 @@ class CtrlNet(CoreNetwork):
 class PtpNet(CoreNetwork):
     """
     Peer to peer network node.
+    为ptpnet添加类的 init 和 host_cmd方法
     """
 
     policy: NetworkPolicy = NetworkPolicy.ACCEPT
+
+    def __init__(
+        self,
+        session: "Session",
+        _id: int = None,
+        name: str = None,
+        server: "DistributedServer" = None,
+        serverSet: "set(DistributedServer)" = None,
+    ) -> None:
+        super().__init__(session, _id, name, server)
+        if serverSet is None:
+            serverSet = set()
+            serverSet.add(None)
+        self.serverSet = serverSet
+
+    def host_cmd(
+        self,
+        args: str,
+        env: Dict[str, str] = None,
+        cwd: str = None,
+        wait: bool = True,
+        shell: bool = False,
+    ) -> str:
+        """
+        CoreNetwork父类 调用execute 会使用全局的分布式执行器件 执行cmd
+        ptpnet 派生为 主控会默认执行 并在在self.server包含的分布式机器上执行cmd
+
+        :param args: command to run
+        :param env: environment to run command with
+        :param cwd: directory to run command in
+        :param wait: True to wait for status, False otherwise
+        :param shell: True to use shell, False otherwise
+        :return: combined stdout and stderr
+        :raises CoreCommandError: when a non-zero exit status occurs
+        """
+        logging.debug("network node(%s) cmd", self.name)
+        output = ""
+        for s in self.serverSet:
+            if s is None:
+                output += utils.cmd(args, env, cwd, wait, shell)
+            else:
+                output += s.remote_cmd(args, env, cwd, wait)
+        return output
 
     def attach(self, iface: CoreInterface) -> None:
         """

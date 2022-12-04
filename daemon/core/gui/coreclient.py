@@ -445,13 +445,20 @@ class CoreClient:
         except grpc.RpcError as e:
             self.app.show_grpc_exception("Edit Node Error", e)
 
-    def send_servers(self) -> None:
-        for server in self.servers.values():
-            self.client.add_session_server(self.session.id, server.name, server.address)
+    def send_servers(self, dis_server: Set[str] = None) -> None:
+        # 修复原有的初始化会话 会将未使用的分布式服务器传入后台实例化 的问题
+        # for server in self.servers.values():
+        # self.client.add_session_server(self.session.id, server.name, server.address)
+        for s in dis_server:
+            self.client.add_session_server(self.session.id, s, self.servers[s].address)
 
     def start_session(self) -> Tuple[bool, List[str]]:
         self.ifaces_manager.set_macs([x.link for x in self.links.values()])
         nodes = [x.to_proto() for x in self.session.nodes.values()]
+        dis_server = set()
+        for node in nodes:
+            if node.server:
+                dis_server.add(node.server)
         links = []
         asymmetric_links = []
         for edge in self.links.values():
@@ -474,7 +481,7 @@ class CoreClient:
         result = False
         exceptions = []
         try:
-            self.send_servers()
+            self.send_servers(dis_server)
             response = self.client.start_session(
                 self.session.id,
                 nodes,

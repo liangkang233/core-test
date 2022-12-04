@@ -20,6 +20,7 @@ from core.api.grpc.services_pb2 import (
 from core.config import ConfigurableOptions
 from core.emane.nodes import EmaneNet
 from core.emulator.data import InterfaceData, LinkData, LinkOptions, NodeOptions
+from core.emulator.distributed import DistributedServer
 from core.emulator.enumerations import LinkTypes, NodeTypes
 from core.emulator.session import Session
 from core.errors import CoreError
@@ -157,7 +158,7 @@ def create_nodes(
         args = (_class, _id, options)
         funcs.append((session.add_node, args, {}))
     start = time.monotonic()
-    results, exceptions = utils.threadpool(funcs)
+    results, exceptions = utils.threadpool(funcs, workers=6)
     total = time.monotonic() - start
     logging.debug("grpc created nodes time: %s", total)
     return results, exceptions
@@ -181,7 +182,7 @@ def create_links(
         args = (node1_id, node2_id, iface1, iface2, options, link_type)
         funcs.append((session.add_link, args, {}))
     start = time.monotonic()
-    results, exceptions = utils.threadpool(funcs)
+    results, exceptions = utils.threadpool(funcs, workers=5)
     total = time.monotonic() - start
     logging.debug("grpc created links time: %s", total)
     return results, exceptions
@@ -285,6 +286,9 @@ def get_node_proto(session: Session, node: NodeBase) -> core_pb2.Node:
     image = None
     if isinstance(node, (DockerNode, LxcNode)):
         image = node.image
+    server = None  # by@lk233 补充 get node 的 server 序列化参数
+    if isinstance(node.server, DistributedServer):
+        server = node.server.name
     return core_pb2.Node(
         id=node.id,
         name=node.name,
@@ -296,6 +300,7 @@ def get_node_proto(session: Session, node: NodeBase) -> core_pb2.Node:
         services=services,
         icon=node.icon,
         image=image,
+        server=server,
         config_services=config_services,
         dir=node_dir,
         channel=channel,

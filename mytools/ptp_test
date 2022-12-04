@@ -1,0 +1,158 @@
+#!/home/lk233/.cache/pypoetry/virtualenvs/core-3XChpotV-py3.6/bin/python
+
+from core.nodes.netclient import LinuxNetClient
+from core import utils
+import time
+
+CMD = LinuxNetClient(utils.cmd)
+
+# vcmd -c /tmp/pycore.1/N1 -- bash
+# vcmd -c node1 "pwd"
+# vnode -C 指定目录 -c 指定容器实体，其名字也是vcmd连接的名字  路径不同需要加路径
+
+node_pid = {}
+
+
+def f1(i: int):
+    CMD.run(f"mkdir /tmp/lk_test/node{i}.dir")
+    output = CMD.run(f"vnoded -C /tmp/lk_test/node{i}.dir  -c /tmp/lk_test/node{i}")
+    node_pid[f"node{i}"] = output
+    
+
+def test_create_container(n: int = 200, flag: bool = False):
+    funcs = []
+    start = time.monotonic()
+    print(f"start test_create_container {n}")
+    CMD.run("mkdir /tmp/lk_test")
+    for i in range(n):
+        if flag:
+            funcs.append((f1, (i), {}))
+        else:
+            f1(i)
+    if flag:
+        results, exceptions = utils.threadpool(funcs, workers=4)
+    print(f"test_create_container takes             {time.monotonic() - start} s")
+    with open("ptp_pid.txt",mode='w',encoding='utf-8') as ff:
+        for node, pid in node_pid.items():
+            ff.write(f"{node} {pid}\n")
+
+def test_del_container(n: int = 200, flag: bool = False):
+    del_nodepid = {}
+    with open("ptp_pid.txt",mode='r',encoding='utf-8') as ff:
+        lines = ff.readlines()
+        for line in lines:
+            val = line.split()
+            del_nodepid[val[0]] = val[1]
+    funcs = []
+    start = time.monotonic()
+    print(f"start test_del_container {n}")
+    for pid in del_nodepid.values():
+        if flag:
+            funcs.append((CMD.run, (f"kill -9 {pid}",), {}))
+        else:
+            CMD.run(f"kill -9 {pid}")
+    if flag:
+        results, exceptions = utils.threadpool(funcs, workers=4)
+    CMD.run("rm -rf /tmp/lk_test ptp_pid.txt")
+    print(f"test_del_container takes                {time.monotonic() - start} s")
+
+def test_create_br(n :int = 100, flag: bool = False):
+    funcs = []
+    start = time.monotonic()
+    print(f"start test_create_br {n}")
+    for i in range(n):
+        if flag:
+            funcs.append((CMD.create_bridge, (f"br_lk_{i}",), {}))
+        else:
+            CMD.create_bridge(f"br_lk_{i}")
+    if flag:
+        results, exceptions = utils.threadpool(funcs, workers=4)
+    print(f"test_create_br takes                    {time.monotonic() - start} s")
+
+def test_del_br(n :int = 100, flag: bool = False):
+    funcs = []
+    start = time.monotonic()
+    print(f"start test_del_br {n}")
+    for i in range(n):
+        if flag:
+            funcs.append((CMD.delete_bridge, (f"br_lk_{i}",), {}))
+        else:
+            CMD.delete_bridge(f"br_lk_{i}")
+    if flag:
+        results, exceptions = utils.threadpool(funcs, workers=4)
+    print(f"test_del_br takes                       {time.monotonic() - start} s")
+
+def f2(i):
+    CMD.create_veth(f"veth_lk_{i}", f"veth_lk_P{i}")
+    CMD.device_up(f"veth_lk_{i}")
+    # 将eth pair 一端绑定至另一个容器非常慢  25s创建100对ptp 此步骤约占9s  by@lk233
+    CMD.device_ns(f"veth_lk_P{i}", node_pid[f"node{i}"])
+    CMD.run(f'vcmd -c /tmp/lk_test/node{i} ip link set veth_lk_P{i} up')
+
+def test_create_veth(n: int = 200, flag: bool = False):
+    funcs = []
+    start = time.monotonic()
+    print(f"start test_create_veth {n}")
+    for i in range(n):
+        if flag:
+            funcs.append((f2, (i,), {}))
+        else:
+            f2(i)
+    if flag:
+        results, exceptions = utils.threadpool(funcs, workers=4)
+    print(f"test_create_veth takes                  {time.monotonic() - start} s")
+
+def test_del_veth(n: int = 200, flag: bool = False):
+    funcs = []
+    start = time.monotonic()
+    print(f"start test_del_veth {n}")
+    for i in range(n):
+        if flag:
+            funcs.append((CMD.delete_device, (f"veth_lk_{i}",), {}))
+        else:
+            CMD.delete_device(f"veth_lk_{i}")
+        # CMD.delete_device(f"veth_lk_P{i}") # pair成对出现 删除一端即可
+    if flag:
+        results, exceptions = utils.threadpool(funcs, workers=4)
+    print(f"test_del_veth takes                     {time.monotonic() - start} s")
+
+def f3(i, n):
+    CMD.set_iface_master(f"br_lk_{i}", f"veth_lk_{i}")
+    CMD.set_iface_master(f"br_lk_{i}", f"veth_lk_{i+n}")   
+
+def test_attach(n: int = 100, flag: bool = False):
+    funcs = []
+    start = time.monotonic()
+    print(f"start test_attach {n}")
+    #  node{i} 与 node{i+n) PTP
+    for i in range(n):
+        if flag:
+            funcs.append((f3, (i, n), {}))
+        else:
+            f3(i, n)
+    if flag:
+        results, exceptions = utils.threadpool(funcs, workers=4)
+    print(f"test_attach takes                       {time.monotonic() - start} s")
+
+def all_test(n: int = 100, flag: bool = False):
+    # ptp 规律为 node{i} 与 node{i+n) 的构建ptp网络
+    print(f"创建 {n} 组ptp网络")
+    start = time.monotonic()
+    test_create_container(2*n, flag)
+    test_create_br(n, flag)
+    test_create_veth(2*n, flag)
+    test_attach(n, flag)
+    test_del_veth(2*n, flag)
+    test_del_br(n, flag)
+    test_del_container(2*n, flag)
+    print(f"\nall_test takes                          {time.monotonic() - start} s")
+
+if __name__ == '__main__' :
+    # 把建立的容器pid写入文件中 防止中断程序后无法找到pid
+    s = input("请输入需要建立多少组ptp网络: ")
+    flag = input("是否并发执行(1: Yes   2:No     default: No): ")
+    if s is "" or int(s) <= 0:
+        s = "100"
+    flag = True if flag == "1" else False
+    all_test(int(s), flag)
+    print("Bye!")

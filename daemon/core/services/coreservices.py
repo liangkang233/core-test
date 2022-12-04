@@ -311,6 +311,7 @@ class CoreServices:
             "prouter": [],
             "router": ["zebra", "OSPFv2", "OSPFv3", "IPForward"],
             "host": ["DefaultRoute", "SSH"],
+            "router1": ["zebra", "OSPFv2", "IPForward"],
         }
         # dict of node ids to dict of custom services by name
         self.custom_services: Dict[int, Dict[str, "CoreService"]] = {}
@@ -453,7 +454,7 @@ class CoreServices:
             args = (node, boot_path)
             funcs.append((self._boot_service_path, args, {}))
         result, exceptions = utils.threadpool(
-            funcs=funcs, workers=3
+            funcs=funcs, workers=4
         )  # 默认的10个进程太大，会造成ssh通道饱和连接失败
         if exceptions:
             raise CoreServiceBootError(*exceptions)

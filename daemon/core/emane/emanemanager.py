@@ -343,13 +343,16 @@ class EmaneManager(ModelManager):
         status = self.setup()
         if status != EmaneState.SUCCESS:
             return status
-        self.starteventmonitor()
+        # 修复 emane-event 开启监听emane事件 emane-service未初始化问题 347 348 执行顺序交换
         self.buildeventservicexml()
+        self.starteventmonitor()
         with self._emane_node_lock:
             logging.info("emane building xmls...")
             start_data = self.get_start_data()
             for data in start_data:
                 self.start_node(data)
+        # link_monitor 实现原理即为 emanesh 执行 get table nems mac 统计各 nem NeighborStatusTable 的平均sinr
+        # 对比读取到的配置文件的pcr 计算是否可达(绿线连接)
         if self.links_enabled():
             self.link_monitor.start()
         return EmaneState.SUCCESS

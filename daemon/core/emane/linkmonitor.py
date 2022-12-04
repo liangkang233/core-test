@@ -77,15 +77,15 @@ class EmaneLink:
 
 
 class EmaneClient:
-    def __init__(self, address: str) -> None:
+    def __init__(self, address: str, emanemanger: "EmaneManager") -> None:
         self.address: str = address
         self.client: shell.ControlPortClient = shell.ControlPortClient(
             self.address, DEFAULT_PORT
         )
         self.nems: Dict[int, LossTable] = {}
-        self.setup()
+        self.setup(emanemanger)
 
-    def setup(self) -> None:
+    def setup(self, emangemanger: "EmaneManager") -> None:
         manifest = self.client.getManifest()
         for nem_id, components in manifest.items():
             # get mac config
@@ -100,6 +100,11 @@ class EmaneClient:
                 loss_table = self.handle_80211(mac_config)
             elif emane_model == EMANE_RFPIPE:
                 loss_table = self.handle_rfpipe(mac_config)
+            elif emane_model == EMANE_TDMA:
+                # 补充tdma 记录losstable函数
+                iface = emangemanger.get_iface(nem_id)
+                iface_config = emangemanger.get_iface_config(iface.net, iface)
+                loss_table = self.handle_tdma(mac_config, iface_config)
             else:
                 logging.warning("unknown emane link model: %s", emane_model)
                 continue
@@ -136,9 +141,30 @@ class EmaneClient:
                         link = EmaneLink(from_nem, to_nem, sinr)
                         links[link_key] = link
 
-    def handle_tdma(self, config: Dict[str, Tuple]):
+    def handle_tdma(self, config: Dict[str, Tuple], iface_config: Dict[str, str]):
         pcr = config["pcrcurveuri"][0][0]
         logging.debug("tdma pcr: %s", pcr)
+        # by@lk233
+        # 从时隙表获取速率 由于时隙表参数由core导入属于配置文件参数 无法从emane的mac_config获取
+        # schedule是core界面添加的参数非 emane mac config 的参数只能从节点iface_config那里获取 时隙表路径
+        schedule_file = iface_config["schedule"]
+        tree = etree.parse(schedule_file)
+        logging.debug("tdma schedule file : %s", schedule_file)
+        root = tree.getroot()
+        unicastrate = root.find("structure").get("bandwidth")
+
+        tree = etree.parse(pcr)
+        root = tree.getroot()
+        losses = {}
+        for rate in root.iter("datarate"):
+            bps = rate.get("bps")
+            if bps == unicastrate:
+                for entry in rate.iter("entry"):
+                    sinr = float(entry.get("sinr"))
+                    por = float(entry.get("por"))
+                    losses[sinr] = por
+        # print(losses)
+        return LossTable(losses)
 
     def handle_80211(self, config: Dict[str, Tuple]) -> LossTable:
         unicastrate = config["unicastrate"][0][0]
@@ -190,7 +216,9 @@ class EmaneLinkMonitor:
         self.loss_threshold = int(self.emane_manager.get_config("loss_threshold"))
         self.link_interval = int(self.emane_manager.get_config("link_interval"))
         self.link_timeout = int(self.emane_manager.get_config("link_timeout"))
-        self.initialize()
+        # 为了tdma能读到core的设定参数 只能从这一步一步传 emane_manger
+        # EmaneLinkMonitor-> start() -> EmaneClient -> setup()
+        self.initialize(self.emane_manager)
         if not self.clients:
             logging.info("no valid emane models to monitor links")
             return
@@ -200,10 +228,10 @@ class EmaneLinkMonitor:
         thread = threading.Thread(target=self.scheduler.run, daemon=True)
         thread.start()
 
-    def initialize(self) -> None:
+    def initialize(self, emane_manager: "EmaneManager") -> None:
         addresses = self.get_addresses()
         for address in addresses:
-            client = EmaneClient(address)
+            client = EmaneClient(address, emane_manager)
             if client.nems:
                 self.clients.append(client)
 

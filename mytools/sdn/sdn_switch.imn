@@ -1,0 +1,439 @@
+node n1 {
+    type router
+    model router
+    network-config {
+	hostname n1
+	!
+	interface eth2
+	!
+	interface eth1
+	!
+	interface eth0
+	!
+    }
+    canvas c1
+    iconcoords {304.0 178.0}
+    labelcoords {304.0 210.0}
+    services {OvsService UserDefined}
+    interface-peer {eth0 n2}
+    interface-peer {eth1 n3}
+    interface-peer {eth2 n4}
+    custom-image /usr/local/share/core/icons/normal/pc.gif
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	files=('switch.py', 'switch1.py', 'run.sh', 'sw.py', )
+	cmdup=('chmod 777 run.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:sw.py
+	custom-command sw.py
+	config {
+	from ryu.base import app_manager
+	from ryu.ofproto import ofproto_v1_3
+	from ryu.controller.handler import set_ev_cls
+	from ryu.controller.handler import MAIN_DISPATCHER
+	from ryu.controller.handler import CONFIG_DISPATCHER
+	from ryu.controller import ofp_event
+	from ryu.lib.packet import packet
+	from ryu.lib.packet import ethernet
+	 
+	 
+	class Switch(app_manager.RyuApp):
+	    OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
+	 
+	    def __init__(self, *args, **kwargs):
+	        super().__init__(*args, **kwargs)
+	        self.mac_table = {}
+	 
+	    def doflow(self, datapath, command, priority, match, actions):
+	        ofp = datapath.ofproto
+	        ofp_parser = datapath.ofproto_parser
+	        inst = [ofp_parser.OFPInstructionActions(ofp.OFPIT_APPLY_ACTIONS, actions)]
+	        req = ofp_parser.OFPFlowMod(datapath=datapath, command=command,
+	                                    priority=priority, match=match, instructions=inst)
+	        datapath.send_msg(req)
+	 
+	    @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
+	    def switch_features_handler(self, ev):
+	        msg = ev.msg
+	        datapath = msg.datapath
+	        ofp = datapath.ofproto
+	        ofp_parser = datapath.ofproto_parser
+	 
+	        command = ofp.OFPFC_ADD
+	        match = ofp_parser.OFPMatch()
+	        actions = [ofp_parser.OFPActionOutput(ofp.OFPP_CONTROLLER, ofp.OFPCML_NO_BUFFER)]
+	        self.doflow(datapath, command, 0, match, actions)
+	 
+	    @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
+	    def packet_in_handler(self, ev):
+	        global src, dst
+	        msg = ev.msg
+	        datapath = msg.datapath
+	        ofp = datapath.ofproto
+	        ofp_parser = datapath.ofproto_parser
+	        dpid = datapath.id
+	        in_port = msg.match['in_port']
+	        pkt = packet.Packet(msg.data)
+	        print(msg)
+	
+	        pkt = packet.Packet(msg.data)
+	        eth = pkt.get_protocol(ethernet.ethernet)
+	        dst = eth.dst
+	        src = eth.src
+	        print(f"packet in dpid:{dpid} src:{src} dst:{dst} in_port{in_port}")
+	
+	        self.mac_table.setdefault(dpid, {})
+	        self.mac_table[dpid][src] = in_port
+	 
+	        if dst in self.mac_table[dpid]:
+	            out_port = self.mac_table[dpid][dst]
+	        else:
+	            out_port = ofp.OFPP_FLOOD
+	        actions = [ofp_parser.OFPActionOutput(out_port)]
+	 
+	        if out_port != ofp.OFPP_FLOOD:
+	            match = ofp_parser.OFPMatch(in_port=in_port, eth_dst=dst, eth_src=src)
+	            command = ofp.OFPFC_ADD
+	            self.doflow(datapath=datapath, command=command, priority=1,
+	                        match=match, actions=actions)
+	 
+	        data = None
+	        if msg.buffer_id == ofp.OFP_NO_BUFFER:
+	            data = msg.data
+	        out = ofp_parser.OFPPacketOut(datapath=datapath, buffer_id=msg.buffer_id,
+	                                      in_port=in_port, actions=actions, data=data)
+	        datapath.send_msg(out)
+	
+	    #To show the message of ports' status.
+	    @set_ev_cls(ofp_event.EventOFPPortStatus, MAIN_DISPATCHER)
+	    def _port_status_handler(self, ev):
+	        msg = ev.msg
+	        reason = msg.reason
+	        port_no = msg.desc.port_no
+	
+	        ofproto = msg.datapath.ofproto
+	
+	        if reason == ofproto.OFPPR_ADD:
+	            print(f"port added {port_no}")
+	        elif reason == ofproto.OFPPR_DELETE:
+	            print(f"port deleted {port_no}")
+	        elif reason == ofproto.OFPPR_MODIFY:
+	            print(f"port modified {port_no}")
+	        else:
+	            print(f"Illeagal port state {port_no} {reason}")
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:run.sh
+	custom-command run.sh
+	config {
+	ryu-manager sw.py
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:switch1.py
+	custom-command switch1.py
+	config {
+	from ryu.base import app_manager
+	from ryu.controller import ofp_event
+	from ryu.controller.handler import MAIN_DISPATCHER
+	from ryu.controller.handler import set_ev_cls
+	from ryu.ofproto import ofproto_v1_0
+	class L2Switch(app_manager.RyuApp):
+	    OFP_VERSIONS = [ofproto_v1_0.OFP_VERSION]
+	    def __init__(self, *args, **kwargs):
+	        super(L2Switch, self).__init__(*args, **kwargs)
+	    @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
+	    def packet_in_handler(self, ev):
+	        msg = ev.msg
+	        dp = msg.datapath
+	        ofp = dp.ofproto
+	        ofp_parser = dp.ofproto_parser
+	        actions = [ofp_parser.OFPActionOutput(ofp.OFPP_FLOOD)]
+	        out = ofp_parser.OFPPacketOut(
+	            datapath=dp, buffer_id=msg.buffer_id, in_port=msg.in_port,
+	            actions=actions)
+	        dp.send_msg(out)
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:switch.py
+	custom-command switch.py
+	config {
+	import struct
+	import logging
+	
+	from ryu.base import app_manager
+	from ryu.controller import mac_to_port
+	from ryu.controller import ofp_event
+	from ryu.controller.handler import MAIN_DISPATCHER
+	from ryu.controller.handler import set_ev_cls
+	from ryu.ofproto import ofproto_v1_0
+	from ryu.lib.mac import haddr_to_bin
+	from ryu.lib.packet import packet
+	from ryu.lib.packet import ethernet
+	
+	class L2Switch(app_manager.RyuApp):
+	
+	    OFP_VERSIONS = [ofproto_v1_0.OFP_VERSION]#define the version of OpenFlow
+	
+	    def __init__(self, *args, **kwargs):
+	        super(L2Switch, self).__init__(*args, **kwargs)
+	        self.mac_to_port = {}
+	
+	    def add_flow(self, datapath, in_port, dst, actions):
+	        ofproto = datapath.ofproto
+	
+	        match = datapath.ofproto_parser.OFPMatch(
+	            in_port = in_port, dl_dst = haddr_to_bin(dst))
+	
+	        mod = datapath.ofproto_parser.OFPFlowMod(
+	            datapath = datapath, match = match, cookie = 0,
+	            command = ofproto.OFPFC_ADD, idle_timeout = 10,hard_timeout = 30,
+	            priority = ofproto.OFP_DEFAULT_PRIORITY,
+	            flags =ofproto.OFPFF_SEND_FLOW_REM, actions = actions)
+	
+	        datapath.send_msg(mod)
+	
+	    @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
+	    def packet_in_handler(self, ev):
+	        msg = ev.msg
+	        datapath = msg.datapath
+	        ofproto = datapath.ofproto
+	
+	        pkt = packet.Packet(msg.data)
+	        eth = pkt.get_protocol(ethernet.ethernet)
+	
+	        dst = eth.dst
+	        src = eth.src
+	
+	        dpid = datapath.id    #get the dpid
+	        self.mac_to_port.setdefault(dpid, {})
+	
+	        self.logger.info("packet in %s %s %s %s", dpid, src, dst , msg.in_port)
+	        #To learn a mac address to avoid FLOOD next time.
+	
+	        self.mac_to_port[dpid][src] = msg.in_port
+	
+	
+	        out_port = ofproto.OFPP_FLOOD
+	
+	        #Look up the out_port 
+	        if dst in self.mac_to_port[dpid]:
+	            out_port = self.mac_to_port[dpid][dst]
+	
+	        ofp_parser = datapath.ofproto_parser
+	
+	        actions = [ofp_parser.OFPActionOutput(out_port)]
+	
+	        if out_port != ofproto.OFPP_FLOOD:
+	            self.add_flow(datapath, msg.in_port, dst, actions)
+	
+	
+	        #We always send the packet_out to handle the first packet.
+	        packet_out = ofp_parser.OFPPacketOut(datapath = datapath, buffer_id = msg.buffer_id,
+	            in_port = msg.in_port, actions = actions)
+	        datapath.send_msg(packet_out)
+	    #To show the message of ports' status.
+	    @set_ev_cls(ofp_event.EventOFPPortStatus, MAIN_DISPATCHER)
+	    def _port_status_handler(self, ev):
+	        msg = ev.msg
+	        reason = msg.reason
+	        port_no = msg.desc.port_no
+	
+	        ofproto = msg.datapath.ofproto
+	
+	        if reason == ofproto.OFPPR_ADD:
+	            self.logger.info("port added %s", port_no)
+	        elif reason == ofproto.OFPPR_DELETE:
+	            self.logger.info("port deleted %s", port_no)
+	        elif reason == ofproto.OFPPR_MODIFY:
+	            self.logger.info("port modified %s", port_no)
+	        else:
+	            self.logger.info("Illeagal port state %s %s", port_no, reason)
+	}
+    }
+    custom-config {
+	custom-config-id service:OvsService
+	custom-command OvsService
+	config {
+	files=('OvsService.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:OvsService:OvsService.sh
+	custom-command OvsService.sh
+	config {
+	#!/bin/sh
+	# auto-generated by OvsService (OvsService.py)
+	## First make sure that the ovs services are up and running
+	/etc/init.d/openvswitch-switch start < /dev/null
+	
+	## create the switch itself, set the fail mode to secure, 
+	## this stops it from routing traffic without defined flows.
+	## remove the -- and everything after if you want it to act as a regular switch
+	ovs-vsctl add-br br0 -- set Bridge br0 fail-mode=secure
+	
+	ovs-vsctl add-port br0 eth0 -- set Interface eth0 ofport_request=1
+	ovs-ofctl mod-port br0 eth0 up
+	
+	ovs-vsctl add-port br0 eth1 -- set Interface eth1 ofport_request=2
+	ovs-ofctl mod-port br0 eth1 up
+	
+	ovs-vsctl add-port br0 eth2 -- set Interface eth2 ofport_request=3
+	ovs-ofctl mod-port br0 eth2 up
+	
+	
+	## We assume there will be an SDN controller on the other end of this, 
+	## but it will still function if there's not
+	ovs-vsctl set-controller br0 tcp:127.0.0.1:6633
+	
+	
+	
+	}
+    }
+}
+
+node n2 {
+    type router
+    model host
+    network-config {
+	hostname n2
+	!
+	interface eth0
+	 ip address 10.0.0.1/24
+	!
+    }
+    canvas c1
+    iconcoords {127.0 390.0}
+    labelcoords {127.0 422.0}
+    interface-peer {eth0 n1}
+    services {}
+}
+
+node n3 {
+    type router
+    model host
+    network-config {
+	hostname n3
+	!
+	interface eth0
+	 ip address 10.0.0.2/24
+	!
+    }
+    canvas c1
+    iconcoords {316.0 406.0}
+    labelcoords {316.0 438.0}
+    interface-peer {eth0 n1}
+    services {}
+}
+
+node n4 {
+    type router
+    model host
+    network-config {
+	hostname n4
+	!
+	interface eth0
+	 ip address 10.0.0.3/24
+	!
+    }
+    canvas c1
+    iconcoords {588.0 407.0}
+    labelcoords {588.0 439.0}
+    interface-peer {eth0 n1}
+    services {}
+}
+
+link l1 {
+    nodes {n2 n1}
+    bandwidth 0
+}
+
+link l2 {
+    nodes {n3 n1}
+    bandwidth 0
+}
+
+link l3 {
+    nodes {n4 n1}
+    bandwidth 0
+}
+
+annotation a1 {
+    iconcoords {72.0 145.0}
+    type text
+    label {Run the run.sh script to start the SDN switch experiment}
+    labelcolor #990000
+    fontfamily {Arial}
+    fontsize 16
+    effects {bold}
+    canvas c1
+}
+
+annotation a2 {
+    type text
+    iconcoords {254.0 99.0}
+    label {}
+    canvas c1
+}
+
+annotation a3 {
+    type text
+    iconcoords {315.0 177.0}
+    label {}
+    canvas c1
+}
+
+annotation a4 {
+    type text
+    iconcoords {250.0 115.0}
+    label {}
+    canvas c1
+}
+
+annotation a6 {
+    type text
+    iconcoords {293.0 127.0}
+    label {}
+    canvas c1
+}
+
+annotation a7 {
+    type text
+    iconcoords {432.0 145.0}
+    label {}
+    canvas c1
+}
+
+annotation a8 {
+    type text
+    iconcoords {608.0 176.0}
+    label {}
+    canvas c1
+}
+
+canvas c1 {
+    name {Canvas1}
+}
+
+option global {
+    interface_names no
+    ip_addresses yes
+    ipv6_addresses no
+    node_labels yes
+    link_labels yes
+    show_api no
+    background_images no
+    annotations yes
+    grid yes
+    traffic_start 0
+}
+
+option session {
+}
+

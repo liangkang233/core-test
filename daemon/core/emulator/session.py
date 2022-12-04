@@ -265,12 +265,19 @@ class Session:
             if isinstance(node1, CoreNodeBase) and isinstance(node2, CoreNodeBase):
                 logging.info("linking ptp: %s - %s", node1.name, node2.name)
                 start = self.state.should_start()
-                ptp = self.create_node(PtpNet, start)
+                serverSet = set()  # 给link_node 初始化分布式包含的主机
+                serverSet.add(node1.server)
+                serverSet.add(node2.server)
+                ptp = self.create_node(PtpNet, start, serverSet=serverSet)
+                # logging.info("linking ptp_lk1: %s - %s", node1.name, node2.name)
+                # log记录可知 ptp_lk1 -> ptp_lk2 花费时间最长 约0.7s
                 iface1 = node1.new_iface(ptp, iface1_data)
                 iface2 = node2.new_iface(ptp, iface2_data)
+                # logging.info("linking ptp_lk2: %s - %s", node1.name, node2.name)
                 ptp.linkconfig(iface1, options)
                 if not options.unidirectional:
                     ptp.linkconfig(iface2, options)
+                # logging.info("linking ptp_lk3: %s - %s", node1.name, node2.name)
             # link node to net
             elif isinstance(node1, CoreNodeBase) and isinstance(node2, CoreNetworkBase):
                 iface1 = node1.new_iface(node2, iface1_data)
@@ -1121,20 +1128,22 @@ class Session:
             self.sdt.delete_node(_id)
         return node is not None
 
+    # 为原有的delete node 添加日志 不同节点的shutdown不同 link node不会detach直接删除所有iface 再删桥
+    def my_delete_node(self, node: NodeBase) -> None:
+        node.shutdown()
+        self.sdt.delete_node(node.id)
+        logging.info("deleted node(%s)", node.name)
+
     def delete_nodes(self) -> None:
         """
         Clear the nodes dictionary, and call shutdown for each node.
         """
-        nodes_ids = []
         with self.nodes_lock:
             funcs = []
             while self.nodes:
                 _, node = self.nodes.popitem()
-                nodes_ids.append(node.id)
-                funcs.append((node.shutdown, [], {}))
-            utils.threadpool(funcs)
-        for node_id in nodes_ids:
-            self.sdt.delete_node(node_id)
+                funcs.append((self.my_delete_node, [node], {}))
+            utils.threadpool(funcs, workers=4)
 
     def write_nodes(self) -> None:
         """
@@ -1283,7 +1292,7 @@ class Session:
                     continue
                 args = (node,)
                 funcs.append((self.services.stop_services, args, {}))
-            utils.threadpool(funcs)
+            utils.threadpool(funcs, workers=4)
 
         # shutdown emane
         self.emane.shutdown()

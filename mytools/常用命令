@@ -40,6 +40,10 @@ vcmd -c /tmp/pycore.1/N1 -- bash
     set config nems phy txpower=100
     get config nems phy fixedantennagain
     set config nems phy fixedantennagai=10
+
+    # 获取mac层sinr等统计数据
+    get table nems mac
+
 # 查看nemid
     cat /tmp/pycore*/emane_nems
 

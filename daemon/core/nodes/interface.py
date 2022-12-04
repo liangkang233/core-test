@@ -618,7 +618,19 @@ class GreTap(CoreInterface):
             return
         if remoteip is None:
             raise CoreError("missing remote IP required for GRE TAP device")
-        self.net_client.create_gretap(self.localname, remoteip, localip, ttl, key)
+        # Gre creation failure try again every 0.5 seconds. Create gre for a maximum of five times.    by@lk233
+        for count in range(5 + 1):
+            try:
+                self.net_client.create_gretap(
+                    self.localname, remoteip, localip, ttl, key
+                )
+                break
+            except CoreCommandError as e:
+                if count == 5:
+                    raise e
+                time.sleep(0.5)
+                logging.warning("Failed to create Gre. Trying again")
+                continue
         self.net_client.device_up(self.localname)
         self.up = True
 

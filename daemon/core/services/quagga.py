@@ -328,9 +328,12 @@ class Ospfv2(QuaggaService):
         rtrid = cls.router_id(node)
         cfg += "  router-id %s\n" % rtrid
         # network 10.0.0.0/24 area 0
+        area = "0"
+        if node.type.startswith("router") and len(node.type) > len("router"):
+            area = node.type[6:]
         for iface in node.get_ifaces(control=False):
             for ip4 in iface.ip4s:
-                cfg += f"  network {ip4} area 0\n"
+                cfg += f"  network {ip4} area {area}\n"
         cfg += "!\n"
         return cfg
 
