@@ -210,7 +210,6 @@ class DistributedController:
                     serverSet.add(iface.node.server)
             for s in serverSet:
                 self.create_gre_tunnel(net_node, s)
-            
 
     def create_gre_tunnel(
         self, node: CoreNetwork, server: DistributedServer

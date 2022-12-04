@@ -37,4 +37,5 @@ class TestDistributed:
         assert node.server is not None
         assert node.server.name == server_name
         assert node.server.host == host
-        assert len(session.distributed.tunnels) > 0
+        assert len(session.distributed.tunnels) == 0
+        # 修改了分布式的逻辑 这里不会建立隧道
