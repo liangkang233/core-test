@@ -44,6 +44,16 @@ vcmd -c /tmp/pycore.1/N1 -- bash
     # 获取mac层sinr等统计数据
     get table nems mac
 
+    # 查看时隙表
+    emanesh localhost get table 1 mac scheduler.ScheduleInfoTable scheduler.StructureInfoTable 
+    # 或者生成脚本 myschedule_table
+    #!/bin/bash
+    id=$(emanesh localhost show | awk 'NR==1{print $2}') # may need to show nemid
+    emanesh localhost get stat $id mac | grep scheduler #获取TDMA模型实例统计信息，显示接受和拒绝的完整调度表和更新调度表的数量。
+    echo ""
+    emanesh localhost get table $id mac scheduler.ScheduleInfoTable scheduler.StructureInfoTable  #帧时隙结构及信息表
+    
+
 # 查看nemid
     cat /tmp/pycore*/emane_nems
 

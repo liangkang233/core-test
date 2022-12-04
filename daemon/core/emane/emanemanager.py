@@ -497,7 +497,7 @@ class EmaneManager(ModelManager):
         """
         for node_id in self._emane_nets:
             emane_net = self._emane_nets[node_id]  # emane_net就是无线子网节点
-            if emane_net.model.name == module_name:
+            if emane_net.model and emane_net.model.name == module_name:
                 # logging.info("LK233 checking emane model for node: %s", emane_net.model.name)
                 return True
         return False

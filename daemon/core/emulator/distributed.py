@@ -17,7 +17,7 @@ from core import utils
 from core.errors import CoreCommandError, CoreError
 from core.executables import get_requirements
 from core.nodes.interface import GreTap
-from core.nodes.network import CoreNetwork, CtrlNet
+from core.nodes.network import CoreNetwork, CtrlNet, PtpNet
 
 if TYPE_CHECKING:
     from core.emulator.session import Session
@@ -186,15 +186,31 @@ class DistributedController:
 
         :return: nothing
         """
+        # 修复分布式bug: 每次创建gre隧道应当根据链路实际情况创建 而不是全局的server
+        # 原有逻辑 对所有link node，创建gre 到所有分布式服务器，一端绑在linknode(网桥)上
+        # 例如 core1 <-> 主控节点 却连多余的 core2<->主控 隧道也创建  假设10台分布式 则每次每条链路都会创建10条隧道
+        # 所有隧道创建都是绑定到主控机器的 例如 core1 <-> core2 节点会创建 core1 <-> 主控 <-> core2 两个隧道
         for node_id in self.session.nodes:
-            node = self.session.nodes[node_id]
-            if not isinstance(node, CoreNetwork):
+            net_node = self.session.nodes[node_id]
+            if not isinstance(net_node, CoreNetwork):
                 continue
-            if isinstance(node, CtrlNet) and node.serverintf is not None:
+            if isinstance(net_node, CtrlNet) and net_node.serverintf is not None:
                 continue
-            for name in self.servers:
-                server = self.servers[name]
-                self.create_gre_tunnel(node, server)
+            # ptpnet 两个节点在同台主机跳过创建隧道
+            if (
+                isinstance(net_node, PtpNet)
+                and net_node.ifaces[0].node.server == net_node.ifaces[1].node.server
+            ):
+                continue
+            # 注意 这里iface的server虽有这个变量但是没有赋值 还是调用其上的node的server  将link下的所有节点创建 对端为本地的gre
+            # 两个交换机节点（交换机节点就是link node）跨分布式时 iface上的节点为空 不考虑这种两交换机跨分布式情况
+            serverSet = set()
+            for iface in net_node.ifaces.values():
+                if iface.node and isinstance(iface.node.server, DistributedServer):
+                    serverSet.add(iface.node.server)
+            for s in serverSet:
+                self.create_gre_tunnel(net_node, s)
+            
 
     def create_gre_tunnel(
         self, node: CoreNetwork, server: DistributedServer
